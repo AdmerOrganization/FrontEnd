@@ -1,7 +1,9 @@
 package com.example.tolearn;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -15,5 +17,11 @@ public class SendEmailForgetPassword extends AppCompatActivity {
         setContentView(R.layout.activity_send_email_forget_password);
         getSupportActionBar().hide();
 
+    }
+
+    public void goBackToLogin(View view) {
+        Intent goBackToLogin = new Intent(this,Login.class);
+        startActivity(goBackToLogin);
+        finish();
     }
 }

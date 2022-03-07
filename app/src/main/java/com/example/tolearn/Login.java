@@ -24,4 +24,10 @@ public class Login extends AppCompatActivity {
         startActivity(goToSignUp);
         finish();
     }
+
+    public void goToForgetPasswordSendEmail(View view) {
+        Intent goToForgetPasswordSendEmail = new Intent(this,SendEmailForgetPassword.class);
+        startActivity(goToForgetPasswordSendEmail);
+        finish();
+    }
 }

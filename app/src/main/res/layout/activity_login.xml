@@ -146,6 +146,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/LoginBtn"></TextView>
 
             <TextView
+                android:onClick="goToForgetPasswordSendEmail"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:id="@+id/goToFogetPass"

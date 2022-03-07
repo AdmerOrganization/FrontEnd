@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context=".SignUp">
 
     <android.support.constraint.ConstraintLayout
 
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="240dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -51,7 +51,7 @@
                 android:id="@+id/waveHeader"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="260dp"
+                android:layout_marginTop="200dp"
                 android:scaleY="-1"
                 app:mwhCloseColor="@color/blue_learning"
                 app:mwhColorAlpha="0.45"
@@ -73,7 +73,7 @@
             android:layout_marginStart="57dp"
             android:layout_marginEnd = "57dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="220dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -115,8 +115,48 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/usernameInput" ></EditText>
 
+            <EditText
+                android:inputType="textWebPassword"
+                android:textSize="22sp"
+                android:paddingStart="20dp"
+                android:hint="confirm password"
+                android:id="@+id/repeatPasswordInput"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/borde_shadow"
+                android:elevation="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordInput" ></EditText>
+
+
+            <EditText
+                android:textSize="22sp"
+                android:paddingStart="20dp"
+                android:hint="Email"
+                android:id="@+id/emailInput"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/borde_shadow"
+                android:elevation="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/repeatPasswordInput" ></EditText>
+
+
+
             <Button
-                android:id="@+id/LoginBtn"
+                android:id="@+id/SignUpBtn"
                 android:layout_width="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
@@ -124,42 +164,25 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_shadow_white_background"
                 android:elevation="10dp"
-                android:text="LOGIN"
+                android:text="SIGNUP"
                 android:textColor="@color/darker_blue_learning"
                 android:textSize="22sp"
-                app:layout_constraintTop_toBottomOf="@+id/passwordInput"
+                app:layout_constraintTop_toBottomOf="@+id/emailInput"
                 tools:layout_editor_absoluteX="10dp"></Button>
 
             <TextView
-                android:onClick="goToSignUp"
-                android:id="@+id/goToSignUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:text="Don't have an account?"
-                android:textColor="@color/white"
-                android:textSize="21sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/LoginBtn"></TextView>
-
-            <TextView
+                android:onClick="goToLogin"
                 android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:id="@+id/goToFogetPass"
-                android:text="Forget password"
+                android:id="@+id/goToLogin"
                 android:textSize="21sp"
                 android:textColor="@color/white"
+                android:gravity="center"
+                android:text="Already have an account?"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/goToSignUp">
+                app:layout_constraintTop_toBottomOf="@+id/SignUpBtn"></TextView>
 
-            </TextView>
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 

@@ -7,21 +7,21 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class Login extends AppCompatActivity {
+public class SignUp extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sign_up);
         getSupportActionBar().hide();
 
     }
 
-    public void goToSignUp(View view) {
-        Intent goToSignUp = new Intent(this,SignUp.class);
-        startActivity(goToSignUp);
+    public void goToLogin(View view) {
+        Intent goToLogin = new Intent(this,Login.class);
+        startActivity(goToLogin);
         finish();
     }
 }

@@ -40,16 +40,17 @@ public class LoginSignUpInputController {
         return false;
     }
 
-    public boolean isValid(String email)
+    public boolean isEmailValid(String email)
     {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
-
-        Pattern pat = Pattern.compile(emailRegex);
-        if (email == null)
+        String regEX="[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]{3}+";
+        CharSequence input=email;
+        Pattern pattern=Pattern.compile(regEX,Pattern.UNICODE_CASE);
+        Matcher matcher=pattern.matcher(input);
+        if(matcher.matches())
+        {
+            return  true;
+        }
+        else
             return false;
-        return pat.matcher(email).matches();
     }
 }

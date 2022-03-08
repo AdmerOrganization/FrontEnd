@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/drawable/borde_shadow.xml" value="0.26614583333333336" />
+        <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/drawable/border_shadow_white.xml" value="0.26614583333333336" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/drawable/border_shadow_white_background.xml" value="0.26614583333333336" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_forget_password.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_login.xml" value="0.25" />

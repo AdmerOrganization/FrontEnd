@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 import java.util.*;
 
 public class LoginSignUpInputController {
-    public static boolean IsUsernameCorrect(String username)
+    public boolean IsUsernameCorrect(String username)
     {
         if(username.length()<8)
         {
@@ -15,7 +15,11 @@ public class LoginSignUpInputController {
         }
     }
 
-    public static boolean checkStringPassword(String str) {
+    public boolean checkStringPassword(String str) {
+        if(str.length()<8)
+        {
+            return false;
+        }
         char ch;
         boolean capitalFlag = false;
         boolean lowerCaseFlag = false;
@@ -36,7 +40,7 @@ public class LoginSignUpInputController {
         return false;
     }
 
-    public static boolean isValid(String email)
+    public boolean isValid(String email)
     {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
                 "[a-zA-Z0-9_+&*-]+)*@" +

@@ -116,6 +116,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/usernameInput" ></EditText>
 
             <Button
+                android:onClick="LoginBtn"
                 android:id="@+id/LoginBtn"
                 android:layout_width="match_parent"
                 android:layout_marginStart="10dp"

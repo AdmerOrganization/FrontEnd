@@ -16,4 +16,7 @@ public interface UserAPI {
 
     @POST("accounts/register/")
     Call<Void> CreateUser(@Header("Content-Type") String content_type, @Body User user);
+
+    @POST("accounts/password-reset/")
+    Call<Void> sendEmail(@Header("Content-Type") String content_type,@Body User user);
 }

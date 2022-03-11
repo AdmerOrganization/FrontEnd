@@ -12,10 +12,18 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tolearn.webService.UserAPI;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class SignUp extends AppCompatActivity {
 
     EditText usernameET,passwordET,confirmPasswordET,emailET;
     LoginSignUpInputController inputController;
+    UserAPI userAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,19 @@ public class SignUp extends AppCompatActivity {
 
     public void init()
     {
+        //retrofit
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).addInterceptor(interceptor).build();
+
+        Retrofit SignUpRefrofit = new Retrofit.Builder()
+                .baseUrl(UserAPI.BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        userAPI =SignUpRefrofit.create(UserAPI.class);
+
+
         usernameET = findViewById(R.id.usernameInput);
         passwordET = findViewById(R.id.passwordInput);
         confirmPasswordET = findViewById(R.id.repeatPasswordInput);

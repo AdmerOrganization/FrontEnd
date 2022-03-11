@@ -1,7 +1,8 @@
 package com.example.tolearn;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,8 +11,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.example.tolearn.LoginSignUpInputController;
 
 public class Login extends AppCompatActivity {
 
@@ -66,7 +65,7 @@ public class Login extends AppCompatActivity {
                     passwordET.setBackgroundResource(R.drawable.border_error_shadow);
                 }
                 else{
-                    passwordET.setBackgroundResource(R.drawable.borde_shadow);
+                    passwordET.setBackgroundResource(R.drawable.border_shadow_white_background);
                 }
             }
         });
@@ -96,7 +95,7 @@ public class Login extends AppCompatActivity {
                     usernameET.setBackgroundResource(R.drawable.border_error_shadow);
                 }
                 else{
-                    usernameET.setBackgroundResource(R.drawable.borde_shadow);
+                    usernameET.setBackgroundResource(R.drawable.border_shadow_white_background);
                 }
             }
         });

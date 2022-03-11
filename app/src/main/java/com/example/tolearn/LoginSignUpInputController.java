@@ -1,7 +1,7 @@
 package com.example.tolearn;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.*;
 
 public class LoginSignUpInputController {
     public boolean IsUsernameCorrect(String username)
@@ -54,3 +54,4 @@ public class LoginSignUpInputController {
             return false;
     }
 }
+

@@ -128,10 +128,22 @@ public class Login extends AppCompatActivity {
 
     public boolean loginValidationsChecker()
     {
+        if(usernameET.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "username can not be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(passwordET.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "password can not be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         boolean isUsernameOk = inputController.IsUsernameCorrect(usernameET.getText().toString());
         boolean isPasswordOk = inputController.checkStringPassword(passwordET.getText().toString());
 
-        if(isPasswordOk && isPasswordOk)
+        if(isUsernameOk && isPasswordOk)
         {
             return true;
         }

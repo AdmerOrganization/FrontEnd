@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class SignUp extends AppCompatActivity {
 
@@ -166,11 +167,56 @@ public class SignUp extends AppCompatActivity {
     }
 
     public void signUpBtn(View view) {
-        SignUpValidationChecker();
+        if(SignUpValidationChecker())
+        {
+            //sign up ....
+        }
     }
 
-    private void SignUpValidationChecker() {
-        boolean isUsername = inputController.IsUsernameCorrect(usernameET.getText().toString());
+    private boolean SignUpValidationChecker() {
+        boolean isSignUpOk = true;
+        if(usernameET.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "username can not be empty", Toast.LENGTH_SHORT).show();
+            isSignUpOk = false;
+        }
+        if(inputController.IsUsernameCorrect(usernameET.getText().toString()) == false)
+        {
+            Toast.makeText(this, "username must be 8 letters at least.", Toast.LENGTH_SHORT).show();
+            isSignUpOk = false;
+        }
+        if(passwordET.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "password can not be empty", Toast.LENGTH_SHORT).show();
+            isSignUpOk = false;
+        }
+        if(inputController.checkStringPassword(passwordET.getText().toString()) == false)
+        {
+            Toast.makeText(this, "password must be 8 letters at least with capital and number", Toast.LENGTH_SHORT).show();
+            isSignUpOk = false;
+        }
+        if(confirmPasswordET.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "confirm password can not be empty", Toast.LENGTH_SHORT).show();
+            isSignUpOk = false;
+        }
+        if(!passwordET.getText().toString().equals(confirmPasswordET.getText().toString()))
+        {
+            Toast.makeText(this, "confirm password have to be the same as password", Toast.LENGTH_SHORT).show();
+            isSignUpOk = false;
+        }
+        if(emailET.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "Email can not be empty", Toast.LENGTH_SHORT).show();
+            isSignUpOk = false;
+        }
+        if(inputController.isEmailValid(emailET.getText().toString()) == false)
+        {
+            Toast.makeText(this, "Email is not valid", Toast.LENGTH_SHORT).show();
+            isSignUpOk = false;
+        }
+        return isSignUpOk;
+
         //todo
 
         // in the list ...

@@ -67,7 +67,10 @@ public class SignUp extends AppCompatActivity {
                     confirmPasswordET.setBackgroundResource(R.drawable.border_error_shadow);
                 }
                 else{
-                    confirmPasswordET.setBackgroundResource(R.drawable.border_shadow_white_background);
+                    if(inputController.checkStringPassword(passwordET.getText().toString()))
+                    {
+                        confirmPasswordET.setBackgroundResource(R.drawable.border_shadow_white_background);
+                    }
                 }
             }
         });
@@ -217,11 +220,5 @@ public class SignUp extends AppCompatActivity {
         }
         return isSignUpOk;
 
-        //todo
-
-        // in the list ...
-        //username and password and .. can not be empty in login or sign up
-        //in the sign up show the appropriate sentence for each of the cases:
-        //1- username is not correct 2- password is not correct 3-email is not correct 4- confirm password ...
     }
 }

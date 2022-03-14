@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/drawable/border_error_shadow.xml" value="0.1505" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_forget_password.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_login.xml" value="0.21164021164021163" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_send_email_forget_password.xml" value="0.16216216216216217" />

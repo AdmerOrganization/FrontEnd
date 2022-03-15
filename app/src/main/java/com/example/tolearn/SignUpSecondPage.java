@@ -11,10 +11,15 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tolearn.Entity.User;
 import com.example.tolearn.webService.UserAPI;
+import com.google.gson.JsonObject;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -66,7 +71,25 @@ public class SignUpSecondPage extends AppCompatActivity {
     public void SignUp(View view) {
         if(InputValidation())
         {
-            // connection to back end...
+            User user = new  User (username,password,confirmPassword,email,firstNameET.getText().toString(),lastNameET.getText().toString());
+            Call<JsonObject> userInfo = userAPI.CreateUser("application/json",user);
+            userInfo.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    if(!response.isSuccessful())
+                    {
+                        Toast.makeText(SignUpSecondPage.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(SignUpSecondPage.this, "please check your email", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    Toast.makeText(SignUpSecondPage.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 

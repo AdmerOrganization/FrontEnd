@@ -55,6 +55,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <EditText
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:inputType="textPersonName"
                 android:textSize="22sp"
                 android:paddingStart="20dp"
@@ -72,6 +73,7 @@
                 app:layout_constraintTop_toTopOf="parent"></EditText>
 
             <EditText
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:inputType="textPersonName"
                 android:textSize="22sp"
                 android:paddingStart="20dp"

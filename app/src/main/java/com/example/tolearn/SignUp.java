@@ -3,6 +3,7 @@ package com.example.tolearn;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,7 +24,7 @@ public class SignUp extends AppCompatActivity {
 
     EditText usernameET,passwordET,confirmPasswordET,emailET;
     LoginSignUpInputController inputController;
-    UserAPI userAPI;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +38,6 @@ public class SignUp extends AppCompatActivity {
 
     public void init()
     {
-        //retrofit
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).addInterceptor(interceptor).build();
-
-        Retrofit SignUpRefrofit = new Retrofit.Builder()
-                .baseUrl(UserAPI.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        userAPI =SignUpRefrofit.create(UserAPI.class);
-
-
         usernameET = findViewById(R.id.usernameInput);
         passwordET = findViewById(R.id.passwordInput);
         confirmPasswordET = findViewById(R.id.repeatPasswordInput);
@@ -58,6 +46,7 @@ public class SignUp extends AppCompatActivity {
 
         ValidationsChecker();
     }
+
 
     private void ValidationsChecker() {
         UsernameValidationChecker();
@@ -193,7 +182,12 @@ public class SignUp extends AppCompatActivity {
     public void signUpBtn(View view) {
         if(SignUpValidationChecker())
         {
-            //sign up ....
+            Intent myIntent = new Intent(this, SignUpSecondPage.class);
+            myIntent.putExtra("username",usernameET.getText().toString());
+            myIntent.putExtra("password",passwordET.getText().toString());
+            myIntent.putExtra("confirmPassword",confirmPasswordET.getText().toString());
+            myIntent.putExtra("email",emailET.getText().toString());
+            startActivity(myIntent);
         }
     }
 

@@ -139,7 +139,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/borde_shadow"
                 android:elevation="10dp"
-                android:text="SIGNUP"
+                android:text="NEXT"
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 app:layout_constraintTop_toBottomOf="@+id/emailInput"

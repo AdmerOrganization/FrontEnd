@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.tolearn;
 
 import org.junit.Test;
 

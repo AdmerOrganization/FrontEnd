@@ -213,4 +213,8 @@ public class MainActivity extends AppCompatActivity {
 //            handleSignInResult(task);
         }
     }
+    public  void GoToEditProfile(View view){
+        Intent editProfile = new Intent(MainActivity.this, EditProfile.class);
+        startActivity(editProfile);
+    }
 }

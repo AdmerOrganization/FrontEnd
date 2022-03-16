@@ -10,6 +10,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -143,6 +145,11 @@ public class Login extends AppCompatActivity {
     public void LoginBtn(View view) {
         if(loginValidationsChecker())
         {
+            view.setClickable(false);
+
+            Animation animation = AnimationUtils.loadAnimation(Login.this, R.anim.blink_anim);
+            view.startAnimation(animation);
+
             User user = new User(usernameET.getText().toString() , passwordET.getText().toString());
             Call<JsonObject> userToken = userAPI.Login("application/json",user);
             userToken.enqueue(new Callback<JsonObject>() {
@@ -151,8 +158,11 @@ public class Login extends AppCompatActivity {
                     if(!response.isSuccessful())
                     {
                         Toast.makeText(Login.this, "username or password is not correct", Toast.LENGTH_SHORT).show();
+                        view.setClickable(true);
+                        view.clearAnimation();
                     }
                     else{
+                        view.clearAnimation();
                         JsonObject jsonObject = response.body();
                         String token = jsonObject.get("token").toString();
 
@@ -172,12 +182,13 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<JsonObject> call, Throwable t) {
                     Toast.makeText(Login.this, "Please check your Internet connection", Toast.LENGTH_SHORT).show();
+                    view.setClickable(true);
+                    view.clearAnimation();
                 }
             });
         }
         else{
-            //todo
-            //make a special message activity for messages and show it...
+            view.setClickable(true);
             Toast.makeText(this, "Username or password is not valid", Toast.LENGTH_LONG).show();
         }
     }

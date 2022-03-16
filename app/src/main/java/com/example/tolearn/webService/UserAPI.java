@@ -21,4 +21,9 @@ public interface UserAPI {
     @POST("accounts/signin/")
     Call<JsonObject> Login(@Header("Content-Type") String content_type , @Body User user);
 
+    @POST("accounts/password-reset/")
+    Call<JsonObject> Password_reset(@Header("Content-Type") String content_type , @Body JsonObject email);
+
+    @POST("accounts/password-reset/confirm/")
+    Call<JsonObject> ConfirmationPassword_reset(@Header("Content-Type") String content_type , @Body JsonObject token_password);
 }

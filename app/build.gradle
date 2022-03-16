@@ -38,4 +38,18 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
+
+    implementation "androidx.navigation:navigation-fragment:2.4.1"
+    implementation "androidx.navigation:navigation-ui:2.4.1"
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.scwang.wave:MultiWaveHeader:1.0.0'
+    implementation 'com.scwang.wave:MultiWaveHeader:1.0.0-andx'
+    implementation 'com.scwang.wave:MultiWaveHeader:1.0.0-alpha-1'
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    //Rounded Image View
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }

@@ -18,8 +18,13 @@
             android:name=".SignUpSecondPage"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.tolearn.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
+        <activity
+            android:name="com.example.tolearn.EditProfile"
+            android:screenOrientation="portrait"
+            android:exported="false" />
         <activity
             android:name=".ForgetPassword"
             android:exported="true" />

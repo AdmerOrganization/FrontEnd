@@ -3,7 +3,42 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/border.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/button_neutral_background.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/button_warning_background.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/dialog_background.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/ic_about_background.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/ic_baseline_email_24.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/ic_baseline_group_24.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/ic_baseline_local_phone_24.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/ic_baseline_phone_android_24.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/ic_baseline_privacy_tip_24.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/ic_baseline_search_24.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/ic_menu.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/ic_profile_background.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/ic_signout_background.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/ic_support_background.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/ic_warning.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/title_warning_background.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable-v24/username.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/drawable/gradientbackground.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/layout/activity_edit_profile.xml" value="0.1" />
         <entry key="..\:/Repos/localProject/app/src/main/res/layout/activity_forget_password.xml" value="0.13020833333333334" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/layout/alert_dialog_layout.xml" value="0.13020833333333334" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/layout/fragment_about.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/layout/fragment_blank.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/layout/fragment_main.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/layout/fragment_support.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/layout/layout_navigation_header.xml" value="0.13020833333333334" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/layout/layout_warning_dialog.xml" value="0.13020833333333334" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/layout/movie_row.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/menu/navigation_menu.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_about.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_profile.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_signout.xml" value="0.1" />
+        <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_support.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -3,6 +3,7 @@ package com.example.tolearn;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,11 +13,24 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tolearn.Entity.User;
+import com.example.tolearn.webService.UserAPI;
+import com.google.gson.JsonObject;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class Login extends AppCompatActivity {
 
     LoginSignUpInputController inputController;
     EditText usernameET;
     EditText passwordET;
+    UserAPI userAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +44,19 @@ public class Login extends AppCompatActivity {
 
     public void init()
     {
+        //retrofit
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).addInterceptor(interceptor).build();
+
+        Retrofit SignUpRefrofit = new Retrofit.Builder()
+                .baseUrl(UserAPI.BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        userAPI =SignUpRefrofit.create(UserAPI.class);
+
+
         usernameET = findViewById(R.id.usernameInput);
         passwordET = findViewById(R.id.passwordInput);
         inputController = new LoginSignUpInputController();
@@ -116,8 +143,37 @@ public class Login extends AppCompatActivity {
     public void LoginBtn(View view) {
         if(loginValidationsChecker())
         {
-            //todo
-            //go connect to the back end for login....
+            User user = new User(usernameET.getText().toString() , passwordET.getText().toString());
+            Call<JsonObject> userToken = userAPI.Login("application/json",user);
+            userToken.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    if(!response.isSuccessful())
+                    {
+                        Toast.makeText(Login.this, "username or password is not correct", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        JsonObject jsonObject = response.body();
+                        String token = jsonObject.get("token").toString();
+
+                        //shared preferences for user information...
+                        SharedPreferences UI = getSharedPreferences("userInformation",MODE_PRIVATE);
+                        SharedPreferences.Editor myEdit = UI.edit();
+                        myEdit.putString("token", token);
+                        myEdit.putString("username",usernameET.getText().toString());
+                        myEdit.apply();
+
+
+                        //todo
+                        //intent to homepage ....
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    Toast.makeText(Login.this, "Please check your Internet connection", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
         else{
             //todo

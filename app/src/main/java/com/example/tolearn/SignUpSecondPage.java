@@ -78,10 +78,11 @@ public class SignUpSecondPage extends AppCompatActivity {
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     if(!response.isSuccessful())
                     {
-                        Toast.makeText(SignUpSecondPage.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpSecondPage.this, "username or email already exists", Toast.LENGTH_SHORT).show();
                     }
                     else{
                         Toast.makeText(SignUpSecondPage.this, "please check your email", Toast.LENGTH_SHORT).show();
+                        Intent goToLogin = new Intent(SignUpSecondPage.this,Login.class);
                     }
                 }
 

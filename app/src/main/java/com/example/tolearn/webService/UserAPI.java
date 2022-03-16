@@ -18,4 +18,7 @@ public interface UserAPI {
     @POST("accounts/signup/")
     Call<JsonObject> CreateUser(@Header("Content-Type") String content_type, @Body User user);
 
+    @POST("accounts/signin/")
+    Call<JsonObject> Login(@Header("Content-Type") String content_type , @Body User user);
+
 }

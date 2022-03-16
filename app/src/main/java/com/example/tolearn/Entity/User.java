@@ -27,7 +27,7 @@ public class User {
     private String phone_number;
     private String avatar;
 
-
+    //sign up
     public User(String username, String password, String password2, String email, String first_name , String last_name) {
         this.first_name = first_name;
         this.last_name = last_name;
@@ -35,6 +35,12 @@ public class User {
         this.password = password;
         this.password2 = password2;
         this.email = email;
+    }
+
+    //Login
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public User (String email)

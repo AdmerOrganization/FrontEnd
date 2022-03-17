@@ -18,24 +18,22 @@
             android:name=".SignUpSecondPage"
             android:exported="false" />
         <activity
-            android:name="com.example.tolearn.MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
-        <activity
-            android:name="com.example.tolearn.EditProfile"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ToLearn.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ForgetPassword"
             android:exported="true" />
         <activity
             android:name=".Login"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".SignUp"

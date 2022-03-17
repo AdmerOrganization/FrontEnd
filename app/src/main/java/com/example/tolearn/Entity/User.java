@@ -43,17 +43,8 @@ public class User {
         this.password = password;
     }
 
-    public User(String first_name,String last_name,String email,String phone_number){
-        this.phone_number=phone_number;
-        this.email = email;
-        this.first_name = first_name;
-        this.last_name = last_name;
-    }
-
     public User (String email)
     {
         this.email = email;
     }
-
-
 }

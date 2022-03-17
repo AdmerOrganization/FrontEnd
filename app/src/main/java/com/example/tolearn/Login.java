@@ -176,9 +176,6 @@ public class Login extends AppCompatActivity {
 
                         //todo
                         //intent to homepage ....
-                        Intent intent = new Intent(Login.this,MainActivity.class);
-                        startActivity(intent);
-                        finish();
                     }
                 }
 

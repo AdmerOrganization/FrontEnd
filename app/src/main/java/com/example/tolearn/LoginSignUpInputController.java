@@ -53,5 +53,16 @@ public class LoginSignUpInputController {
         else
             return false;
     }
+
+    public boolean isPhoneNumber(String number)
+    {
+        boolean isNumeric = true;
+        for (int i = 0; i < number.length(); i++) {
+            if (!Character.isDigit(number.charAt(i))) {
+                isNumeric = false;
+            }
+        }
+        return isNumeric;
+    }
 }
 

@@ -3,6 +3,8 @@ package com.example.tolearn;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -34,46 +36,70 @@ public class EditProfile extends AppCompatActivity {
     UserAPI userAPI;
     String token;
     CardView editbutton;
+    LoginSignUpInputController inputController;
+
     public void EditButtonClicked(View view){
-        editbutton = (CardView) findViewById(R.id.cardViewEditProfile);
-        Animation animation10 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink_anim);
-        editbutton.startAnimation(animation10);
+        if(inputValidations())
+        {
+            editbutton = (CardView) findViewById(R.id.cardViewEditProfile);
+            Animation animation10 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink_anim);
+            editbutton.startAnimation(animation10);
+            view.setClickable(false);
 
-        User user = new User(firstNameEditText.getText().toString(),lastNameEditText.getText().toString(),emailEditText.getText().toString(),phoneNumberEditText.getText().toString());
-        Call<User> userSessionCall = userAPI.editProfile("token "+ token, user);
+            User user = new User(firstNameEditText.getText().toString(),lastNameEditText.getText().toString(),emailEditText.getText().toString(),phoneNumberEditText.getText().toString());
+            Call<User> userSessionCall = userAPI.editProfile("token "+ token, user);
 
-        userSessionCall.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if(!response.isSuccessful())
-                {
-                    Toast.makeText(EditProfile.this, "Some Field Wrong", Toast.LENGTH_SHORT).show();
-                    Log.i("MOSHKEL",response.message());
+            userSessionCall.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if(!response.isSuccessful())
+                    {
+                        Toast.makeText(EditProfile.this, "Some Field Wrong", Toast.LENGTH_SHORT).show();
+                        Log.i("MOSHKEL",response.message());
+                        view.setClickable(true);
+                        editbutton.clearAnimation();
+                    }
+                    else{
+                        String code = Integer.toString(response.code());
+                        User user = response.body();
+                        Toast.makeText(EditProfile.this, "Profile Edited!", Toast.LENGTH_SHORT).show();
+                        SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
+                        SharedPreferences.Editor myEdit = shP.edit();
+                        myEdit.putString("firstname",firstNameEditText.getText().toString());
+                        myEdit.putString("lastname",lastNameEditText.getText().toString());
+                        myEdit.putString("email",emailEditText.getText().toString());
+                        myEdit.putString("phonenumber",phoneNumberEditText.getText().toString());
+                        myEdit.apply();
+                        Intent intent = new Intent(EditProfile.this,MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
-                else{
-                    String code = Integer.toString(response.code());
-                    User user = response.body();
-                    Toast.makeText(EditProfile.this, "Profile Edited!", Toast.LENGTH_SHORT).show();
-                    SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
-                    SharedPreferences.Editor myEdit = shP.edit();
-                    myEdit.putString("firstname",firstNameEditText.getText().toString());
-                    myEdit.putString("lastname",lastNameEditText.getText().toString());
-                    myEdit.putString("email",emailEditText.getText().toString());
-                    myEdit.putString("phonenumber",phoneNumberEditText.getText().toString());
-                    myEdit.apply();
-                    Intent intent = new Intent(EditProfile.this,MainActivity.class);
-                    startActivity(intent);
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Toast.makeText(EditProfile.this, "error is :"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                    view.setClickable(true);
+                    editbutton.clearAnimation();
                 }
+            });
+        }
+        else{
+
+            if(!inputController.isPhoneNumber(phoneNumberEditText.getText().toString()))
+            {
+                Toast.makeText(this, "Phone number is not valid", Toast.LENGTH_SHORT).show();
+            }
+            if(!inputController.isEmailValid(emailEditText.getText().toString()))
+            {
+                Toast.makeText(this, "Email is not valid", Toast.LENGTH_SHORT).show();
             }
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(EditProfile.this, "error is :"+t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
+            Toast.makeText(this, "Some Field is Wrong. Please try again", Toast.LENGTH_SHORT).show();
+        }
     }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,5 +154,114 @@ public class EditProfile extends AppCompatActivity {
                 .build();
         userAPI =LoginRetrofit.create(UserAPI.class);
 
+        inputController = new LoginSignUpInputController();
+        inputChecker();
+    }
+
+    public void inputChecker()
+    {
+        EmailValidationChecker();
+        PhoneValidationChecker();
+    }
+
+    private void EmailValidationChecker() {
+        emailEditText.addTextChangedListener(new TextWatcher() {
+
+            String email = "";
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                email = emailEditText.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                boolean emailValid = inputController.isEmailValid(email);
+                if(emailValid == false)
+                {
+                    emailEditText.setBackgroundResource(R.drawable.border_error_shadow);
+                }
+                else{
+                    emailEditText.setBackgroundResource(R.drawable.border_shadow_white_background);
+                }
+            }
+        });
+    }
+
+
+    private void PhoneValidationChecker() {
+        phoneNumberEditText.addTextChangedListener(new TextWatcher() {
+
+            String phone = "";
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                phone = phoneNumberEditText.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                boolean phoneValid = inputController.isPhoneNumber(phone);
+                if(phoneValid == false)
+                {
+                    phoneNumberEditText.setBackgroundResource(R.drawable.border_error_shadow);
+                }
+                else{
+                    phoneNumberEditText.setBackgroundResource(R.drawable.border_shadow_white_background);
+                }
+            }
+        });
+    }
+
+    public boolean inputValidations()
+    {
+        boolean inputValid = true;
+        if(!firstNameLastNameValidation())
+        {
+            inputValid = false;
+        }
+        if(!inputController.isPhoneNumber(phoneNumberEditText.getText().toString()))
+        {
+            inputValid = false;
+            Toast.makeText(this, "Phone number is not valid", Toast.LENGTH_SHORT).show();
+        }
+        if(!inputController.isEmailValid(emailEditText.getText().toString()))
+        {
+            inputValid = false;
+            Toast.makeText(this, "Email is not valid", Toast.LENGTH_SHORT).show();
+        }
+        return inputValid;
+    }
+
+    public boolean firstNameLastNameValidation()
+    {
+        String firstname = firstNameEditText.getText().toString();
+        String lastname = lastNameEditText.getText().toString();
+        if(firstname.equals(""))
+        {
+            Toast.makeText(this, "first name can not be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(lastname.equals(""))
+        {
+            Toast.makeText(this, "last name can not be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    public void resetPassword(View view) {
+        Intent goToforgetPassSendEmail = new Intent(this,SendEmailForgetPassword.class);
+        startActivity(goToforgetPassSendEmail);
     }
 }

@@ -71,7 +71,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/username"/>
+                    android:src="@drawable/ic_baseline_verified_user_24"/>
 
                 <TextView
                     android:id="@+id/userNameTextViewProfileFragment"
@@ -113,7 +113,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_baseline_phone_android_24"/>
+                    android:src="@drawable/ic_baseline_phone_24"/>
 
                 <TextView
                     android:id="@+id/phoneNumberProfileFragment"
@@ -131,7 +131,7 @@
                 android:layout_marginTop="20dp"
                 android:onClick="GoToEditProfile"
                 android:text="Edit Profile"
-                android:backgroundTint="#9F88D6"
+                android:backgroundTint="@color/blue_learning"
                 />
 
 
@@ -140,20 +140,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.scwang.wave.MultiWaveHeader
-                android:id="@+id/waveHeader"
-                android:layout_marginTop="50dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleY="-1"
-                app:mwhVelocity="1"
-                app:mwhProgress="1"
-                app:mwhGradientAngle="45"
-                app:mwhWaveHeight="50dp"
-                app:mwhColorAlpha="0.45"
-                app:mwhStartColor="#9F88D6"
-                app:mwhCloseColor="@color/start_blue"
-                app:mwhWaves="MultiWave"/>
+
 
 
         </RelativeLayout>

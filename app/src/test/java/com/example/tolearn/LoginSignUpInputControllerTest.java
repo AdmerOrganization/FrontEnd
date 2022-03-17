@@ -161,4 +161,27 @@ public class LoginSignUpInputControllerTest {
         boolean res = controller.isEmailValid(email);
         assertFalse(res);
     }
+
+
+    @Test
+    public void isPhoneNumberTest()
+    {
+        LoginSignUpInputController controller = new LoginSignUpInputController();
+        String phone = "abcdefghcom";
+        boolean res = controller.isPhoneNumber(phone);
+        assertFalse(res);
+    }
+
+    @Test
+    public void isPhoneNumberTest2()
+    {
+        LoginSignUpInputController controller = new LoginSignUpInputController();
+        String phone = "09102211825";
+        boolean res = controller.isPhoneNumber(phone);
+        assertTrue(res);
+    }
+
+
+
+
 }

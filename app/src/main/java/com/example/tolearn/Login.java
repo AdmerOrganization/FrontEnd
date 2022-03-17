@@ -63,6 +63,25 @@ public class Login extends AppCompatActivity {
         passwordET = findViewById(R.id.passwordInput);
         inputController = new LoginSignUpInputController();
         validationsChecker();
+        loggedInBefore();
+    }
+
+    public void loggedInBefore()
+    {
+        try {
+            SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
+            String token = shP.getString("token","");
+            if(!token.equals(""))
+            {
+                Intent event = new Intent(Login.this, MainActivity.class);
+                startActivity(event);
+                finish();
+            }
+        }
+        catch(Exception exp)
+        {
+            //nothing..
+        }
     }
 
     public void validationsChecker()

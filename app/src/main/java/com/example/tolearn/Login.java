@@ -165,7 +165,7 @@ public class Login extends AppCompatActivity {
                         view.clearAnimation();
                         JsonObject jsonObject = response.body();
                         String token = jsonObject.get("token").toString();
-
+                        token = token.replaceAll("\"", "");
                         //shared preferences for user information...
                         SharedPreferences UI = getSharedPreferences("userInformation",MODE_PRIVATE);
                         SharedPreferences.Editor myEdit = UI.edit();
@@ -174,8 +174,9 @@ public class Login extends AppCompatActivity {
                         myEdit.apply();
 
 
-                        //todo
-                        //intent to homepage ....
+                        Intent event = new Intent(Login.this, MainActivity.class);
+                        startActivity(event);
+                        finish();
                     }
                 }
 

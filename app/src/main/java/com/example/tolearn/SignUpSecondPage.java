@@ -89,7 +89,7 @@ public class SignUpSecondPage extends AppCompatActivity {
                         view.clearAnimation();
                     }
                     else{
-                        CustomeAlertDialog checkEmail = new CustomeAlertDialog(SignUpSecondPage.this,"Successful","we have send an verification to your email . Please check your email");
+                        CustomeAlertDialog checkEmail = new CustomeAlertDialog(SignUpSecondPage.this,"Successful","we have send a verification to your email . Please check your email");
                         checkEmail.btnOk.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

@@ -39,4 +39,11 @@ public interface UserAPI {
                            @Part("last_name")RequestBody lastName,
                            @Part("phone_number")RequestBody phoneNumber,
                            @Part MultipartBody.Part image);
+
+    @POST("accounts/password-reset/")
+    Call<JsonObject> Password_reset(@Header("Content-Type") String content_type , @Body JsonObject email);
+
+    @POST("accounts/password-reset/confirm/")
+    Call<JsonObject> ConfirmationPassword_reset(@Header("Content-Type") String content_type , @Body JsonObject token_password);
+
 }

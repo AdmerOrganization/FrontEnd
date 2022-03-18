@@ -30,8 +30,10 @@ public class LoginTest {
     public void LoginInputsForThe_FirstTime_2()
     {
         //this user has not registered yet ... so we check just for the inputs and click on login btn ....
-        onView(withId(R.id.usernameInput)).perform(typeText("samanmraouf"));
+        onView(withId(R.id.usernameInput)).perform(typeText("samanmraf"));
         onView(withId(R.id.passwordInput)).perform(typeText("Saman"));
         onView(withId(R.id.LoginBtn)).perform(click());
     }
+
+
 }

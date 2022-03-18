@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.Entity.User;
 import com.example.tolearn.webService.UserAPI;
 import com.google.android.material.navigation.NavigationView;
@@ -175,6 +176,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_send:
                 Toast.makeText(this, "Send", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.logoutBtn:
+                CustomeConfirmAlertDialog exit = new CustomeConfirmAlertDialog(this,"Confirmation","Do you want to logout ?");
+                exit.No.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        exit.alertDialog.dismiss();
+                    }
+                });
+                exit.Yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SharedPreferences shp = getSharedPreferences("userInformation",MODE_PRIVATE);
+                        SharedPreferences.Editor myEdit = shp.edit();
+                        myEdit.putString("token","");
+                        myEdit.apply();
+                        exit.alertDialog.dismiss();
+                        Intent goToLogin = new Intent(MainActivity.this,Login.class);
+                        startActivity(goToLogin);
+                        finish();
+                    }
+                });
         }
 
         drawer.closeDrawer(GravityCompat.START);

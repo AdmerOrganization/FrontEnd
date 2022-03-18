@@ -29,4 +29,13 @@
                 android:title="Send" />
         </menu>
     </item>
+    <item android:title="logout">
+        <menu>
+            <item
+                android:id="@+id/logoutBtn"
+                android:icon="@drawable/ic_baseline_login_24"
+                android:title="logout"
+                ></item>
+        </menu>
+    </item>
 </menu>

@@ -28,6 +28,7 @@ import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.Entity.User;
 import com.example.tolearn.webService.UserAPI;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -80,6 +81,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
         String userName = shP.getString("username", "");
+        String avatarUrl = shP.getString("avatar","");
+        if(!avatarUrl.equals("")){
+            ImageView profileNav = ((ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageProfileSmall));
+            Picasso.get().load(avatarUrl).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(profileNav);
+        }
         ((TextView) navigationView.getHeaderView(0).findViewById(R.id.NavHeaderUserNameTextView)).setText(userName);
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -103,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final String[] userFirstName = new String[1];
         final String[] userLastName = new String[1];
         final String[] userPhoneNumber = new String[1];
+        final String[] userAvatar = new String[1];
         Call<User> userSessionCall = userAPI.showProfile("token "+ token);
         userSessionCall.enqueue(new Callback<User>() {
             @Override
@@ -137,12 +144,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     else{
                         userPhoneNumber[0] = "";
                     }
+                    if(!(user.getAvatar() == null)){
+                        userAvatar[0] = user.getAvatar();
+                    }
+                    else{
+                        userAvatar[0] = "";
+                    }
                     SharedPreferences UI = getSharedPreferences("userInformation",MODE_PRIVATE);
                     SharedPreferences.Editor myEdit = UI.edit();
                     myEdit.putString("token", token);
                     myEdit.putString("firstname",userFirstName[0]);
                     myEdit.putString("lastname",userLastName[0]);
                     myEdit.putString("email",userEmail[0]);
+                    myEdit.putString("avatar",userAvatar[0]);
                     myEdit.putString("phonenumber",userPhoneNumber[0]);
                     myEdit.apply();
                 }

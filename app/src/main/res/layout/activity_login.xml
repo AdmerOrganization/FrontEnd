@@ -55,10 +55,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <EditText
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:paddingStart="20dp"
                 android:textColor="@color/blue_learning"
-                android:hint="username"
+                android:hint="Username"
                 android:id="@+id/usernameInput"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -72,9 +72,9 @@
 
             <EditText
                 android:inputType="textWebPassword"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:paddingStart="20dp"
-                android:hint="password"
+                android:hint="Password"
                 android:id="@+id/passwordInput"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"

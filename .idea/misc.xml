@@ -5,12 +5,13 @@
       <map>
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/drawable/username.xml" value="0.2555" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_edit_profile.xml" value="0.2" />
-        <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_forget_password.xml" value="0.1" />
+        <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_forget_password.xml" value="0.264" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_login.xml" value="0.21052631578947367" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_main.xml" value="0.21052631578947367" />
-        <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_send_email_forget_password.xml" value="0.1" />
+        <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_send_email_forget_password.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_sign_up.xml" value="0.21052631578947367" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/activity_sign_up_second_page.xml" value="0.21052631578947367" />
+        <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/alert_dialog_confirm.xml" value="0.21052631578947367" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/alert_dialog_layout.xml" value="0.21052631578947367" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/fragment_chat.xml" value="0.21052631578947367" />
         <entry key="..\:/AndroidProjects/narm/front/app/src/main/res/layout/fragment_message.xml" value="0.21052631578947367" />

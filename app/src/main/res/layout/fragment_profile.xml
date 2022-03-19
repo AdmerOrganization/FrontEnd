@@ -75,6 +75,7 @@
 
                 <TextView
                     android:id="@+id/userNameTextViewProfileFragment"
+                    android:textColor="@color/black_learning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -95,6 +96,7 @@
                     android:src="@drawable/ic_baseline_email_24" />
 
                 <TextView
+                    android:textColor="@color/black_learning"
                     android:id="@+id/emailTextViewProfileFragment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -122,6 +124,7 @@
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
                     android:text="Phone Number"
+                    android:textColor="@color/black_learning"
                     android:textStyle="bold" />
             </LinearLayout>
             <Button

@@ -17,9 +17,16 @@ import android.widget.Toast;
 
 import com.example.tolearn.Entity.User;
 import com.example.tolearn.webService.UserAPI;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -176,7 +183,27 @@ public class Login extends AppCompatActivity {
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     if(!response.isSuccessful())
                     {
-                        Toast.makeText(Login.this, "username or password is not correct", Toast.LENGTH_SHORT).show();
+                        try {
+                            ResponseBody responseBody = response.errorBody();
+                            String resp = responseBody.string();
+
+                            resp = resp.replace("{","");
+                            resp = resp.replace("}","");
+                            resp = resp.replace('"',' ');
+
+                            if(resp.contains("verified"))
+                            {
+                                Toast.makeText(Login.this, resp, Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(Login.this, "Username or password is not valid", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                        catch(Exception exp)
+                        {
+                            Toast.makeText(Login.this, "Username or password is not valid", Toast.LENGTH_SHORT).show();
+                        }
                         view.setClickable(true);
                         view.clearAnimation();
                     }

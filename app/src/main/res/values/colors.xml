@@ -14,5 +14,6 @@
     <color name="start_blue">#09c6df</color>
     <color name="side_bar_background">#80d8ff</color>
     <color name="hintColor">#1BCCBB</color>
+    <color name = "black_learning">#12193A</color>
 
 </resources>

@@ -39,15 +39,4 @@ public class EditProfileTest {
         onView(withId(R.id.cardViewEditProfile)).perform(click());
         //phone number is not valid..
     }
-
-    @Test
-    public void EditProfile3()
-    {
-        onView(withId(R.id.firstNameIde)).perform(typeText(""));
-        onView(withId(R.id.lastNameIde)).perform(typeText("abcdefgh"));
-        onView(withId(R.id.eemailid)).perform(typeText("abcdefgh@gmail.com"));
-        onView(withId(R.id.phoneNumberIde)).perform(typeText("09102211824"));
-        onView(withId(R.id.cardViewEditProfile)).perform(click());
-        //first name can not be empty
-    }
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -93,6 +94,7 @@ public class SignUpSecondPage extends AppCompatActivity {
                         checkEmail.btnOk.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                ((ResultReceiver)getIntent().getParcelableExtra("finisher")).send(1, new Bundle());
                                 Intent goToLogin = new Intent(SignUpSecondPage.this,Login.class);
                                 checkEmail.alertDialog.dismiss();
                                 startActivity(goToLogin);

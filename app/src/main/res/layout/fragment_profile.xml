@@ -142,6 +142,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <com.scwang.wave.MultiWaveHeader
                 android:id="@+id/waveHeader"
                 android:layout_width="match_parent"
@@ -156,7 +157,6 @@
                 app:mwhVelocity="1"
                 app:mwhWaveHeight="50dp"
                 app:mwhWaves="MultiWave" />
-
 
 
         </RelativeLayout>

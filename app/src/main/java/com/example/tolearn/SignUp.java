@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -187,7 +188,13 @@ public class SignUp extends AppCompatActivity {
             myIntent.putExtra("password",passwordET.getText().toString());
             myIntent.putExtra("confirmPassword",confirmPasswordET.getText().toString());
             myIntent.putExtra("email",emailET.getText().toString());
-            startActivity(myIntent);
+            myIntent.putExtra("finisher", new ResultReceiver(null) {
+                @Override
+                protected void onReceiveResult(int resultCode, Bundle resultData) {
+                    SignUp.this.finish();
+                }
+            });
+            startActivityForResult(myIntent,1);
         }
     }
 

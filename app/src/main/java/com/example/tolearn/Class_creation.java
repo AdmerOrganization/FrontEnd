@@ -9,13 +9,17 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.tolearn.AlertDialogs.CustomDatePicker;
 import com.example.tolearn.AlertDialogs.CustomeAlertDialogDescription;
+
+import java.util.Date;
 
 public class Class_creation extends AppCompatActivity {
 
     EditText classSubjectET;
     EditText classTitleET;
     TextView classDescET;
+    TextView dateTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -31,6 +35,7 @@ public class Class_creation extends AppCompatActivity {
         classTitleET = findViewById(R.id.classTitleET);
         classSubjectET = findViewById(R.id.classSubjectET);
         classDescET = findViewById(R.id.classDescription);
+        dateTV = findViewById(R.id.classStartDate);
     }
 
     public void ShowDescDialog(View view) {
@@ -43,5 +48,9 @@ public class Class_creation extends AppCompatActivity {
                 descDialog.alertDialog.dismiss();
             }
         });
+    }
+
+    public void ShowDateDialog(View view) {
+        CustomDatePicker datePicker = new CustomDatePicker(this,dateTV);
     }
 }

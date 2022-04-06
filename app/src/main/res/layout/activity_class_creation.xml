@@ -65,10 +65,11 @@
         ></EditText>
 
     <TextView
+        android:onClick="ShowDateDialog"
         android:id="@+id/classStartDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" Class start date"
+        android:hint=" Class start date"
         android:textSize="22sp"
         android:textColor="@color/blue_learning"
         app:layout_constraintEnd_toEndOf="parent"

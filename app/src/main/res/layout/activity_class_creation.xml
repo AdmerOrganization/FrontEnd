@@ -81,10 +81,12 @@
         android:elevation="15dp"></TextView>
 
     <TextView
+        android:maxLines="1"
+        android:onClick="ShowDescDialog"
         android:id="@+id/classDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" Class description"
+        android:hint=" Class description"
         android:textSize="22sp"
         android:textColor="@color/blue_learning"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,5 +112,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/classDescription"></Button>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

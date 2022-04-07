@@ -33,7 +33,7 @@ public class Class_creation extends AppCompatActivity {
     public void init()
     {
         classTitleET = findViewById(R.id.classTitleET);
-        classSubjectET = findViewById(R.id.classSubjectET);
+        classSubjectET = findViewById(R.id.classTeacherET);
         classDescET = findViewById(R.id.classDescription);
         dateTV = findViewById(R.id.classStartDate);
     }

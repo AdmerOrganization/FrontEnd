@@ -18,7 +18,7 @@ public class CustomeAlertDialogDescription {
 
     public CustomeAlertDialogDescription(Context context , TextView descriptionField )
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomDialog);
         builder.setCancelable(false);
 
         View alertView = LayoutInflater.from(context).inflate(R.layout.custome_desc_dialog,null);

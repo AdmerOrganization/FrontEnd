@@ -100,11 +100,12 @@
         android:elevation="15dp"></TextView>
 
     <Button
+        android:onClick="goNextPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue_learning"
         android:background="@drawable/background_button_pressed"
-        android:text="register"
+        android:text="NEXT"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:layout_marginStart="60dp"

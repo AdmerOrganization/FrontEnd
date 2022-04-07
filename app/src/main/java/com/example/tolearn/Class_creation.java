@@ -2,6 +2,7 @@ package com.example.tolearn;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -16,7 +17,7 @@ import java.util.Date;
 
 public class Class_creation extends AppCompatActivity {
 
-    EditText classSubjectET;
+    EditText classTeachertET;
     EditText classTitleET;
     TextView classDescET;
     TextView dateTV;
@@ -33,7 +34,7 @@ public class Class_creation extends AppCompatActivity {
     public void init()
     {
         classTitleET = findViewById(R.id.classTitleET);
-        classSubjectET = findViewById(R.id.classTeacherET);
+        classTeachertET = findViewById(R.id.classTeacherET);
         classDescET = findViewById(R.id.classDescription);
         dateTV = findViewById(R.id.classStartDate);
     }
@@ -52,5 +53,20 @@ public class Class_creation extends AppCompatActivity {
 
     public void ShowDateDialog(View view) {
         CustomDatePicker datePicker = new CustomDatePicker(this,dateTV);
+    }
+
+    public void goNextPage(View view) {
+        String classTitle = classTitleET.getText().toString();
+        String classTeacher = classTeachertET.getText().toString();
+        String classDesc = classDescET.getText().toString();
+        String classDate = dateTV.getText().toString();
+
+        classDesc = classDesc + "    date : "+ classDate;
+
+        Intent goNextPage = new Intent(this, class_creation_page_2.class);
+        goNextPage.putExtra("title",classTitle);
+        goNextPage.putExtra("teacher",classTeacher);
+        goNextPage.putExtra("desc",classDesc);
+        startActivity(goNextPage);
     }
 }

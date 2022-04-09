@@ -1,18 +1,31 @@
 package com.example.tolearn;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.tolearn.Controllers.classCreationValidations;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class class_creation_page_2 extends AppCompatActivity {
 
@@ -21,8 +34,14 @@ public class class_creation_page_2 extends AppCompatActivity {
     String title;
     String teacher;
     String desc;
+    ImageView classImage;
     classCreationValidations Controller;
-
+    private static final int PICK_PHOTO_FOR_AVATAR = 0;
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +61,13 @@ public class class_creation_page_2 extends AppCompatActivity {
         title = pre_page.getStringExtra("title");
         teacher = pre_page.getStringExtra("teacher");
         desc = pre_page.getStringExtra("desc");
+        classImage = findViewById(R.id.classImage);
+
         Controller = new classCreationValidations();
 
         fieldValidations();
+        verifyStoragePermissions(this);
+
     }
 
     public void fieldValidations()
@@ -88,6 +111,61 @@ public class class_creation_page_2 extends AppCompatActivity {
         if(registerVliadation(passwordET.getText().toString()))
         {
             //todo
+        }
+    }
+
+    public String getPath (Uri uri)
+    {
+        String [] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(uri,projection ,null,null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+    public void PickClassImage(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent,PICK_PHOTO_FOR_AVATAR);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_PHOTO_FOR_AVATAR && resultCode == Activity.RESULT_OK)
+        {
+            if(data == null)
+            {
+                Log.i("dataaaaaaaaa",data.toString());
+                return;
+            }
+            else{
+                try{
+                    Log.i("dataaaaaaaaa",data.toString());
+                    Uri u = data.getData();
+                    String filePath = getPath(u);
+                    classImage.setImageURI(data.getData());
+                    File file = new File(filePath);
+
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
         }
     }
 }

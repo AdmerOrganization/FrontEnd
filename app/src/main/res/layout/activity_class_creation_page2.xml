@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/classImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -78,6 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/limit_spinner"></Button>
 
     <ImageView
+        android:onClick="PickClassImage"
         android:layout_marginTop="-10dp"
         android:background="@drawable/border_shadow_white_background"
         android:id="@+id/changePic"

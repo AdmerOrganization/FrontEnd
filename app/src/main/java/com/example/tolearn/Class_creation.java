@@ -4,16 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tolearn.AlertDialogs.CustomDatePicker;
 import com.example.tolearn.AlertDialogs.CustomeAlertDialogDescription;
-
 import java.util.Date;
+
+import com.example.tolearn.Controllers.classCreationValidations;
 
 public class Class_creation extends AppCompatActivity {
 
@@ -21,6 +25,8 @@ public class Class_creation extends AppCompatActivity {
     EditText classTitleET;
     TextView classDescET;
     TextView dateTV;
+    classCreationValidations controller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -37,6 +43,9 @@ public class Class_creation extends AppCompatActivity {
         classTeachertET = findViewById(R.id.classTeacherET);
         classDescET = findViewById(R.id.classDescription);
         dateTV = findViewById(R.id.classStartDate);
+
+        controller = new classCreationValidations();
+        fieldsValidations();
     }
 
     public void ShowDescDialog(View view) {
@@ -63,10 +72,118 @@ public class Class_creation extends AppCompatActivity {
 
         classDesc = classDesc + "    date : "+ classDate;
 
-        Intent goNextPage = new Intent(this, class_creation_page_2.class);
-        goNextPage.putExtra("title",classTitle);
-        goNextPage.putExtra("teacher",classTeacher);
-        goNextPage.putExtra("desc",classDesc);
-        startActivity(goNextPage);
+        if(registerValidations(classTitle,classTeacher,classDesc))
+        {
+            Intent goNextPage = new Intent(this, class_creation_page_2.class);
+            goNextPage.putExtra("title",classTitle);
+            goNextPage.putExtra("teacher",classTeacher);
+            goNextPage.putExtra("desc",classDesc);
+            startActivity(goNextPage);
+        }
+    }
+
+    public boolean registerValidations(String title , String teacher , String desc )
+    {
+        if(!controller.classTitle(title))
+        {
+            Toast.makeText(this, "title is not valid", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (! controller.classTeacher(teacher))
+        {
+            Toast.makeText(this, "teacher is not valid", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if( ! controller.ClassDescriotion(desc))
+        {
+            Toast.makeText(this, "description is not valid", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public void fieldsValidations()
+    {
+
+        // class teacher validation ....
+        classTeachertET.addTextChangedListener(new TextWatcher() {
+            String classTeacher = "";
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                classTeacher = classTeachertET.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!controller.classTeacher(classTeacher))
+                {
+                    classTeachertET.setBackgroundResource(R.drawable.border_error_shadow);
+                }
+                else{
+                    classTeachertET.setBackgroundResource(R.drawable.border_shadow_white_background);
+                }
+            }
+        });
+
+
+        // class title validation ....
+        classTitleET.addTextChangedListener(new TextWatcher() {
+            String classTitle = "";
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                classTitle = classTitleET.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!controller.classTeacher(classTitle))
+                {
+                    classTitleET.setBackgroundResource(R.drawable.border_error_shadow);
+                }
+                else{
+                    classTitleET.setBackgroundResource(R.drawable.border_shadow_white_background);
+                }
+            }
+        });
+
+        // class desc validation ....
+        classDescET.addTextChangedListener(new TextWatcher() {
+            String classDesc = "";
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                classDesc = classTitleET.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!controller.classTeacher(classDesc))
+                {
+                    classDescET.setBackgroundResource(R.drawable.border_error_shadow);
+                }
+                else{
+                    classDescET.setBackgroundResource(R.drawable.border_shadow_white_background);
+                }
+            }
+        });
     }
 }

@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -22,19 +23,36 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.Controllers.classCreationValidations;
+import com.example.tolearn.webService.ClassAPI;
+import com.example.tolearn.webService.UserAPI;
+import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class class_creation_page_2 extends AppCompatActivity {
 
+    ClassAPI classAPI;
     Spinner limitET;
     EditText passwordET;
     String title;
     String teacher;
     String desc;
     ImageView classImage;
+    File file;
     classCreationValidations Controller;
     private static final int PICK_PHOTO_FOR_AVATAR = 0;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -64,6 +82,18 @@ public class class_creation_page_2 extends AppCompatActivity {
         classImage = findViewById(R.id.classImage);
 
         Controller = new classCreationValidations();
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).addInterceptor(interceptor).build();
+
+
+        Retrofit SignUpRefrofit = new Retrofit.Builder()
+                .baseUrl(UserAPI.BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        classAPI =SignUpRefrofit.create(ClassAPI.class);
 
         fieldValidations();
         verifyStoragePermissions(this);
@@ -110,7 +140,45 @@ public class class_creation_page_2 extends AppCompatActivity {
     public void ClassRegister(View view) {
         if(registerVliadation(passwordET.getText().toString()))
         {
-            //todo
+            SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
+            String token = shP.getString("token", "");
+
+            RequestBody requestFile =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+// MultipartBody.Part is used to send also the actual file name
+            MultipartBody.Part body =
+                    MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
+            RequestBody titleR =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), title);
+            RequestBody teacherR =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), teacher);
+            RequestBody descR =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), desc);
+            RequestBody passwordR =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), passwordET.getText().toString());
+            RequestBody limitR =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), limitET.getSelectedItem().toString());
+
+
+            Call<JsonObject> classCreation = classAPI.CreateClass("token "+ token, titleR,body,teacherR,descR,limitR,passwordR);
+            classCreation.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    if(!response.isSuccessful())
+                    {
+                        Toast.makeText(class_creation_page_2.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        CustomeAlertDialog classcreatedMessage = new CustomeAlertDialog(class_creation_page_2.this , "Successful", "class created successfully");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    Toast.makeText(class_creation_page_2.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -145,7 +213,7 @@ public class class_creation_page_2 extends AppCompatActivity {
                     Uri u = data.getData();
                     String filePath = getPath(u);
                     classImage.setImageURI(data.getData());
-                    File file = new File(filePath);
+                    file = new File(filePath);
 
                 }
                 catch (Exception e) {

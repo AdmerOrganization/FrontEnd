@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -78,7 +79,13 @@ public class Class_creation extends AppCompatActivity {
             goNextPage.putExtra("title",classTitle);
             goNextPage.putExtra("teacher",classTeacher);
             goNextPage.putExtra("desc",classDesc);
-            startActivity(goNextPage);
+            goNextPage.putExtra("finisher", new ResultReceiver(null) {
+                @Override
+                protected void onReceiveResult(int resultCode, Bundle resultData) {
+                    Class_creation.this.finish();
+                }
+            });
+            startActivityForResult(goNextPage,1);
         }
     }
 

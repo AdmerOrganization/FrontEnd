@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -143,42 +144,92 @@ public class class_creation_page_2 extends AppCompatActivity {
             SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
             String token = shP.getString("token", "");
 
-            RequestBody requestFile =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            if(file == null)
+            {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("Title",title);
+                jsonObject.addProperty("Teacher_name",teacher);
+                jsonObject.addProperty("Description",desc);
+                jsonObject.addProperty("Limit",limitET.getSelectedItem().toString());
+                jsonObject.addProperty("Password",passwordET.getText().toString());
 
-// MultipartBody.Part is used to send also the actual file name
-            MultipartBody.Part body =
-                    MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
-            RequestBody titleR =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), title);
-            RequestBody teacherR =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), teacher);
-            RequestBody descR =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), desc);
-            RequestBody passwordR =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), passwordET.getText().toString());
-            RequestBody limitR =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), limitET.getSelectedItem().toString());
+                Call<JsonObject> classCreationWithoutAvatar = classAPI.CreateClassWithoutAvatar("token "+token,jsonObject);
+                classCreationWithoutAvatar.enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        if(!response.isSuccessful())
+                        {
+                            Toast.makeText(class_creation_page_2.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            CustomeAlertDialog classcreatedMessage = new CustomeAlertDialog(class_creation_page_2.this , "Successful", "class created successfully");
+                            classcreatedMessage.btnOk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    ((ResultReceiver)getIntent().getParcelableExtra("finisher")).send(1, new Bundle());
+                                    Intent goToMainPage = new Intent(class_creation_page_2.this,MainActivity.class);
+                                    startActivity(goToMainPage);
+                                    finish();
+                                }
+                            });
+                        }
+                    }
 
-
-            Call<JsonObject> classCreation = classAPI.CreateClass("token "+ token, titleR,body,teacherR,descR,limitR,passwordR);
-            classCreation.enqueue(new Callback<JsonObject>() {
-                @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    if(!response.isSuccessful())
-                    {
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
                         Toast.makeText(class_creation_page_2.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
                     }
-                    else{
-                        CustomeAlertDialog classcreatedMessage = new CustomeAlertDialog(class_creation_page_2.this , "Successful", "class created successfully");
-                    }
-                }
+                });
+            }
+            else{
+                RequestBody requestFile =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-                @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
-                    Toast.makeText(class_creation_page_2.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
-                }
-            });
+// MultipartBody.Part is used to send also the actual file name
+                MultipartBody.Part body =
+                        MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
+                RequestBody titleR =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), title);
+                RequestBody teacherR =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), teacher);
+                RequestBody descR =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), desc);
+                RequestBody passwordR =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), passwordET.getText().toString());
+                RequestBody limitR =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), limitET.getSelectedItem().toString());
+
+
+                Call<JsonObject> classCreation = classAPI.CreateClass("token "+ token, titleR,body,teacherR,descR,limitR,passwordR);
+                classCreation.enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        if(!response.isSuccessful())
+                        {
+                            Toast.makeText(class_creation_page_2.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            CustomeAlertDialog classcreatedMessage = new CustomeAlertDialog(class_creation_page_2.this , "Successful", "class created successfully");
+                            classcreatedMessage.btnOk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    ((ResultReceiver)getIntent().getParcelableExtra("finisher")).send(1, new Bundle());
+                                    Intent goToMainPage = new Intent(class_creation_page_2.this,MainActivity.class);
+                                    startActivity(goToMainPage);
+                                    finish();
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        Toast.makeText(class_creation_page_2.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
         }
     }
 

@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tolearn">
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
-        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ToLearn">
+        <activity
+            android:name=".class_creation_page_2"
+            android:exported="false" />
+        <activity
+            android:name=".Class_creation"
+            android:exported="false">
+
+        </activity>
         <activity
             android:name=".AlertDialogs.CustomAlertDialog"
             android:exported="false" />
@@ -26,15 +34,14 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.ToLearn.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.ToLearn.NoActionBar" />
         <activity
             android:name=".ForgetPassword"
             android:exported="true" />
         <activity
             android:name=".Login"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

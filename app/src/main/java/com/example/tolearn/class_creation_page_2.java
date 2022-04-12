@@ -19,6 +19,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -139,19 +141,25 @@ public class class_creation_page_2 extends AppCompatActivity {
     }
 
     public void ClassRegister(View view) {
+
         if(registerVliadation(passwordET.getText().toString()))
         {
+            view.setClickable(false);
+
+            Animation animation = AnimationUtils.loadAnimation(class_creation_page_2.this,R.anim.blink_anim);
+            view.startAnimation(animation);
+
             SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
             String token = shP.getString("token", "");
 
             if(file == null)
             {
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("Title",title);
-                jsonObject.addProperty("Teacher_name",teacher);
-                jsonObject.addProperty("Description",desc);
-                jsonObject.addProperty("Limit",limitET.getSelectedItem().toString());
-                jsonObject.addProperty("Password",passwordET.getText().toString());
+                jsonObject.addProperty("title",title);
+                jsonObject.addProperty("teacher_name",teacher);
+                jsonObject.addProperty("description",desc);
+                jsonObject.addProperty("limit",limitET.getSelectedItem().toString());
+                jsonObject.addProperty("password",passwordET.getText().toString());
 
                 Call<JsonObject> classCreationWithoutAvatar = classAPI.CreateClassWithoutAvatar("token "+token,jsonObject);
                 classCreationWithoutAvatar.enqueue(new Callback<JsonObject>() {
@@ -160,6 +168,8 @@ public class class_creation_page_2 extends AppCompatActivity {
                         if(!response.isSuccessful())
                         {
                             Toast.makeText(class_creation_page_2.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
+                            view.setClickable(true);
+                            view.clearAnimation();
                         }
                         else
                         {
@@ -179,6 +189,8 @@ public class class_creation_page_2 extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         Toast.makeText(class_creation_page_2.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
+                        view.setClickable(true);
+                        view.clearAnimation();
                     }
                 });
             }
@@ -208,6 +220,8 @@ public class class_creation_page_2 extends AppCompatActivity {
                         if(!response.isSuccessful())
                         {
                             Toast.makeText(class_creation_page_2.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
+                            view.setClickable(true);
+                            view.clearAnimation();
                         }
                         else{
                             CustomeAlertDialog classcreatedMessage = new CustomeAlertDialog(class_creation_page_2.this , "Successful", "class created successfully");
@@ -226,6 +240,8 @@ public class class_creation_page_2 extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         Toast.makeText(class_creation_page_2.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
+                        view.setClickable(true);
+                        view.clearAnimation();
                     }
                 });
             }

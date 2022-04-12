@@ -10,6 +10,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 
 public interface ClassAPI {
@@ -19,13 +20,13 @@ public interface ClassAPI {
     })
 
     @Multipart
-    @POST("classrooms/create/")
-    Call<JsonObject> CreateClass(@Header("Authorization") String user_token, @Part("Title") RequestBody title
+    @PUT("classrooms/create/")
+    Call<JsonObject> CreateClass(@Header("Authorization") String user_token, @Part("title") RequestBody title
                                  , @Part MultipartBody.Part image
-                                 , @Part("Teacher_name") RequestBody TeacherName
-                                 , @Part("Description") RequestBody Description
-                                 , @Part("Limit") RequestBody Limit
-                                 , @Part("Password") RequestBody password
+                                 , @Part("teacher_name") RequestBody TeacherName
+                                 , @Part("description") RequestBody Description
+                                 , @Part("limit") RequestBody Limit
+                                 , @Part("password") RequestBody password
     );
 
     @POST("classrooms/create/")

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {

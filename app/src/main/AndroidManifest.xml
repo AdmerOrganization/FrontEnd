@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tolearn">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,13 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ToLearn">
         <activity
+            android:name=".manageClass"
+            android:exported="false" />
+        <activity
             android:name=".class_creation_page_2"
             android:exported="false" />
         <activity
             android:name=".Class_creation"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".AlertDialogs.CustomAlertDialog"
             android:exported="false" />
@@ -41,7 +43,6 @@
         <activity
             android:name=".Login"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

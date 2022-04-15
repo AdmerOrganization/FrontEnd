@@ -3,7 +3,6 @@ package com.example.tolearn;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -19,9 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.tolearn.Adapters.myEventsAdapter;
+import com.example.tolearn.Adapters.classAdapter;
 import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
-import com.example.tolearn.Entity.Event;
+import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.webService.ClassAPI;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.JsonObject;
@@ -40,7 +39,8 @@ public class manageClass extends AppCompatActivity {
     EditText searchEt;
     String userToken;
     ListView myEventsList;
-    myEventsAdapter myEventsAdap;
+    List<myClass> myCreatedClasses;
+    classAdapter myClassesAdap;
     private ShimmerFrameLayout mFrameLayout;
     NetworkInfo mWifi;
     @Override
@@ -98,7 +98,7 @@ public class manageClass extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                myEventsAdap.getFilter().filter(charSequence);
+                myClassesAdap.getFilter().filter(charSequence);
             }
 
             @Override
@@ -112,33 +112,36 @@ public class manageClass extends AppCompatActivity {
     {
 
         Log.i("SALAM","RESID");
-        Call<JsonObject> callBack = classAPI.GetCreatedClasses("token "+userToken);
-        callBack.enqueue(new Callback<JsonObject>() {
+        Call<List<myClass>> callBack = classAPI.GetCreatedClasses("token "+userToken);
+        callBack.enqueue(new Callback<List<myClass>>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
                 if(!response.isSuccessful())
                 {
                     CustomeAlertDialog myEvents = new CustomeAlertDialog(manageClass.this,"Response Error","There is a problem with your internet connection");
                 }
                 else{
                     int responseCode = response.code();
+                    myCreatedClasses = response.body();
                     // Toast.makeText(my_created_events.this, Integer.toString(responseCode), Toast.LENGTH_SHORT).show();
-//                    List<Event> myEvents = response.body();
+                    myClassesAdap = new classAdapter(manageClass.this,myCreatedClasses);
+
 //                    myEventsAdap = new myEventsAdapter(my_created_events.this,myEvents);
-//                    myEventsList.setAdapter(myEventsAdap);
-//                    if(myEventsAdap.getCount() == 0)
-//                    {
-//                        LinearLayout.LayoutParams noItemParams = (LinearLayout.LayoutParams) noItemFound.getLayoutParams();
-//                        noItemParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
-//                        noItemFound.setVisibility(View.VISIBLE);
-//                    }
+                    myEventsList.setAdapter(myClassesAdap);
+                    if(myClassesAdap.getCount() == 0)
+                    {
+                        LinearLayout.LayoutParams noItemParams = (LinearLayout.LayoutParams) noItemFound.getLayoutParams();
+                        noItemParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
+                        noItemFound.setVisibility(View.VISIBLE);
+                    }
+                    Log.i("oomad","To Else");
                     mFrameLayout.startShimmer();
                     mFrameLayout.setVisibility(View.GONE);
                 }
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<List<myClass>> call, Throwable t) {
                 CustomeAlertDialog myEvents = new CustomeAlertDialog(manageClass.this,"Error","There is a problem with your internet connection");
             }
         });

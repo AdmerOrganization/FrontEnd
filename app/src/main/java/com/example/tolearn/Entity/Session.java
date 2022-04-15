@@ -12,7 +12,7 @@ public class Session {
     private String time;
     private String session_token;
     private int filled;
-    private Event event;
+    private myClass aMyClass;
 
     public void setLimit(int limit) {
         this.limit = limit;
@@ -46,21 +46,21 @@ public class Session {
         this.filled = filled;
     }
 
-    public Event getEvent() {
-        return event;
+    public myClass getEvent() {
+        return aMyClass;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setEvent(myClass aMyClass) {
+        this.aMyClass = aMyClass;
     }
 
-    public Session(int limit, int id, String time, String session_token, int filled, Event event) {
+    public Session(int limit, int id, String time, String session_token, int filled, myClass aMyClass) {
         this.limit = limit;
         this.id = id;
         this.time = time;
         this.session_token = session_token;
         this.filled = filled;
-        this.event = event;
+        this.aMyClass = aMyClass;
     }
 
     public Session(String year, String month, String day, String hour, String min, String limit, String session_token) {

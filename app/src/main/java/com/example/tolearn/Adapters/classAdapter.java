@@ -1,7 +1,6 @@
 package com.example.tolearn.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +11,20 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.tolearn.Entity.Event;
+import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class myEventsAdapter extends BaseAdapter implements Filterable {
+public class classAdapter extends BaseAdapter implements Filterable {
 
     private Context context;
-    private List<Event> list;
-    private List<Event> temp;
+    private List<myClass> list;
+    private List<myClass> temp;
 
-    public myEventsAdapter(Context context, List<Event> list) {
+    public classAdapter(Context context, List<myClass> list) {
         this.context = context;
         this.list = list;
         this.temp = list;
@@ -48,47 +48,26 @@ public class myEventsAdapter extends BaseAdapter implements Filterable {
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null)
         {
-            view = LayoutInflater.from(context).inflate(R.layout.my_event_view,null);
+            view = LayoutInflater.from(context).inflate(R.layout.my_class_view,null);
         }
 
-        Event currentEvent = list.get(i);
+        myClass currentMyClass = list.get(i);
 
         TextView title = view.findViewById(R.id.titleEventView);
         TextView date = view.findViewById(R.id.dateTimeEventView);
-        TextView location = view.findViewById(R.id.LocationEventView);
+        TextView teacher = view.findViewById(R.id.TeacherTextView);
         TextView desc = view.findViewById(R.id.descEventView);
         Button editBtn = view.findViewById(R.id.eventEditBtn);
         ImageView imageViewCategory = view.findViewById(R.id.categoryImageItemEventView);
-        String dateTime = currentEvent.getTime().toString();
+        String dateTime = currentMyClass.getTime().toString();
         String [] dateTimeInfo = dateTime.split("T");
         dateTime = dateTimeInfo[0];
-        title.setText(currentEvent.getTitle().toString());
+        title.setText(currentMyClass.getTitle().toString());
         date.setText(dateTime);
-        location.setText(currentEvent.getLocation().toString());
-        desc.setText(currentEvent.getDescription().toString());
+        teacher.setText(currentMyClass.getTeacher_name().toString());
+        desc.setText(currentMyClass.getDescription().toString());
+        Picasso.get().load(currentMyClass.getAvatar()).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(imageViewCategory);
 
-        String category = currentEvent.getCategory();
-        imageViewCategory.setImageResource(R.drawable.acount_circle);
-//        if(category.equals("Sport"))
-//        {
-//            imageViewCategory.setImageResource(R.drawable.sport4);
-//        }
-//        else if(category.equals("Study")){
-//            imageViewCategory.setImageResource(R.drawable.study1);
-//        }
-//        else if(category.equals("Meeting"))
-//        {
-//            imageViewCategory.setImageResource(R.drawable.meeting1);
-//        }
-//        else if(category.equals("Work"))
-//        {
-//            imageViewCategory.setImageResource(R.drawable.work1);
-//        }
-//        else if(category.equals("hang out"))
-//        {
-//            imageViewCategory.setImageResource(R.drawable.hang_out2);
-//        }
-//        else {
 
 
 
@@ -110,8 +89,8 @@ public class myEventsAdapter extends BaseAdapter implements Filterable {
             protected FilterResults performFiltering(CharSequence charSequence) {
                 FilterResults filterResults = new FilterResults();
 
-                ArrayList<Event> filterList = new ArrayList<>();
-                for(Event item:temp)
+                ArrayList<myClass> filterList = new ArrayList<>();
+                for(myClass item:temp)
                 {
                     if(item.getTitle().toString().toLowerCase().contains(charSequence.toString().toLowerCase()))
                     {
@@ -127,7 +106,7 @@ public class myEventsAdapter extends BaseAdapter implements Filterable {
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                list = (List<Event>) filterResults.values;
+                list = (List<myClass>) filterResults.values;
                 notifyDataSetChanged();
             }
         };

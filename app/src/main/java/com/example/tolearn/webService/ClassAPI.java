@@ -1,6 +1,9 @@
 package com.example.tolearn.webService;
 
+import com.example.tolearn.Entity.myClass;
 import com.google.gson.JsonObject;
+
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -21,7 +24,7 @@ public interface ClassAPI {
     })
 
     @Multipart
-    @PUT("classrooms/create/")
+    @POST("classrooms/create/")
     Call<JsonObject> CreateClass(@Header("Authorization") String user_token, @Part("title") RequestBody title
                                  , @Part MultipartBody.Part image
                                  , @Part("teacher_name") RequestBody TeacherName
@@ -34,5 +37,5 @@ public interface ClassAPI {
     Call<JsonObject> CreateClassWithoutAvatar(@Header("Authorization") String user_token,@Body JsonObject classInfo);
 
     @GET("classrooms/get-created/")
-    Call<JsonObject> GetCreatedClasses(@Header("Authorization") String user_token);
+    Call<List<myClass>> GetCreatedClasses(@Header("Authorization") String user_token);
 }

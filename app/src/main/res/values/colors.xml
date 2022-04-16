@@ -15,5 +15,10 @@
     <color name="side_bar_background">#80d8ff</color>
     <color name="hintColor">#1BCCBB</color>
     <color name = "black_learning">#12193A</color>
+    <color name="blue_background">#2CB0F1</color>
+    <color name="darkBlue">#080261</color>
+    <color name="shimmer_placeholder">#dddddd</color>
+    <color name="colorPrimaryDark">#292b3d</color>
+    <color name="recycler_background">#FFA7DD</color>
 
 </resources>

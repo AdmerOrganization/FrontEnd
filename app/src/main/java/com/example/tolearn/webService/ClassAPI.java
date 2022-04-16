@@ -1,11 +1,15 @@
 package com.example.tolearn.webService;
 
+import com.example.tolearn.Entity.myClass;
 import com.google.gson.JsonObject;
+
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -20,7 +24,7 @@ public interface ClassAPI {
     })
 
     @Multipart
-    @PUT("classrooms/create/")
+    @POST("classrooms/create/")
     Call<JsonObject> CreateClass(@Header("Authorization") String user_token, @Part("title") RequestBody title
                                  , @Part MultipartBody.Part image
                                  , @Part("teacher_name") RequestBody TeacherName
@@ -31,4 +35,7 @@ public interface ClassAPI {
 
     @POST("classrooms/create/")
     Call<JsonObject> CreateClassWithoutAvatar(@Header("Authorization") String user_token,@Body JsonObject classInfo);
+
+    @GET("classrooms/get-created/")
+    Call<List<myClass>> GetCreatedClasses(@Header("Authorization") String user_token);
 }

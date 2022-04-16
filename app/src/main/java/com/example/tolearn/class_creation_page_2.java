@@ -55,7 +55,7 @@ public class class_creation_page_2 extends AppCompatActivity {
     String teacher;
     String desc;
     ImageView classImage;
-    File file;
+    String filePath;
     classCreationValidations Controller;
     private static final int PICK_PHOTO_FOR_AVATAR = 0;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -75,6 +75,7 @@ public class class_creation_page_2 extends AppCompatActivity {
 
     public void init()
     {
+        filePath ="";
         limitET = findViewById(R.id.limit_spinner);
         passwordET = findViewById(R.id.classPasswordET);
 
@@ -152,7 +153,7 @@ public class class_creation_page_2 extends AppCompatActivity {
             SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
             String token = shP.getString("token", "");
 
-            if(file == null)
+            if(filePath.equals(""))
             {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("title",title);
@@ -195,9 +196,9 @@ public class class_creation_page_2 extends AppCompatActivity {
                 });
             }
             else{
+                File file = new File(filePath);
                 RequestBody requestFile =
                         RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
 // MultipartBody.Part is used to send also the actual file name
                 MultipartBody.Part body =
                         MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
@@ -278,10 +279,8 @@ public class class_creation_page_2 extends AppCompatActivity {
                 try{
                     Log.i("dataaaaaaaaa",data.toString());
                     Uri u = data.getData();
-                    String filePath = getPath(u);
+                    filePath = getPath(u);
                     classImage.setImageURI(data.getData());
-                    file = new File(filePath);
-
                 }
                 catch (Exception e) {
                     e.printStackTrace();

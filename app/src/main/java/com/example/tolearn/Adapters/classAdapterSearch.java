@@ -68,7 +68,7 @@ public class classAdapterSearch extends BaseAdapter implements Filterable {
         title.setText(currentMyClass.getTitle().toString());
         date.setText(dateTime);
         teacher.setText(currentMyClass.getTeacher_name().toString());
-        desc.setText(currentMyClass.getDescription().toString());
+        //desc.setText(currentMyClass.getDescription().toString());
         Picasso.get().load(currentMyClass.getAvatar()).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(imageViewCategory);
 
 

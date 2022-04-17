@@ -1,6 +1,7 @@
 package com.example.tolearn;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.SharedPreferences;
@@ -32,8 +33,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import android.os.Bundle;
 
-public class manageClass extends AppCompatActivity {
+public class ClassSearch extends AppCompatActivity {
     ConstraintLayout noItemFound;
     ClassAPI classAPI;
     EditText searchEt;
@@ -45,14 +47,8 @@ public class manageClass extends AppCompatActivity {
     NetworkInfo mWifi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_class);
-        getSupportActionBar().hide();
-        init();
-        mFrameLayout = findViewById(R.id.shimmerLayout);
-
+        setContentView(R.layout.activity_class_search);
     }
     @Override
     protected void onResume() {
@@ -61,7 +57,7 @@ public class manageClass extends AppCompatActivity {
         ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-//        if (mWifi.isConnected()) {
+        //        if (mWifi.isConnected()) {
 //            fillList();
 //        }
 //        else{
@@ -113,19 +109,19 @@ public class manageClass extends AppCompatActivity {
     {
 
         Log.i("SALAM","RESID");
-        Call<List<myClass>> callBack = classAPI.GetCreatedClasses("token "+userToken);
+        Call<List<myClass>> callBack = classAPI.GetAllClasses("token "+userToken);
         callBack.enqueue(new Callback<List<myClass>>() {
             @Override
             public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
                 if(!response.isSuccessful())
                 {
-                    CustomeAlertDialog myEvents = new CustomeAlertDialog(manageClass.this,"Response Error","There is a problem with your internet connection");
+                    CustomeAlertDialog myEvents = new CustomeAlertDialog(ClassSearch.this,"Response Error","There is a problem with your internet connection");
                 }
                 else{
                     int responseCode = response.code();
                     myCreatedClasses = response.body();
                     // Toast.makeText(my_created_events.this, Integer.toString(responseCode), Toast.LENGTH_SHORT).show();
-                    myClassesAdap = new classAdapter(manageClass.this,myCreatedClasses);
+                    myClassesAdap = new classAdapter(ClassSearch.this,myCreatedClasses);
 
 //                    myEventsAdap = new myEventsAdapter(my_created_events.this,myEvents);
                     myEventsList.setAdapter(myClassesAdap);
@@ -143,12 +139,12 @@ public class manageClass extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<myClass>> call, Throwable t) {
-                CustomeAlertDialog myEvents = new CustomeAlertDialog(manageClass.this,"Error","There is a problem with your internet connection");
+                CustomeAlertDialog myEvents = new CustomeAlertDialog(ClassSearch.this,"Error","There is a problem with your internet connection");
             }
         });
     }
 
-//    public void goToAddEvent(View view) {
+    //    public void goToAddEvent(View view) {
 //        Intent intent = new Intent(my_created_events.this,AddEvent.class);
 //        startActivity(intent);
 //        finish();
@@ -158,4 +154,5 @@ public class manageClass extends AppCompatActivity {
         mFrameLayout.stopShimmer();
         super.onPause();
     }
+
 }

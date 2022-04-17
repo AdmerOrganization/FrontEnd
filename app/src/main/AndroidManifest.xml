@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ToLearn">
         <activity
+            android:name=".ClassSearch"
+            android:exported="false" />
+        <activity
             android:name=".manageClass"
             android:exported="false" />
         <activity
@@ -23,7 +26,7 @@
             android:exported="false" />
         <activity
             android:name=".Class_creation"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".AlertDialogs.CustomAlertDialog"
             android:exported="false" />

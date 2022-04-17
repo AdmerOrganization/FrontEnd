@@ -39,4 +39,8 @@ public interface ClassAPI {
     Call<JsonObject> JoinClass(@Header("Authorization") String user_token,@Body JsonObject joinInfo);
     @GET("classrooms/get-created/")
     Call<List<myClass>> GetCreatedClasses(@Header("Authorization") String user_token);
+
+    @GET("classrooms/get-all/")
+    Call<List<myClass>> GetAllClasses(@Header("Authorization") String user_token);
+
 }

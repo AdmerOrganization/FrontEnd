@@ -16,14 +16,12 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.tolearn.Adapters.classAdapter;
+import com.example.tolearn.Adapters.classAdapterManage;
 import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.webService.ClassAPI;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -40,7 +38,7 @@ public class manageClass extends AppCompatActivity {
     String userToken;
     ListView myEventsList;
     List<myClass> myCreatedClasses;
-    classAdapter myClassesAdap;
+    classAdapterManage myClassesAdap;
     private ShimmerFrameLayout mFrameLayout;
     NetworkInfo mWifi;
     @Override
@@ -125,7 +123,7 @@ public class manageClass extends AppCompatActivity {
                     int responseCode = response.code();
                     myCreatedClasses = response.body();
                     // Toast.makeText(my_created_events.this, Integer.toString(responseCode), Toast.LENGTH_SHORT).show();
-                    myClassesAdap = new classAdapter(manageClass.this,myCreatedClasses);
+                    myClassesAdap = new classAdapterManage(manageClass.this,myCreatedClasses,"Manage");
 
 //                    myEventsAdap = new myEventsAdapter(my_created_events.this,myEvents);
                     myEventsList.setAdapter(myClassesAdap);

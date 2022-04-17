@@ -1,7 +1,6 @@
 package com.example.tolearn;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.SharedPreferences;
@@ -12,19 +11,16 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.tolearn.Adapters.classAdapter;
+import com.example.tolearn.Adapters.classAdapterManage;
+import com.example.tolearn.Adapters.classAdapterSearch;
 import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.webService.ClassAPI;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -33,7 +29,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import android.os.Bundle;
 
 public class ClassSearch extends AppCompatActivity {
     ConstraintLayout noItemFound;
@@ -42,7 +37,7 @@ public class ClassSearch extends AppCompatActivity {
     String userToken;
     ListView myEventsList;
     List<myClass> myCreatedClasses;
-    classAdapter myClassesAdap;
+    classAdapterSearch myClassesAdap;
     private ShimmerFrameLayout mFrameLayout;
     NetworkInfo mWifi;
     @Override
@@ -121,7 +116,7 @@ public class ClassSearch extends AppCompatActivity {
                     int responseCode = response.code();
                     myCreatedClasses = response.body();
                     // Toast.makeText(my_created_events.this, Integer.toString(responseCode), Toast.LENGTH_SHORT).show();
-                    myClassesAdap = new classAdapter(ClassSearch.this,myCreatedClasses);
+                    myClassesAdap = new classAdapterSearch(ClassSearch.this,myCreatedClasses,"Search");
 
 //                    myEventsAdap = new myEventsAdapter(my_created_events.this,myEvents);
                     myEventsList.setAdapter(myClassesAdap);

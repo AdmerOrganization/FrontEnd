@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivityForResult(goToClassManagment,2);
                 break;
             case R.id.classSearch:
-                Intent goToClassSearch = new Intent(this , manageClass.class);
+                Intent goToClassSearch = new Intent(this , ClassSearch.class);
                 goToClassSearch.putExtra("finisher", new ResultReceiver(null) {
                     @Override
                     protected void onReceiveResult(int resultCode, Bundle resultData) {

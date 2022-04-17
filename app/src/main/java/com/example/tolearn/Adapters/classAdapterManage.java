@@ -11,24 +11,29 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.tolearn.ClassSearch;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.R;
+import com.example.tolearn.manageClass;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class classAdapter extends BaseAdapter implements Filterable {
+public class classAdapterManage extends BaseAdapter implements Filterable {
 
     private Context context;
     private List<myClass> list;
     private List<myClass> temp;
+    String type;
 
-    public classAdapter(Context context, List<myClass> list) {
+    public classAdapterManage(Context context, List<myClass> list, String type) {
         this.context = context;
         this.list = list;
         this.temp = list;
+        this.type = type;
     }
+
     @Override
     public int getCount() {
         return list.size();
@@ -46,9 +51,8 @@ public class classAdapter extends BaseAdapter implements Filterable {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view == null)
-        {
-            view = LayoutInflater.from(context).inflate(R.layout.my_class_view,null);
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.my_class_view, null);
         }
 
         myClass currentMyClass = list.get(i);
@@ -57,10 +61,12 @@ public class classAdapter extends BaseAdapter implements Filterable {
         TextView date = view.findViewById(R.id.dateTimeEventView);
         TextView teacher = view.findViewById(R.id.TeacherTextView);
         TextView desc = view.findViewById(R.id.descEventView);
-        Button editBtn = view.findViewById(R.id.eventEditBtn);
+        Button editOrJoinBtn = view.findViewById(R.id.eventEditOrJoinBtn);
+
+        editOrJoinBtn.setText("Edit");
         ImageView imageViewCategory = view.findViewById(R.id.categoryImageItemEventView);
         String dateTime = currentMyClass.getTime().toString();
-        String [] dateTimeInfo = dateTime.split("T");
+        String[] dateTimeInfo = dateTime.split("T");
         dateTime = dateTimeInfo[0];
         title.setText(currentMyClass.getTitle().toString());
         date.setText(dateTime);
@@ -69,9 +75,7 @@ public class classAdapter extends BaseAdapter implements Filterable {
         Picasso.get().load(currentMyClass.getAvatar()).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(imageViewCategory);
 
 
-
-
-//        editBtn.setOnClickListener(new View.OnClickListener() {
+//        editOrJoinBtn.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View view) {
 //                Intent intent = new Intent(context, EditEventActivity.class);
@@ -90,10 +94,8 @@ public class classAdapter extends BaseAdapter implements Filterable {
                 FilterResults filterResults = new FilterResults();
 
                 ArrayList<myClass> filterList = new ArrayList<>();
-                for(myClass item:temp)
-                {
-                    if(item.getTitle().toString().toLowerCase().contains(charSequence.toString().toLowerCase()))
-                    {
+                for (myClass item : temp) {
+                    if (item.getTitle().toString().toLowerCase().contains(charSequence.toString().toLowerCase())) {
                         filterList.add(item);
                     }
                 }
@@ -101,7 +103,7 @@ public class classAdapter extends BaseAdapter implements Filterable {
                 filterResults.count = filterList.size();
                 filterResults.values = filterList;
 
-                return  filterResults;
+                return filterResults;
             }
 
             @Override

@@ -35,7 +35,8 @@ public interface ClassAPI {
 
     @POST("classrooms/create/")
     Call<JsonObject> CreateClassWithoutAvatar(@Header("Authorization") String user_token,@Body JsonObject classInfo);
-
+    @POST("classroom/join/")
+    Call<JsonObject> JoinClass(@Header("Authorization") String user_token,@Body JsonObject joinInfo);
     @GET("classrooms/get-created/")
     Call<List<myClass>> GetCreatedClasses(@Header("Authorization") String user_token);
 }

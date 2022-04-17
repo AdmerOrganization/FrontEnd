@@ -18,4 +18,19 @@
         <item>150</item>
         <item>200</item>
     </string-array>
+
+
+    <string-array name="category">
+        <item>category</item>
+        <item>Math</item>
+        <item>Chemistry</item>
+        <item>Physics</item>
+        <item>Engineering</item>
+        <item>Paint</item>
+        <item>Music</item>
+        <item>Cinema</item>
+        <item>athletic</item>
+        <item>computer science</item>
+        <item>language</item>
+    </string-array>
 </resources>

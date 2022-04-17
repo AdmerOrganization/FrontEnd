@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -50,6 +51,7 @@ public class class_creation_page_2 extends AppCompatActivity {
 
     ClassAPI classAPI;
     Spinner limitET;
+    Spinner categorySpinner;
     EditText passwordET;
     String title;
     String teacher;
@@ -77,6 +79,7 @@ public class class_creation_page_2 extends AppCompatActivity {
     {
         filePath ="";
         limitET = findViewById(R.id.limit_spinner);
+        categorySpinner = findViewById(R.id.category_spinner);
         passwordET = findViewById(R.id.classPasswordET);
 
         Intent pre_page = getIntent();
@@ -129,6 +132,67 @@ public class class_creation_page_2 extends AppCompatActivity {
                 }
             }
         });
+
+//         <string-array name="category">
+//        <item>category</item>
+//        <item>Math</item>
+//        <item>Chemistry</item>
+//        <item>Physics</item>
+//        <item>Engineering</item>
+//        <item>Paint</item>
+//        <item>Music</item>
+//        <item>Cinema</item>
+//        <item>athletic</item>
+//        <item>computer science</item>
+//        <item>language</item>
+//    </string-array>
+
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(categorySpinner.getSelectedItem().toString().equals("Math"))
+                {
+                    classImage.setImageResource(R.drawable.math);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Chemistry"))
+                {
+                    classImage.setImageResource(R.drawable.chemistry);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Physics"))
+                {
+                    classImage.setImageResource(R.drawable.atom);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Engineering"))
+                {
+                    classImage.setImageResource(R.drawable.engineering);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Paint"))
+                {
+                    classImage.setImageResource(R.drawable.paint);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Music"))
+                {
+                    classImage.setImageResource(R.drawable.musical);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Cinema"))
+                {
+                    classImage.setImageResource(R.drawable.clapperboard);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("computer science"))
+                {
+                    classImage.setImageResource(R.drawable.responsive);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("language"))
+                {
+                    classImage.setImageResource(R.drawable.languages);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     public boolean registerVliadation(String password)
@@ -138,6 +202,17 @@ public class class_creation_page_2 extends AppCompatActivity {
             Toast.makeText(this, "password is not valid . Password have to be at least 8 characters with at least one capital letter and one number", Toast.LENGTH_SHORT).show();
             return false;
         }
+        else if (categorySpinner.getSelectedItem().toString().equals("category"))
+        {
+            Toast.makeText(this, "Category can not be unselected", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(limitET.getSelectedItem().toString().equals("limit"))
+        {
+            Toast.makeText(this, "Limit can not be unselected", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         return true;
     }
 
@@ -161,6 +236,7 @@ public class class_creation_page_2 extends AppCompatActivity {
                 jsonObject.addProperty("description",desc);
                 jsonObject.addProperty("limit",limitET.getSelectedItem().toString());
                 jsonObject.addProperty("password",passwordET.getText().toString());
+                jsonObject.addProperty("category",categorySpinner.getSelectedItem().toString());
 
                 Call<JsonObject> classCreationWithoutAvatar = classAPI.CreateClassWithoutAvatar("token "+token,jsonObject);
                 classCreationWithoutAvatar.enqueue(new Callback<JsonObject>() {

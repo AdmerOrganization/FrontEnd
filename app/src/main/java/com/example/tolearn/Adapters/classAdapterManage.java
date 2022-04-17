@@ -62,7 +62,6 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
         TextView teacher = view.findViewById(R.id.TeacherTextView);
         TextView desc = view.findViewById(R.id.descEventView);
         Button editOrJoinBtn = view.findViewById(R.id.eventEditOrJoinBtn);
-
         editOrJoinBtn.setText("Edit");
         ImageView imageViewCategory = view.findViewById(R.id.categoryImageItemEventView);
         String dateTime = currentMyClass.getTime().toString();

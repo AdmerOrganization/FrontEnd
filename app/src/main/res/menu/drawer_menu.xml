@@ -24,6 +24,10 @@
                 android:icon="@drawable/ic_baseline_class_24"
                 android:title="Create class" />
             <item
+                android:id="@+id/classManagment"
+                android:icon="@drawable/ic_baseline_class_24"
+                android:title="Manage Class" />
+            <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_send"
                 android:title="Send" />

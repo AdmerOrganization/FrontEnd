@@ -196,6 +196,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
                 startActivityForResult(goToClassCreation,2);
                 break;
+            case R.id.classManagment:
+
+                Intent goToClassManagment = new Intent(this , manageClass.class);
+                goToClassManagment.putExtra("finisher", new ResultReceiver(null) {
+                    @Override
+                    protected void onReceiveResult(int resultCode, Bundle resultData) {
+                        MainActivity.this.finish();
+                    }
+                });
+                startActivityForResult(goToClassManagment,2);
+                break;
             case R.id.nav_send:
                 Toast.makeText(this, "Send", Toast.LENGTH_SHORT).show();
                 break;

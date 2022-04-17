@@ -56,7 +56,7 @@
         android:elevation="10dp"
         android:entries="@array/limit"
         android:scrollbarSize="30dp"
-        android:spinnerMode="dialog"
+        android:spinnerMode="dropdown"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

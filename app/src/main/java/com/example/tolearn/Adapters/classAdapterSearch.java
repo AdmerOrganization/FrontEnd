@@ -72,6 +72,13 @@ public class classAdapterSearch extends BaseAdapter implements Filterable {
         Picasso.get().load(currentMyClass.getAvatar()).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(imageViewCategory);
 
 
+        editOrJoinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String classroom_token = currentMyClass.getClassroom_token().toString();
+                //todo : send this to join ...
+            }
+        });
 
 
 //        editOrJoinBtn.setOnClickListener(new View.OnClickListener() {

@@ -42,4 +42,7 @@ public interface ClassAPI {
     @GET("classrooms/get-all/")
     Call<List<myClass>> GetAllClasses(@Header("Authorization") String user_token);
 
+    @POST("classrooms/search/")
+    Call<List<myClass>> Filter(@Header("Authorization") String user_token,@Body JsonObject seachInfo);
+
 }

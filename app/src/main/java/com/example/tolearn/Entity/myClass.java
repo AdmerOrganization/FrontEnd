@@ -4,6 +4,7 @@ public class myClass {
 
     // class
     int id;
+    String category;
     String classroom_token;
     String title;
     String teacher_name;
@@ -11,8 +12,9 @@ public class myClass {
     String avatar;
     String description;
     int limit;
-    public myClass(int id, String classroom_token, String avatar, String class_title, String teacher_name, String description, int limit, String time){
+    public myClass(int id,String category, String classroom_token, String avatar, String class_title, String teacher_name, String description, int limit, String time){
         this.id = id;
+        this.category = category;
         this.classroom_token = classroom_token;
         this.avatar = avatar;
         this.title = class_title;
@@ -20,6 +22,14 @@ public class myClass {
         this.description = description;
         this.limit = limit;
         this.time = time;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getTitle() {

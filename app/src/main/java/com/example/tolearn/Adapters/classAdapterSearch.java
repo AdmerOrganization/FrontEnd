@@ -68,51 +68,17 @@ public class classAdapterSearch extends BaseAdapter implements Filterable {
         title.setText(currentMyClass.getTitle().toString());
         date.setText(dateTime);
         teacher.setText(currentMyClass.getTeacher_name().toString());
-        desc.setText(currentMyClass.getDescription().toString());
+        //desc.setText(currentMyClass.getDescription().toString());
+        Picasso.get().load(currentMyClass.getAvatar()).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(imageViewCategory);
 
-        String category = currentMyClass.getCategory().toString();
 
-        if(currentMyClass.getAvatar().toString().equals(""))
-        {
-            Picasso.get().load(currentMyClass.getAvatar()).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(imageViewCategory);
-        }
-        else{
-            switch (category)
-            {
-                case "Math":
-                    imageViewCategory.setImageResource(R.drawable.math);
-                    break;
-                case "Chemistry":
-                    imageViewCategory.setImageResource(R.drawable.chemistry);
-                    break;
-                case "Physics":
-                    imageViewCategory.setImageResource(R.drawable.atom);
-                    break;
-                case "Engineering":
-                    imageViewCategory.setImageResource(R.drawable.engineering);
-                    break;
-                case "Paint":
-                    imageViewCategory.setImageResource(R.drawable.paint);
-                    break;
-                case "Music":
-                    imageViewCategory.setImageResource(R.drawable.musical);
-                    break;
-                case "Cinema":
-                    imageViewCategory.setImageResource(R.drawable.clapperboard);
-                    break;
-                case "athletic":
-                    imageViewCategory.setImageResource(R.drawable.athletics);
-                    break;
-                case "computer science":
-                    imageViewCategory.setImageResource(R.drawable.responsive);
-                    break;
-                case "language":
-                    imageViewCategory.setImageResource(R.drawable.languages);
-                    break;
+        editOrJoinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String classroom_token = currentMyClass.getClassroom_token().toString();
+                //todo : send this to join ...
             }
-        }
-
-
+        });
 
 
 //        editOrJoinBtn.setOnClickListener(new View.OnClickListener() {

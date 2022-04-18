@@ -2,6 +2,8 @@ package com.example.tolearn.AlertDialogs;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.example.tolearn.R;
 import com.example.tolearn.manageClass;
 import com.example.tolearn.webService.ClassAPI;
 import com.example.tolearn.webService.UserAPI;
+import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -37,6 +40,7 @@ public class CustomEditClassAlertDialog extends Activity {
 
     ClassAPI classAPI;
     public AlertDialog alertDialog;
+    JsonObject EditedClass;
     EditText titleET,teacherET,descET,passwordET;
     ImageView classImage;
     Spinner limitSpinner;
@@ -44,7 +48,7 @@ public class CustomEditClassAlertDialog extends Activity {
     public Button btnEdit;
     classCreationValidations Controller;
 
-    public CustomEditClassAlertDialog(Context context , String title , String teacher , String desc , String password , String limit ,String category, String avatar)
+    public CustomEditClassAlertDialog(Context context ,String userToken,String class_token, String title , String teacher , String desc , String password , String limit ,String category, String avatar)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);
@@ -201,37 +205,33 @@ public class CustomEditClassAlertDialog extends Activity {
                     Toast.makeText(context, "Limit can not be unselected", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Call<List<myClass>> callBack = classAPI.GetCreatedClasses("token "+userToken);
-                    callBack.enqueue(new Callback<List<myClass>>() {
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("classroom_token",class_token);
+                    jsonObject.addProperty("title",title);
+                    jsonObject.addProperty("teacher_name",teacher);
+                    jsonObject.addProperty("description",desc);
+                    jsonObject.addProperty("limit",limit);
+                    jsonObject.addProperty("password",passwordET.getText().toString());
+                    jsonObject.addProperty("category",category);
+                    jsonObject.addProperty("users","['Ford', 'BMW', 'Fiat']");
+                    Call<JsonObject> callBack = classAPI.EditClass("token "+ userToken,jsonObject);
+                    callBack.enqueue(new Callback<JsonObject>() {
                         @Override
-                        public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                             if(!response.isSuccessful())
                             {
-                                CustomeAlertDialog myEvents = new CustomeAlertDialog(manageClass.this,"Response Error","There is a problem with your internet connection");
+                               // CustomeAlertDialog myEvents = new CustomeAlertDialog(CustomEditClassAlertDialog.this,"Response Error","There is a problem with your internet connection");
                             }
                             else{
                                 int responseCode = response.code();
-                                myCreatedClasses = response.body();
-                                // Toast.makeText(my_created_events.this, Integer.toString(responseCode), Toast.LENGTH_SHORT).show();
-                                myClassesAdap = new classAdapterManage(manageClass.this,myCreatedClasses,"Manage");
+                                JsonObject myCreatedClasses = response.body();
 
-//                    myEventsAdap = new myEventsAdapter(my_created_events.this,myEvents);
-                                myEventsList.setAdapter(myClassesAdap);
-                                if(myClassesAdap.getCount() == 0)
-                                {
-                                    LinearLayout.LayoutParams noItemParams = (LinearLayout.LayoutParams) noItemFound.getLayoutParams();
-                                    noItemParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
-                                    noItemFound.setVisibility(View.VISIBLE);
-                                }
-                                Log.i("oomad","To Else");
-                                mFrameLayout.startShimmer();
-                                mFrameLayout.setVisibility(View.GONE);
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<List<myClass>> call, Throwable t) {
-                            CustomeAlertDialog myEvents = new CustomeAlertDialog(manageClass.this,"Error","There is a problem with your internet connection");
+                        public void onFailure(Call<JsonObject> call, Throwable t) {
+                          //  CustomeAlertDialog myEvents = new CustomeAlertDialog(CustomEditClassAlertDialog.this,"Error","There is a problem with your internet connection");
                         }
                     });
                 }

@@ -1,6 +1,7 @@
 package com.example.tolearn.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,15 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
     private Context context;
     private List<myClass> list;
     private List<myClass> temp;
+    String userToken;
     String type;
 
-    public classAdapterManage(Context context, List<myClass> list, String type) {
+    public classAdapterManage(Context context, List<myClass> list, String type, String userToken) {
         this.context = context;
         this.list = list;
         this.temp = list;
         this.type = type;
+        this.userToken = userToken;
     }
 
     @Override
@@ -71,11 +74,12 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
         editOrJoinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(currentMyClass.getAvatar() != null){
-                CustomEditClassAlertDialog edit = new CustomEditClassAlertDialog(context,currentMyClass.getTitle().toString(),currentMyClass.getTeacher_name().toString(),currentMyClass.getDescription().toString(),"Password",Integer.toString(currentMyClass.getLimit()),currentMyClass.getCategory().toString(),currentMyClass.getAvatar().toString());
+                CustomEditClassAlertDialog edit = new CustomEditClassAlertDialog(context,userToken,currentMyClass.getClassroom_token(),currentMyClass.getTitle().toString(),currentMyClass.getTeacher_name().toString(),currentMyClass.getDescription().toString(),"Password",Integer.toString(currentMyClass.getLimit()),currentMyClass.getCategory().toString(),currentMyClass.getAvatar().toString());
                 }
                 else {
-                    CustomEditClassAlertDialog edit = new  CustomEditClassAlertDialog(context,currentMyClass.getTitle().toString(),currentMyClass.getTeacher_name().toString(),currentMyClass.getDescription().toString(),"Password",Integer.toString(currentMyClass.getLimit()),currentMyClass.getCategory().toString(),"NULL");
+                    CustomEditClassAlertDialog edit = new  CustomEditClassAlertDialog(context,userToken,currentMyClass.getClassroom_token(),currentMyClass.getTitle().toString(),currentMyClass.getTeacher_name().toString(),currentMyClass.getDescription().toString(),"Password",Integer.toString(currentMyClass.getLimit()),currentMyClass.getCategory().toString(),"NULL");
 
                 }
             }

@@ -124,7 +124,7 @@ public class manageClass extends AppCompatActivity {
                     int responseCode = response.code();
                     myCreatedClasses = response.body();
                     // Toast.makeText(my_created_events.this, Integer.toString(responseCode), Toast.LENGTH_SHORT).show();
-                    myClassesAdap = new classAdapterManage(manageClass.this,myCreatedClasses,"Manage");
+                    myClassesAdap = new classAdapterManage(manageClass.this,myCreatedClasses,"Manage",userToken);
 
 //                    myEventsAdap = new myEventsAdapter(my_created_events.this,myEvents);
                     myEventsList.setAdapter(myClassesAdap);

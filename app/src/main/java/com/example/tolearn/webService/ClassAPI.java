@@ -46,4 +46,7 @@ public interface ClassAPI {
     @POST("classrooms/search/")
     Call<List<myClass>> Filter(@Header("Authorization") String user_token,@Body JsonObject seachInfo);
 
+    @PUT("classrooms/edit/")
+    Call<JsonObject> EditClass(@Header("Authorization") String user_token,@Body JsonObject classInfo);
+
 }

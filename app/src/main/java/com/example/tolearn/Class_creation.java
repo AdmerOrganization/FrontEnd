@@ -82,7 +82,13 @@ public class Class_creation extends AppCompatActivity {
             goNextPage.putExtra("finisher", new ResultReceiver(null) {
                 @Override
                 protected void onReceiveResult(int resultCode, Bundle resultData) {
-                    ((ResultReceiver)getIntent().getParcelableExtra("finisher")).send(2, new Bundle());
+                    try {
+                        ((ResultReceiver)getIntent().getParcelableExtra("finisher")).send(2, new Bundle());
+                    }
+                    catch (Exception exception)
+                    {
+                        //nothing
+                    }
                     Class_creation.this.finish();
                 }
             });

@@ -254,7 +254,13 @@ public class class_creation_page_2 extends AppCompatActivity {
                             classcreatedMessage.btnOk.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    ((ResultReceiver)getIntent().getParcelableExtra("finisher")).send(1, new Bundle());
+                                    try {
+                                        ((ResultReceiver)getIntent().getParcelableExtra("finisher")).send(1, new Bundle());
+                                    }
+                                    catch (Exception exception)
+                                    {
+                                        //nothing...
+                                    }
                                     Intent goToMainPage = new Intent(class_creation_page_2.this,MainActivity.class);
                                     startActivity(goToMainPage);
                                     finish();

@@ -3,6 +3,7 @@ package com.example.tolearn;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -151,5 +152,11 @@ public class manageClass extends AppCompatActivity {
     protected void onPause() {
         mFrameLayout.stopShimmer();
         super.onPause();
+    }
+
+    public void goToClassCreation(View view) {
+        Intent goToClassCreation = new Intent(this,Class_creation.class);
+        startActivity(goToClassCreation);
+        finish();
     }
 }

@@ -88,7 +88,7 @@ public class CustomeAlertdialogJoinClass {
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                             if(!response.isSuccessful())
                             {
-                                Toast.makeText(context, "There is a problem with your Internet connection", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Password is not correct", Toast.LENGTH_SHORT).show();
                                 view.setClickable(true);
                             }
                             else{

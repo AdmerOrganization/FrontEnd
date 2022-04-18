@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.tolearn.Adapters.classAdapterManage;
+import com.example.tolearn.AlertDialogs.CustomEditClassAlertDialog;
 import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.webService.ClassAPI;
@@ -144,9 +145,6 @@ public class manageClass extends AppCompatActivity {
                 CustomeAlertDialog myEvents = new CustomeAlertDialog(manageClass.this,"Error","There is a problem with your internet connection");
             }
         });
-    }
-
-    public void ClassItemClicked(View view) {
     }
 
     @Override

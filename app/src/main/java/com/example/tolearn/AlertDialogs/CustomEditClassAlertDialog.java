@@ -2,23 +2,34 @@ package com.example.tolearn.AlertDialogs;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+
+import com.example.tolearn.Adapters.classAdapterManage;
 import com.example.tolearn.Controllers.classCreationValidations;
+import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.R;
+import com.example.tolearn.manageClass;
 import com.example.tolearn.webService.ClassAPI;
 import com.example.tolearn.webService.UserAPI;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -190,7 +201,39 @@ public class CustomEditClassAlertDialog extends Activity {
                     Toast.makeText(context, "Limit can not be unselected", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    //retrofit connection to backend ....
+                    Call<List<myClass>> callBack = classAPI.GetCreatedClasses("token "+userToken);
+                    callBack.enqueue(new Callback<List<myClass>>() {
+                        @Override
+                        public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
+                            if(!response.isSuccessful())
+                            {
+                                CustomeAlertDialog myEvents = new CustomeAlertDialog(manageClass.this,"Response Error","There is a problem with your internet connection");
+                            }
+                            else{
+                                int responseCode = response.code();
+                                myCreatedClasses = response.body();
+                                // Toast.makeText(my_created_events.this, Integer.toString(responseCode), Toast.LENGTH_SHORT).show();
+                                myClassesAdap = new classAdapterManage(manageClass.this,myCreatedClasses,"Manage");
+
+//                    myEventsAdap = new myEventsAdapter(my_created_events.this,myEvents);
+                                myEventsList.setAdapter(myClassesAdap);
+                                if(myClassesAdap.getCount() == 0)
+                                {
+                                    LinearLayout.LayoutParams noItemParams = (LinearLayout.LayoutParams) noItemFound.getLayoutParams();
+                                    noItemParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
+                                    noItemFound.setVisibility(View.VISIBLE);
+                                }
+                                Log.i("oomad","To Else");
+                                mFrameLayout.startShimmer();
+                                mFrameLayout.setVisibility(View.GONE);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<myClass>> call, Throwable t) {
+                            CustomeAlertDialog myEvents = new CustomeAlertDialog(manageClass.this,"Error","There is a problem with your internet connection");
+                        }
+                    });
                 }
             }
         });

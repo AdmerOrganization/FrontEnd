@@ -11,6 +11,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.tolearn.AlertDialogs.CustomEditClassAlertDialog;
 import com.example.tolearn.ClassSearch;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.R;
@@ -67,6 +68,18 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
         String dateTime = currentMyClass.getTime().toString();
         String[] dateTimeInfo = dateTime.split("T");
         dateTime = dateTimeInfo[0];
+        editOrJoinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentMyClass.getAvatar() != null){
+                CustomEditClassAlertDialog edit = new CustomEditClassAlertDialog(context,currentMyClass.getTitle().toString(),currentMyClass.getTeacher_name().toString(),currentMyClass.getDescription().toString(),"Password",Integer.toString(currentMyClass.getLimit()),currentMyClass.getCategory().toString(),currentMyClass.getAvatar().toString());
+                }
+                else {
+                    CustomEditClassAlertDialog edit = new  CustomEditClassAlertDialog(context,currentMyClass.getTitle().toString(),currentMyClass.getTeacher_name().toString(),currentMyClass.getDescription().toString(),"Password",Integer.toString(currentMyClass.getLimit()),currentMyClass.getCategory().toString(),"NULL");
+
+                }
+            }
+        });
         title.setText(currentMyClass.getTitle().toString());
         date.setText(dateTime);
         teacher.setText(currentMyClass.getTeacher_name().toString());

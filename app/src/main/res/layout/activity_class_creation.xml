@@ -101,6 +101,7 @@
 
     <Button
         android:onClick="goNextPage"
+        android:id="@+id/NextPageBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue_learning"

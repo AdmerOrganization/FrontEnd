@@ -51,7 +51,7 @@ public class CustomEditClassAlertDialog extends Activity {
     public CustomEditClassAlertDialog(Context context ,String userToken,String class_token, String title , String teacher , String desc , String password , String limit ,String category, String avatar)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setCancelable(false);
+        builder.setCancelable(true);
 
         View alertView = LayoutInflater.from(context).inflate(R.layout.custome_alert_dialog_edit_class,null);
         builder.setView(alertView);

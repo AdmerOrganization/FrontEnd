@@ -70,47 +70,54 @@ public class classAdapterSearch extends BaseAdapter implements Filterable {
         date.setText(dateTime);
         teacher.setText(currentMyClass.getTeacher_name().toString());
         //desc.setText(currentMyClass.getDescription().toString());
-//        String category = currentMyClass.getCategory().toString();
-//
-//        if(!currentMyClass.getAvatar().toString().equals(""))
-//        {
-//            Picasso.get().load(currentMyClass.getAvatar()).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(imageViewCategory);
-//        }
-//        else{
-//            switch (category)
-//            {
-//                case "Math":
-//                    imageViewCategory.setImageResource(R.drawable.math);
-//                    break;
-//                case "Chemistry":
-//                    imageViewCategory.setImageResource(R.drawable.chemistry);
-//                    break;
-//                case "Physics":
-//                    imageViewCategory.setImageResource(R.drawable.atom);
-//                    break;
-//                case "Engineering":
-//                    imageViewCategory.setImageResource(R.drawable.engineering);
-//                    break;
-//                case "Paint":
-//                    imageViewCategory.setImageResource(R.drawable.paint);
-//                    break;
-//                case "Music":
-//                    imageViewCategory.setImageResource(R.drawable.musical);
-//                    break;
-//                case "Cinema":
-//                    imageViewCategory.setImageResource(R.drawable.clapperboard);
-//                    break;
-//                case "athletic":
-//                    imageViewCategory.setImageResource(R.drawable.athletics);
-//                    break;
-//                case "computer science":
-//                    imageViewCategory.setImageResource(R.drawable.responsive);
-//                    break;
-//                case "language":
-//                    imageViewCategory.setImageResource(R.drawable.languages);
-//                    break;
-//            }
-//        }
+
+        //Picasso.get().load(currentMyClass.getAvatar()).placeholder(R.drawable.learninglogo2).error(R.drawable.learninglogo2).into(imageViewCategory);
+
+        try{
+            String category = currentMyClass.getCategory().toString();
+
+            switch (category)
+            {
+                case "Math":
+                    imageViewCategory.setImageResource(R.drawable.math);
+                    break;
+                case "Chemistry":
+                    imageViewCategory.setImageResource(R.drawable.chemistry);
+                    break;
+                case "Physics":
+                    imageViewCategory.setImageResource(R.drawable.atom);
+                    break;
+                case "Engineering":
+                    imageViewCategory.setImageResource(R.drawable.engineering);
+                    break;
+                case "Paint":
+                    imageViewCategory.setImageResource(R.drawable.paint);
+                    break;
+                case "Music":
+                    imageViewCategory.setImageResource(R.drawable.musical);
+                    break;
+                case "Cinema":
+                    imageViewCategory.setImageResource(R.drawable.clapperboard);
+                    break;
+                case "athletic":
+                    imageViewCategory.setImageResource(R.drawable.athletics);
+                    break;
+                case "computer science":
+                    imageViewCategory.setImageResource(R.drawable.responsive);
+                    break;
+                case "language":
+                    imageViewCategory.setImageResource(R.drawable.languages);
+                    break;
+                default:
+                    Picasso.get().load(currentMyClass.getAvatar()).placeholder(R.drawable.learninglogo2).error(R.drawable.learninglogo2).into(imageViewCategory);
+                    break;
+            }
+        }
+        catch (Exception exception)
+        {
+            imageViewCategory.setImageResource(R.drawable.learninglogo2);
+        }
+
 
         editOrJoinBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -44,7 +44,7 @@ public class CustomEditClassAlertDialog extends Activity {
         alertDialog = builder.create();
         alertDialog.show();
 
-        categorySpinner = alertView.findViewById(R.id.category_spinner);
+        categorySpinner = alertView.findViewById(R.id.categorySpinner);
         titleET = alertView.findViewById(R.id.titleET);
         teacherET = alertView.findViewById(R.id.teacherET);
         descET = alertView.findViewById(R.id.descET);

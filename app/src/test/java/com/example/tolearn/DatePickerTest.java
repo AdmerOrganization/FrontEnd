@@ -105,4 +105,31 @@ public class DatePickerTest {
         boolean res = checkDate(year,month,day);
         assertTrue(res);
     }
+
+    @Test
+    public void isDateCorrect8() {
+        int year = 2022;
+        int month = 11;
+        int day = 14;
+        boolean res = checkDate(year,month,day);
+        assertTrue(res);
+    }
+
+    @Test
+    public void isDateCorrect9() {
+        int year = 2022;
+        int month = 4;
+        int day = 14;
+        boolean res = checkDate(year,month,day);
+        assertFalse(res);
+    }
+
+    @Test
+    public void isDateCorrect10() {
+        int year = 2022;
+        int month = 4;
+        int day = 19;
+        boolean res = checkDate(year,month,day);
+        assertTrue(res);
+    }
 }

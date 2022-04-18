@@ -100,4 +100,34 @@ public class classRegisterTest {
         boolean res = registerValidations(title,teacher,desc);
         assertFalse(res);
     }
+
+    @Test
+    public void classRegister7() {
+        classCreationValidations controller = new classCreationValidations();
+        String title = "";
+        String teacher ="";
+        String desc = "";
+        boolean res = registerValidations(title,teacher,desc);
+        assertFalse(res);
+    }
+
+    @Test
+    public void classRegister8() {
+        classCreationValidations controller = new classCreationValidations();
+        String title = "dssdf";
+        String teacher ="";
+        String desc = "sdfsdf";
+        boolean res = registerValidations(title,teacher,desc);
+        assertFalse(res);
+    }
+
+    @Test
+    public void classRegister9() {
+        classCreationValidations controller = new classCreationValidations();
+        String title = "";
+        String teacher ="123";
+        String desc = "1232";
+        boolean res = registerValidations(title,teacher,desc);
+        assertFalse(res);
+    }
 }

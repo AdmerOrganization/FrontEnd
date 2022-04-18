@@ -7,6 +7,7 @@ import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -59,7 +60,7 @@ public class CustomEditClassAlertDialog extends Activity {
         alertDialog = builder.create();
         alertDialog.show();
 
-        categorySpinner = alertView.findViewById(R.id.category_spinner);
+        categorySpinner = alertView.findViewById(R.id.categorySpinner);
         titleET = alertView.findViewById(R.id.titleET);
         teacherET = alertView.findViewById(R.id.teacherET);
         descET = alertView.findViewById(R.id.descET);
@@ -74,6 +75,7 @@ public class CustomEditClassAlertDialog extends Activity {
         teacherET.setText(teacher);
         descET.setText(desc);
         passwordET.setText(password);
+
 
         switch (limit){
             case "limit":
@@ -165,7 +167,52 @@ public class CustomEditClassAlertDialog extends Activity {
             Picasso.get().load(avatar).placeholder(R.drawable.learninglogo2).error(R.drawable.learninglogo2).into(classImage);
         }
 
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(categorySpinner.getSelectedItem().toString().equals("Math"))
+                {
+                    classImage.setImageResource(R.drawable.math);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Chemistry"))
+                {
+                    classImage.setImageResource(R.drawable.chemistry);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Physics"))
+                {
+                    classImage.setImageResource(R.drawable.atom);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Engineering"))
+                {
+                    classImage.setImageResource(R.drawable.engineering);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Paint"))
+                {
+                    classImage.setImageResource(R.drawable.paint);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Music"))
+                {
+                    classImage.setImageResource(R.drawable.musical);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Cinema"))
+                {
+                    classImage.setImageResource(R.drawable.clapperboard);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("computer science"))
+                {
+                    classImage.setImageResource(R.drawable.responsive);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("language"))
+                {
+                    classImage.setImageResource(R.drawable.languages);
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         //edit clicked ...
         btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -204,6 +251,10 @@ public class CustomEditClassAlertDialog extends Activity {
                 {
                     Toast.makeText(context, "Limit can not be unselected", Toast.LENGTH_SHORT).show();
                 }
+                else if(categorySpinner.getSelectedItem().toString().equals("category"))
+                {
+                    Toast.makeText(context, "Category can not be unselected", Toast.LENGTH_SHORT).show();
+                }
                 else {
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("classroom_token",class_token);
@@ -220,17 +271,19 @@ public class CustomEditClassAlertDialog extends Activity {
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                             if(!response.isSuccessful())
                             {
+                                alertDialog.dismiss();
                                // CustomeAlertDialog myEvents = new CustomeAlertDialog(CustomEditClassAlertDialog.this,"Response Error","There is a problem with your internet connection");
                             }
                             else{
                                 int responseCode = response.code();
                                 JsonObject myCreatedClasses = response.body();
-
+                                alertDialog.dismiss();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<JsonObject> call, Throwable t) {
+                            alertDialog.dismiss();
                           //  CustomeAlertDialog myEvents = new CustomeAlertDialog(CustomEditClassAlertDialog.this,"Error","There is a problem with your internet connection");
                         }
                     });

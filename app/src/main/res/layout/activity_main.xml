@@ -46,12 +46,13 @@
             android:layout_width="match_parent"
             android:layout_height="300dp">
 
-            <ListView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/createdClassList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="horizontal"
                 android:divider="@android:color/transparent"
-                android:dividerHeight="5dp"></ListView>
+                android:dividerHeight="5dp"></androidx.recyclerview.widget.RecyclerView>
         </ScrollView>
         <FrameLayout
             android:visibility="invisible"

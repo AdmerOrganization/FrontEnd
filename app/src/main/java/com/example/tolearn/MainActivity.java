@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tolearn.Adapters.CreatedClassMainAdapter;
+import com.example.tolearn.Adapters.CreatedClassesAdapterMainAct;
 import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.Entity.User;
@@ -55,9 +57,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-    ListView createdClassesList;
+    RecyclerView createdClassesList;
     List<myClass> myCreatedClasses;
-    CreatedClassMainAdapter createdClassAdapter;
+    CreatedClassesAdapterMainAct createdClassAdapter;
+    RecyclerView.LayoutManager RecyclerViewLayoutManager;
+    LinearLayoutManager HorizontalLayout;
     UserAPI userAPI;
     String userToken;
     ClassAPI classAPI;
@@ -119,6 +123,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void init()
     {
         createdClassesList = findViewById(R.id.createdClassList);
+//        RecyclerViewLayoutManager
+//                = new LinearLayoutManager(
+//                getApplicationContext());
+//        createdClassesList.setLayoutManager(RecyclerViewLayoutManager);
+
+        HorizontalLayout
+                = new LinearLayoutManager(
+                MainActivity.this,
+                LinearLayoutManager.HORIZONTAL,
+                false);
+        createdClassesList.setLayoutManager(HorizontalLayout);
+
         SharedPreferences sharedPreferences = getSharedPreferences("userInformation",MODE_PRIVATE);
         userToken = sharedPreferences.getString("token","");
 
@@ -145,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 else{
                     int responseCode = response.code();
                     myCreatedClasses = response.body();
-                    createdClassAdapter = new CreatedClassMainAdapter(MainActivity.this,myCreatedClasses,userToken);
+                    createdClassAdapter = new CreatedClassesAdapterMainAct(MainActivity.this,myCreatedClasses,userToken);
 
                     createdClassesList.setAdapter(createdClassAdapter);
 

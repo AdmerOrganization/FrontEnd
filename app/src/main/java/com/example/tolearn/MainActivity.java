@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
@@ -22,11 +23,16 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tolearn.Adapters.CreatedClassMainAdapter;
+import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.Entity.User;
+import com.example.tolearn.Entity.myClass;
+import com.example.tolearn.webService.ClassAPI;
 import com.example.tolearn.webService.UserAPI;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
@@ -34,6 +40,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -48,7 +55,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    ListView createdClassesList;
+    List<myClass> myCreatedClasses;
+    CreatedClassMainAdapter createdClassAdapter;
     UserAPI userAPI;
+    String userToken;
+    ClassAPI classAPI;
     TextView userNameNavigationHeader;
     private static final int PICK_PHOTO_FOR_AVATAR = 0;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -100,7 +112,51 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userAPI =LoginRetrofit.create(UserAPI.class);
         initRetro();
         verifyStoragePermissions(this);
+        init();
 
+    }
+
+    public void init()
+    {
+        createdClassesList = findViewById(R.id.createdClassList);
+        SharedPreferences sharedPreferences = getSharedPreferences("userInformation",MODE_PRIVATE);
+        userToken = sharedPreferences.getString("token","");
+
+        Retrofit myClasses = new Retrofit.Builder()
+                .baseUrl(ClassAPI.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        classAPI = myClasses.create(ClassAPI.class);
+
+        fillCreatedClassesList();
+    }
+
+    public void fillCreatedClassesList()
+    {
+        Call<List<myClass>> callBack = classAPI.GetCreatedClasses("token "+userToken);
+        callBack.enqueue(new Callback<List<myClass>>() {
+            @Override
+            public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
+                if(!response.isSuccessful())
+                {
+                    CustomeAlertDialog myClass = new CustomeAlertDialog(MainActivity.this,"Response Error","There is a problem with your internet connection");
+
+                }
+                else{
+                    int responseCode = response.code();
+                    myCreatedClasses = response.body();
+                    createdClassAdapter = new CreatedClassMainAdapter(MainActivity.this,myCreatedClasses,userToken);
+
+                    createdClassesList.setAdapter(createdClassAdapter);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<myClass>> call, Throwable t) {
+
+            }
+        });
     }
 
     private void initRetro() {

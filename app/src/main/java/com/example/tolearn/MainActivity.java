@@ -36,6 +36,7 @@ import com.example.tolearn.Entity.User;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.webService.ClassAPI;
 import com.example.tolearn.webService.UserAPI;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     UserAPI userAPI;
     String userToken;
     ClassAPI classAPI;
+    private ShimmerFrameLayout mFrameLayout;
     TextView userNameNavigationHeader;
     private static final int PICK_PHOTO_FOR_AVATAR = 0;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -120,8 +122,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFrameLayout.startShimmer();
+    }
+
     public void init()
     {
+        mFrameLayout = findViewById(R.id.shimmerLayout);
+
         createdClassesList = findViewById(R.id.createdClassList);
 //        RecyclerViewLayoutManager
 //                = new LinearLayoutManager(
@@ -164,7 +174,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     createdClassAdapter = new CreatedClassesAdapterMainAct(MainActivity.this,myCreatedClasses,userToken);
 
                     createdClassesList.setAdapter(createdClassAdapter);
-
+                    mFrameLayout.startShimmer();
+                    mFrameLayout.setVisibility(View.GONE);
                 }
             }
 
@@ -240,6 +251,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, "error is :"+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        mFrameLayout.stopShimmer();
+        super.onPause();
     }
 
     @Override

@@ -13,20 +13,33 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tolearn.AlertDialogs.CustomEditClassAlertDialog;
+import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
+import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.ClassSearch;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.R;
 import com.example.tolearn.manageClass;
+import com.example.tolearn.webService.ClassAPI;
+import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class classAdapterManage extends BaseAdapter implements Filterable {
 
     private Context context;
     private List<myClass> list;
     private List<myClass> temp;
+    private ClassAPI classAPI;
     String userToken;
     String type;
 
@@ -65,12 +78,23 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
         TextView date = view.findViewById(R.id.dateTimeEventView);
         TextView teacher = view.findViewById(R.id.TeacherTextView);
         TextView desc = view.findViewById(R.id.descEventView);
+        Button deleteBtn = view.findViewById(R.id.deleteBtn);
         Button editOrJoinBtn = view.findViewById(R.id.eventEditOrJoinBtn);
         editOrJoinBtn.setText("Edit");
         ImageView imageViewCategory = view.findViewById(R.id.categoryImageItemEventView);
         String dateTime = currentMyClass.getTime().toString();
         String[] dateTimeInfo = dateTime.split("T");
         dateTime = dateTimeInfo[0];
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+        Retrofit taskStatus = new Retrofit.Builder()
+                .baseUrl(ClassAPI.BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        classAPI = taskStatus.create(ClassAPI.class);
         editOrJoinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +106,53 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
                     CustomEditClassAlertDialog edit = new  CustomEditClassAlertDialog(context,userToken,currentMyClass.getClassroom_token(),currentMyClass.getTitle().toString(),currentMyClass.getTeacher_name().toString(),currentMyClass.getDescription().toString(),"Password",Integer.toString(currentMyClass.getLimit()),currentMyClass.getCategory().toString(),"NULL");
 
                 }
+            }
+        });
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomeConfirmAlertDialog confirmCancel = new CustomeConfirmAlertDialog(context,"Confirmation","Do you want to delete this class("+currentMyClass.getTitle().toString()+")?");
+                confirmCancel.Yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        confirmCancel.alertDialog.dismiss();
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("classroom_token", currentMyClass.getClassroom_token());
+                        Call<JsonObject> request = classAPI.deleteClass("token "+userToken,jsonObject);
+                        request.enqueue(new Callback<JsonObject>() {
+                            @Override
+                            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                if(!response.isSuccessful())
+                                {
+                                    CustomeAlertDialog errorConnecting = new CustomeAlertDialog(context,"error","there is a problem with your internet connection");
+
+                                }
+                                else{
+                                    String code = Integer.toString(response.code());
+                                    //Toast.makeText(context, code, Toast.LENGTH_SHORT).show();
+                                    remove(i);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<JsonObject> call, Throwable t) {
+                                CustomeAlertDialog errorConnecting = new CustomeAlertDialog(context,"error","there is a problem with your internet connection");
+                            }
+                        });
+
+//                        //offline part....
+//                        tasksDB tasksdb = new tasksDB(context);
+//                        tasksdb.deleteTask(currentTask.getTaskToken());
+
+                    }
+                });
+
+                confirmCancel.No.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        confirmCancel.alertDialog.dismiss();
+                    }
+                });
             }
         });
         title.setText(currentMyClass.getTitle().toString());
@@ -155,6 +226,10 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
                 notifyDataSetChanged();
             }
         };
+    }
+    public void remove(int position){
+        list.remove(list.get(position));
+        this.notifyDataSetChanged();
     }
 
 

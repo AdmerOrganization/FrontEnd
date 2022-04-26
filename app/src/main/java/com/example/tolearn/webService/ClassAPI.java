@@ -10,6 +10,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -48,5 +49,8 @@ public interface ClassAPI {
 
     @PUT("classrooms/edit/")
     Call<JsonObject> EditClass(@Header("Authorization") String user_token,@Body JsonObject classInfo);
+
+    @HTTP(method = "DELETE", path = "classrooms/delete/", hasBody = true)
+    Call<JsonObject> deleteClass(@Header("Authorization") String user_token, @Body JsonObject jsonObject);
 
 }

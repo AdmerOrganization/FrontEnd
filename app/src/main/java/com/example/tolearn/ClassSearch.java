@@ -21,6 +21,7 @@ import com.example.tolearn.Adapters.classAdapterManage;
 import com.example.tolearn.Adapters.classAdapterSearch;
 import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.AlertDialogs.CustomeFilterSearcch;
+import com.example.tolearn.AlertDialogs.SearchByTokenDialog;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.webService.ClassAPI;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -206,6 +207,17 @@ public class ClassSearch extends AppCompatActivity {
                         view.setClickable(true);
                     }
                 });
+            }
+        });
+    }
+
+    public void SearchByToken(View view) {
+        SearchByTokenDialog searchByTokenDialog = new SearchByTokenDialog(this, myCreatedClasses);
+        searchByTokenDialog.searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //todo
+                searchByTokenDialog.alertDialog.dismiss();
             }
         });
     }

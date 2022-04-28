@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ToLearn">
         <activity
+            android:name=".Homework_detail"
+            android:exported="false" />
+        <activity
             android:name=".ClassProfileActivity"
             android:exported="false"
             android:label="@string/title_activity_class_profile"

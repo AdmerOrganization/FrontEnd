@@ -46,7 +46,7 @@
             android:background="@drawable/border_shadow_white_background"
             android:elevation="10dp"
             android:minLines="2"
-            android:maxLines="4"
+            android:maxLines="5"
             android:id="@+id/descET"
             android:hint="Desc"
             android:gravity="center"

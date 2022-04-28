@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.tolearn.AlertDialogs.HomeworkCreationDialog;
 import com.example.tolearn.databinding.ActivityClassProfileBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -111,5 +112,11 @@ public class ClassProfileActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_class_profile);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void addHomework(View view) {
+        // checking if the user is the teacher of the class
+        // if the user is teacher then ....
+        HomeworkCreationDialog homeworkCreationDialog = new HomeworkCreationDialog(this);
     }
 }

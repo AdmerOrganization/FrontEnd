@@ -37,21 +37,21 @@ import retrofit2.Response;
 
 import java.util.List;
 
-public class HomeworkCreationDialog {
+public class HomeworkEditDialog {
     public AlertDialog alertDialog;
     public EditText titleET;
     public EditText descET;
     public DatePicker datePicker;
     public Button fileSelection;
-    public Button homeworkCreation;
+    public Button homeworkEditBtn;
     public homework_creation_validations Controller;
 
-    public HomeworkCreationDialog(Context context)
+    public HomeworkEditDialog(Context context)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(true);
 
-        View alertView = LayoutInflater.from(context).inflate(R.layout.homework_creation_dialog,null);
+        View alertView = LayoutInflater.from(context).inflate(R.layout.edit_homework_dialog,null);
         builder.setView(alertView);
 
         alertDialog = builder.create();
@@ -62,7 +62,7 @@ public class HomeworkCreationDialog {
         descET = alertView.findViewById(R.id.descET);
         datePicker = alertView.findViewById(R.id.datePicker);
         fileSelection = alertView.findViewById(R.id.homeworkPdfSelection);
-        homeworkCreation = alertView.findViewById(R.id.HomeworkCreate);
+        homeworkEditBtn = alertView.findViewById(R.id.HomeworkCreate);
 
         fileSelection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +71,7 @@ public class HomeworkCreationDialog {
             }
         });
 
-        homeworkCreation.setOnClickListener(new View.OnClickListener() {
+        homeworkEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int year = datePicker.getYear();

@@ -120,6 +120,12 @@ public class manageClass extends AppCompatActivity {
                 if(!response.isSuccessful())
                 {
                     CustomeAlertDialog myEvents = new CustomeAlertDialog(manageClass.this,"Response Error","There is a problem with your internet connection");
+                    myEvents.btnOk.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                        }
+                    });
                 }
                 else{
                     int responseCode = response.code();
@@ -144,6 +150,13 @@ public class manageClass extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<myClass>> call, Throwable t) {
                 CustomeAlertDialog myEvents = new CustomeAlertDialog(manageClass.this,"Error","There is a problem with your internet connection");
+                myEvents.btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                });
+
             }
         });
     }

@@ -20,5 +20,7 @@
     <color name="shimmer_placeholder">#dddddd</color>
     <color name="colorPrimaryDark">#292b3d</color>
     <color name="recycler_background">#FFA7DD</color>
+    <color name="darkBlueHomework">#175676</color>
+    <color name="darkBlueText">#0A2533</color>
 
 </resources>

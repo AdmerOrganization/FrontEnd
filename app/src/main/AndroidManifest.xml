@@ -16,6 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ToLearn">
         <activity
+            android:name=".ClassProfileActivity"
+            android:exported="false"
+            android:label="@string/title_activity_class_profile"
+            android:theme="@style/Theme.ToLearn.NoActionBar" />
+        <activity
             android:name=".ClassSearch"
             android:exported="false" />
         <activity

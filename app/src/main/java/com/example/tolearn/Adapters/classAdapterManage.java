@@ -1,6 +1,9 @@
 package com.example.tolearn.Adapters;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +18,11 @@ import android.widget.TextView;
 import com.example.tolearn.AlertDialogs.CustomEditClassAlertDialog;
 import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
+import com.example.tolearn.ClassProfileActivity;
 import com.example.tolearn.ClassSearch;
 import com.example.tolearn.Entity.myClass;
+import com.example.tolearn.Login;
+import com.example.tolearn.MainActivity;
 import com.example.tolearn.R;
 import com.example.tolearn.manageClass;
 import com.example.tolearn.webService.ClassAPI;
@@ -88,7 +94,16 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-
+        imageViewCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent event = new Intent(context, ClassProfileActivity.class);
+                event.putExtra("class_name",currentMyClass.getTitle());
+                event.putExtra("class_teacher",currentMyClass.getTeacher_name());
+                event.putExtra("class_category",currentMyClass.getCategory());
+                context.startActivity(event);
+            }
+        });
         Retrofit taskStatus = new Retrofit.Builder()
                 .baseUrl(ClassAPI.BASE_URL)
                 .client(client)

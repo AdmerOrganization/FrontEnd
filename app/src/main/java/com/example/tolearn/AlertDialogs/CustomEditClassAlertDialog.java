@@ -7,6 +7,8 @@ import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,9 +23,11 @@ import com.example.tolearn.Adapters.classAdapterManage;
 import com.example.tolearn.Controllers.classCreationValidations;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.R;
+import com.example.tolearn.class_creation_page_2;
 import com.example.tolearn.manageClass;
 import com.example.tolearn.webService.ClassAPI;
 import com.example.tolearn.webService.UserAPI;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
@@ -219,6 +223,12 @@ public class CustomEditClassAlertDialog extends Activity {
             @Override
             public void onClick(View view) {
 
+                view.setClickable(false);
+
+
+                Animation animation = AnimationUtils.loadAnimation(CustomEditClassAlertDialog.this,R.anim.blink_anim);
+                view.startAnimation(animation);
+
                 HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
                 interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
                 OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).addInterceptor(interceptor).build();
@@ -262,28 +272,30 @@ public class CustomEditClassAlertDialog extends Activity {
                     jsonObject.addProperty("teacher_name",teacher);
                     jsonObject.addProperty("description",desc);
                     jsonObject.addProperty("limit",limit);
-                    jsonObject.addProperty("password",passwordET.getText().toString());
                     jsonObject.addProperty("category",category);
-                    jsonObject.addProperty("users","['Ford', 'BMW', 'Fiat']");
                     Call<JsonObject> callBack = classAPI.EditClass("token "+ userToken,jsonObject);
                     callBack.enqueue(new Callback<JsonObject>() {
                         @Override
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                             if(!response.isSuccessful())
                             {
-                                alertDialog.dismiss();
+                                view.setClickable(true);
+                                view.clearAnimation();
                                // CustomeAlertDialog myEvents = new CustomeAlertDialog(CustomEditClassAlertDialog.this,"Response Error","There is a problem with your internet connection");
                             }
                             else{
                                 int responseCode = response.code();
                                 JsonObject myCreatedClasses = response.body();
+                                view.clearAnimation();
                                 alertDialog.dismiss();
+                                Toast.makeText(CustomEditClassAlertDialog.this, "Class edited successfully.", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<JsonObject> call, Throwable t) {
-                            alertDialog.dismiss();
+                            view.setClickable(true);
+                            view.clearAnimation();
                           //  CustomeAlertDialog myEvents = new CustomeAlertDialog(CustomEditClassAlertDialog.this,"Error","There is a problem with your internet connection");
                         }
                     });

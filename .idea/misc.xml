@@ -100,7 +100,10 @@
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/app_bar_class_profile.xml" value="0.34427083333333336" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/content_class_profile.xml" value="0.34193840579710144" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/edit_homework_dialog.xml" value="0.22" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/homework_creation_dialog.xml" value="0.34193840579710144" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/homework_creation_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/homework_list_view.xml" value="0.32382246376811596" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/joined_classes_main_view.xml" value="0.32382246376811596" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/my_class_view.xml" value="0.32382246376811596" />
       </map>
     </option>
   </component>

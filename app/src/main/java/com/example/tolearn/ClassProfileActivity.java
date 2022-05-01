@@ -41,8 +41,7 @@ public class ClassProfileActivity extends AppCompatActivity {
         binding.appBarClassProfile.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                HomeworkCreationDialog homeworkCreationDialog = new HomeworkCreationDialog(ClassProfileActivity.this);
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -114,9 +113,4 @@ public class ClassProfileActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void addHomework(View view) {
-        // checking if the user is the teacher of the class
-        // if the user is teacher then ....
-        HomeworkCreationDialog homeworkCreationDialog = new HomeworkCreationDialog(this);
-    }
 }

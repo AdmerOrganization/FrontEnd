@@ -1,5 +1,6 @@
 package com.example.tolearn.AlertDialogs;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,7 @@ import retrofit2.Response;
 
 import java.util.List;
 
-public class HomeworkCreationDialog {
+public class HomeworkCreationDialog extends Activity {
     public AlertDialog alertDialog;
     public EditText titleET;
     public EditText descET;

@@ -20,66 +20,15 @@
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Joined Classes"
-            android:gravity="center"
-            android:background="@drawable/border_shadow_white_background"
-            android:textSize="22sp"
-            android:textColor="@color/blue_learning"
-            ></TextView>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="280dp"></ScrollView>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Created Classes"
-            android:gravity="center"
-            android:background="@drawable/border_shadow_white_background"
-            android:elevation="15dp"
-            android:textSize="22sp"
-            android:textColor="@color/blue_learning"
-            android:layout_marginBottom="10dp"
-            ></TextView>
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmerLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:ignore="MissingConstraints">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <!--add  several shimmer placeholder layout -->
-
-                    <include layout="@layout/shimmer_placeholder_layout"></include>
-                    <include layout="@layout/shimmer_placeholder_layout"></include>
-                    <include layout="@layout/shimmer_placeholder_layout"></include>
-                    <include layout="@layout/shimmer_placeholder_layout"></include>
-                    <include layout="@layout/shimmer_placeholder_layout"></include>
-                    <include layout="@layout/shimmer_placeholder_layout"></include>
-                    <include layout="@layout/shimmer_placeholder_layout"></include>
-
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/createdClassList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="5dp"></androidx.recyclerview.widget.RecyclerView>
 
         <FrameLayout
-            android:visibility="invisible"
+            android:visibility="visible"
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" >
+
+        </FrameLayout>
 
     </LinearLayout>
     <com.google.android.material.navigation.NavigationView

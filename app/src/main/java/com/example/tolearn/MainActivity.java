@@ -23,8 +23,10 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,14 +60,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-    RecyclerView createdClassesList;
-    List<myClass> myCreatedClasses;
-    CreatedClassesAdapterMainAct createdClassAdapter;
-    RecyclerView.LayoutManager RecyclerViewLayoutManager;
-    LinearLayoutManager HorizontalLayout;
+//    RecyclerView createdClassesList;
+//    List<myClass> myCreatedClasses;
+//    CreatedClassesAdapterMainAct createdClassAdapter;
+//    RecyclerView.LayoutManager RecyclerViewLayoutManager;
+//    LinearLayoutManager HorizontalLayout;
     UserAPI userAPI;
     String userToken;
     ClassAPI classAPI;
+//    TextView joinedClassesTV;
+//    TextView createdClassesTV;
+//    ScrollView joinedClassesScroll;
     private ShimmerFrameLayout mFrameLayout;
     TextView userNameNavigationHeader;
     private static final int PICK_PHOTO_FOR_AVATAR = 0;
@@ -94,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new MessageFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_message);
+                    new homepageFragment()).commit();
+            navigationView.setCheckedItem(R.id.homepage);
         }
 
         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
@@ -118,73 +123,75 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userAPI =LoginRetrofit.create(UserAPI.class);
         initRetro();
         verifyStoragePermissions(this);
-        init();
+        //init();
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mFrameLayout.startShimmer();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        mFrameLayout.startShimmer();
+//    }
 
-    public void init()
-    {
-        mFrameLayout = findViewById(R.id.shimmerLayout);
-
-        createdClassesList = findViewById(R.id.createdClassList);
+//    public void init()
+//    {
+//        mFrameLayout = findViewById(R.id.shimmerLayout);
+//        joinedClassesTV = findViewById(R.id.joinedClassesTV);
+//        createdClassesTV = findViewById(R.id.createdClassesTV);
+//        joinedClassesScroll = findViewById(R.id.joinedClassesScroll);
+//        createdClassesList = findViewById(R.id.createdClassList);
 //        RecyclerViewLayoutManager
 //                = new LinearLayoutManager(
 //                getApplicationContext());
 //        createdClassesList.setLayoutManager(RecyclerViewLayoutManager);
+//
+//        HorizontalLayout
+//                = new LinearLayoutManager(
+//                MainActivity.this,
+//                LinearLayoutManager.HORIZONTAL,
+//                false);
+//        createdClassesList.setLayoutManager(HorizontalLayout);
+//
+//        SharedPreferences sharedPreferences = getSharedPreferences("userInformation",MODE_PRIVATE);
+//        userToken = sharedPreferences.getString("token","");
+//
+//        Retrofit myClasses = new Retrofit.Builder()
+//                .baseUrl(ClassAPI.BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        classAPI = myClasses.create(ClassAPI.class);
+//
+//        fillCreatedClassesList();
+//    }
 
-        HorizontalLayout
-                = new LinearLayoutManager(
-                MainActivity.this,
-                LinearLayoutManager.HORIZONTAL,
-                false);
-        createdClassesList.setLayoutManager(HorizontalLayout);
-
-        SharedPreferences sharedPreferences = getSharedPreferences("userInformation",MODE_PRIVATE);
-        userToken = sharedPreferences.getString("token","");
-
-        Retrofit myClasses = new Retrofit.Builder()
-                .baseUrl(ClassAPI.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        classAPI = myClasses.create(ClassAPI.class);
-
-        fillCreatedClassesList();
-    }
-
-    public void fillCreatedClassesList()
-    {
-        Call<List<myClass>> callBack = classAPI.GetCreatedClasses("token "+userToken);
-        callBack.enqueue(new Callback<List<myClass>>() {
-            @Override
-            public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
-                if(!response.isSuccessful())
-                {
-                    CustomeAlertDialog myClass = new CustomeAlertDialog(MainActivity.this,"Response Error","There is a problem with your internet connection");
-
-                }
-                else{
-                    int responseCode = response.code();
-                    myCreatedClasses = response.body();
-                    createdClassAdapter = new CreatedClassesAdapterMainAct(MainActivity.this,myCreatedClasses,userToken);
-
-                    createdClassesList.setAdapter(createdClassAdapter);
-                    mFrameLayout.startShimmer();
-                    mFrameLayout.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<myClass>> call, Throwable t) {
-
-            }
-        });
-    }
+//    public void fillCreatedClassesList()
+//    {
+//        Call<List<myClass>> callBack = classAPI.GetCreatedClasses("token "+userToken);
+//        callBack.enqueue(new Callback<List<myClass>>() {
+//            @Override
+//            public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
+//                if(!response.isSuccessful())
+//                {
+//                    CustomeAlertDialog myClass = new CustomeAlertDialog(MainActivity.this,"Response Error","There is a problem with your internet connection");
+//
+//                }
+//                else{
+//                    int responseCode = response.code();
+//                    myCreatedClasses = response.body();
+//                    createdClassAdapter = new CreatedClassesAdapterMainAct(MainActivity.this,myCreatedClasses,userToken);
+//
+//                    createdClassesList.setAdapter(createdClassAdapter);
+//                    mFrameLayout.startShimmer();
+//                    mFrameLayout.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<myClass>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
     private void initRetro() {
         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
@@ -262,14 +269,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_message:
+            case R.id.homepage:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MessageFragment()).commit();
+                        new homepageFragment()).commit();
                 break;
-            case R.id.nav_chat:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ChatFragment()).commit();
-                break;
+
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProfileFragment()).commit();

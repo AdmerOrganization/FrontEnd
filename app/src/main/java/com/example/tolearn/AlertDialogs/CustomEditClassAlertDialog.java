@@ -68,17 +68,16 @@ public class CustomEditClassAlertDialog extends Activity {
         titleET = alertView.findViewById(R.id.titleET);
         teacherET = alertView.findViewById(R.id.teacherET);
         descET = alertView.findViewById(R.id.descET);
-        passwordET = alertView.findViewById(R.id.passwordET);
         limitSpinner = alertView.findViewById(R.id.limitSpinner);
         classImage = alertView.findViewById(R.id.classImage);
         btnEdit = alertView.findViewById(R.id.editBtn);
+        btnEdit.setClickable(true);
         Controller = new classCreationValidations();
 
         //load form the data.....
         titleET.setText(title);
         teacherET.setText(teacher);
         descET.setText(desc);
-        passwordET.setText(password);
 
 
         switch (limit){
@@ -225,8 +224,7 @@ public class CustomEditClassAlertDialog extends Activity {
 
                 view.setClickable(false);
 
-
-                Animation animation = AnimationUtils.loadAnimation(CustomEditClassAlertDialog.this,R.anim.blink_anim);
+                Animation animation = AnimationUtils.loadAnimation(context,R.anim.blink_anim);
                 view.startAnimation(animation);
 
                 HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -241,38 +239,44 @@ public class CustomEditClassAlertDialog extends Activity {
                         .build();
                 classAPI =SignUpRefrofit.create(ClassAPI.class);
 
-                if(!Controller.ClassPassword(passwordET.getText().toString()))
-                {
-                    Toast.makeText(context, "Password has to be at least 8 characters with at least one uppercase and one number", Toast.LENGTH_SHORT).show();
-                }
-                else if(!Controller.classTeacher(teacherET.getText().toString()))
+                if(!Controller.classTeacher(teacherET.getText().toString()))
                 {
                     Toast.makeText(context, "Teacher can not be empty", Toast.LENGTH_SHORT).show();
+                    view.setClickable(true);
+                    view.clearAnimation();
                 }
                 else if(!Controller.classTitle(titleET.getText().toString()))
                 {
                     Toast.makeText(context, "Title can not be empty", Toast.LENGTH_SHORT).show();
+                    view.setClickable(true);
+                    view.clearAnimation();
                 }
                 else if(!Controller.ClassDescriotion(descET.getText().toString()))
                 {
                     Toast.makeText(context, "Description can not be empty", Toast.LENGTH_SHORT).show();
+                    view.setClickable(true);
+                    view.clearAnimation();
                 }
                 else if(limitSpinner.getSelectedItem().toString().equals("limit"))
                 {
                     Toast.makeText(context, "Limit can not be unselected", Toast.LENGTH_SHORT).show();
+                    view.setClickable(true);
+                    view.clearAnimation();
                 }
                 else if(categorySpinner.getSelectedItem().toString().equals("category"))
                 {
                     Toast.makeText(context, "Category can not be unselected", Toast.LENGTH_SHORT).show();
+                    view.setClickable(true);
+                    view.clearAnimation();
                 }
                 else {
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("classroom_token",class_token);
-                    jsonObject.addProperty("title",title);
-                    jsonObject.addProperty("teacher_name",teacher);
-                    jsonObject.addProperty("description",desc);
-                    jsonObject.addProperty("limit",limit);
-                    jsonObject.addProperty("category",category);
+                    jsonObject.addProperty("title",titleET.getText().toString());
+                    jsonObject.addProperty("teacher_name",teacherET.getText().toString());
+                    jsonObject.addProperty("description",descET.getText().toString());
+                    jsonObject.addProperty("limit",limitSpinner.getSelectedItem().toString());
+                    jsonObject.addProperty("category",categorySpinner.getSelectedItem().toString());
                     Call<JsonObject> callBack = classAPI.EditClass("token "+ userToken,jsonObject);
                     callBack.enqueue(new Callback<JsonObject>() {
                         @Override
@@ -287,8 +291,8 @@ public class CustomEditClassAlertDialog extends Activity {
                                 int responseCode = response.code();
                                 JsonObject myCreatedClasses = response.body();
                                 view.clearAnimation();
+                                Toast.makeText(context, "Class edited successfully.", Toast.LENGTH_SHORT).show();
                                 alertDialog.dismiss();
-                                Toast.makeText(CustomEditClassAlertDialog.this, "Class edited successfully.", Toast.LENGTH_SHORT).show();
                             }
                         }
 

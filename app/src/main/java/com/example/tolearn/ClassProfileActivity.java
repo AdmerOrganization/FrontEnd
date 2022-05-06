@@ -1,6 +1,7 @@
 package com.example.tolearn;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,29 +14,69 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.AlertDialogs.HomeworkCreationDialog;
+import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.databinding.ActivityClassProfileBinding;
+import com.example.tolearn.webService.HomeworkAPI;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ClassProfileActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityClassProfileBinding binding;
     Bundle extras;
-    String title,teacher,category;
+    public String title,teacher,category,user_token;
+    int class_id;
+    private List<Homework> homeworkList;
+    HomeworkAPI homeworkAPI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Retrofit Homeworks = new Retrofit.Builder()
+                .baseUrl(HomeworkAPI.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        homeworkAPI = Homeworks.create(HomeworkAPI.class);
+
         extras = getIntent().getExtras();
         if (extras != null) {
             title = extras.getString("class_name");
             teacher = extras.getString("class_teacher");
             category = extras.getString("class_category");
+            class_id = extras.getInt("class_id");
+            user_token = extras.getString("user_token");
         }
         binding = ActivityClassProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("classroom",class_id);
+        Call<List<Homework>> callBack = homeworkAPI.GetAllHomework("token "+user_token,jsonObject);
+        callBack.enqueue(new Callback<List<Homework>>() {
+            @Override
+            public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
+                homeworkList = response.body();
+                Log.i("salam","sas");
+            }
+
+            @Override
+            public void onFailure(Call<List<Homework>> call, Throwable t) {
+                CustomeAlertDialog errorConnecting = new CustomeAlertDialog(ClassProfileActivity.this,"error","there is a problem with your internet connection");
+
+            }
+        });
+
 
         setSupportActionBar(binding.appBarClassProfile.classProfiletoolbar);
         binding.appBarClassProfile.fab.setOnClickListener(new View.OnClickListener() {

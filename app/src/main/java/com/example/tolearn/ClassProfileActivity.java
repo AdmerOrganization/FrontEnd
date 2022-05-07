@@ -1,5 +1,6 @@
 package com.example.tolearn;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -38,7 +39,7 @@ public class ClassProfileActivity extends AppCompatActivity {
     private ActivityClassProfileBinding binding;
     Bundle extras;
     public String title,teacher,category,user_token;
-    int class_id;
+    public int class_id;
     private List<Homework> homeworkList;
     HomeworkAPI homeworkAPI;
     @Override
@@ -82,7 +83,9 @@ public class ClassProfileActivity extends AppCompatActivity {
         binding.appBarClassProfile.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HomeworkCreationDialog homeworkCreationDialog = new HomeworkCreationDialog(ClassProfileActivity.this);
+                Intent createHomework = new Intent(ClassProfileActivity.this,HomeworkCreationDialog.class);
+                createHomework.putExtra("id",class_id);
+                startActivity(createHomework);
             }
         });
         DrawerLayout drawer = binding.drawerLayout;

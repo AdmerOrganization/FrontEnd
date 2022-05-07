@@ -1,6 +1,7 @@
 package com.example.tolearn.webService;
 
 import com.example.tolearn.Entity.Homework;
+import com.example.tolearn.Entity.User;
 import com.example.tolearn.Entity.myClass;
 import com.google.gson.JsonObject;
 
@@ -20,12 +21,19 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 
 public interface HomeworkAPI {
-    public static final String BASE_URL = "http://172.17.3.122:8000/";
+    public static final String BASE_URL = "http://185.235.42.101:8000/";
     @Headers({"Accept: application/json",
             "Content-Type: application/json"
     })
     @POST("homeworks/list/")
     Call<List<Homework>> GetAllHomework(@Header("Authorization") String user_token,@Body JsonObject classInfo);
+    @Multipart
+    @POST("homeworks/create/")
+    Call<Homework> Create(@Header("Authorization") String user_token , @Part("title") RequestBody titleR,
+                           @Part("description")RequestBody descR,
+                           @Part("deadline")RequestBody dateR,
+                           @Part("class") Integer class_id,
+                           @Part MultipartBody.Part file);
 
 //    @Multipart
 //    @POST("classrooms/create/")

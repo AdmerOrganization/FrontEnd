@@ -48,6 +48,8 @@ public class HomeworkEditDialog {
 
     public HomeworkEditDialog(Context context)
     {
+        Controller = new homework_creation_validations();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(true);
 

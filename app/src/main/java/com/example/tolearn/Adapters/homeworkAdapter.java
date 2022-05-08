@@ -58,6 +58,8 @@ public class homeworkAdapter extends BaseAdapter implements Filterable {
         Homework currentHomework = list.get(i);
         TextView title = view.findViewById(R.id.homeworkTextview);
         TextView deadline = view.findViewById(R.id.deadlineTextview);
+        title.setText(currentHomework.getTitle());
+        deadline.setText(currentHomework.getDeadline());
 
 //        TextView title = view.findViewById(R.id.titleEventView);
 //        TextView date = view.findViewById(R.id.dateTimeEventView);

@@ -3,7 +3,6 @@ package com.example.tolearn;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -24,7 +23,6 @@ import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.databinding.ActivityClassProfileBinding;
 import com.example.tolearn.webService.HomeworkAPI;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
@@ -43,7 +41,7 @@ public class ClassProfileActivity extends AppCompatActivity {
     Bundle extras;
     public String title,teacher,category,user_token,user_access;
     public int class_id;
-    private List<Homework> homeworkList;
+    public List<Homework> homeworktypeList;
     HomeworkAPI homeworkAPI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +76,7 @@ public class ClassProfileActivity extends AppCompatActivity {
         callBack.enqueue(new Callback<List<Homework>>() {
             @Override
             public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
-                homeworkList = response.body();
+                homeworktypeList = response.body();
                 Log.i("salam","sas");
             }
 
@@ -168,6 +166,9 @@ public class ClassProfileActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.class_profile, menu);
         return true;
+    }
+    public List<Homework> getHomeworktypeList() {
+        return homeworktypeList;
     }
 
     @Override

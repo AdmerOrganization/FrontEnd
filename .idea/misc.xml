@@ -24,6 +24,9 @@
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_edit_profile.xml" value="0.13125" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_manage_class.xml" value="0.18177083333333333" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/custome_alert_dialog_edit_class.xml" value="0.2" />
+        <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/custome_class_filter_seach.xml" value="0.17346014492753623" />
+        <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/fragment_homework.xml" value="0.125" />
+        <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/homework_list_view.xml" value="0.125" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/my_class_view.xml" value="0.1890625" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/my_event_view.xml" value="0.1" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/shimmer_placeholder_layout.xml" value="0.13858695652173914" />
@@ -74,14 +77,25 @@
         <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_profile.xml" value="0.1" />
         <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_signout.xml" value="0.1" />
         <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_support.xml" value="0.1" />
+<<<<<<< Updated upstream
+=======
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_homework_detail.xml" value="0.35989583333333336" />
+>>>>>>> Stashed changes
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_main.xml" value="0.33695652173913043" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/custome_alert_dialog_edit_class.xml" value="0.2563405797101449" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/fragment_message.xml" value="0.22282608695652173" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+<<<<<<< Updated upstream
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/homepage_fragment.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/joined_classes_main_view.xml" value="0.3496376811594203" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/my_class_view.xml" value="0.21014492753623187" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/search_by_token_dialog.xml" value="0.3375" />
+=======
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/homepage_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/member_homework_item.xml" value="0.33695652173913043" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/member_item.xml" value="0.33695652173913043" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/my_class_view.xml" value="0.33695652173913043" />
+>>>>>>> Stashed changes
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/menu/drawer_menu.xml" value="0.35989583333333336" />
       </map>
     </option>

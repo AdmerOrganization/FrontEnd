@@ -61,6 +61,8 @@ public class classAdapterSearch extends BaseAdapter implements Filterable {
         TextView teacher = view.findViewById(R.id.TeacherTextView);
         TextView desc = view.findViewById(R.id.descEventView);
         Button editOrJoinBtn = view.findViewById(R.id.eventEditOrJoinBtn);
+        Button deleteBtn = view.findViewById(R.id.deleteBtn);
+        deleteBtn.setVisibility(View.INVISIBLE);
         editOrJoinBtn.setText("Join");
         ImageView imageViewCategory = view.findViewById(R.id.categoryImageItemEventView);
         String dateTime = currentMyClass.getTime().toString();

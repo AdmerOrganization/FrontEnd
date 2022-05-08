@@ -103,6 +103,7 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
                 event.putExtra("class_category",currentMyClass.getCategory());
                 event.putExtra("class_id",currentMyClass.getId());
                 event.putExtra("user_token",userToken);
+                event.putExtra("user_access","teacher");
                 context.startActivity(event);
             }
         });

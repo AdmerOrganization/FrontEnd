@@ -1,6 +1,7 @@
 package com.example.tolearn.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tolearn.ClassProfileActivity;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.R;
 import com.squareup.picasso.Picasso;
@@ -20,11 +22,13 @@ public class CreatedClassesAdapterMainAct extends RecyclerView.Adapter<CreatedCl
     private List<myClass> list;
     private Context context;
     String userToken;
+    String userAccess;
 
-    public CreatedClassesAdapterMainAct(Context context , List<myClass> list,String userToken){
+    public CreatedClassesAdapterMainAct(Context context , List<myClass> list,String userToken , String userAccess){
         this.list = list;
         this.context = context;
         this.userToken = userToken;
+        this.userAccess = userAccess;
     }
 
 
@@ -43,6 +47,7 @@ public class CreatedClassesAdapterMainAct extends RecyclerView.Adapter<CreatedCl
         String teacher_name = list.get(position).getTeacher_name();
         String category = list.get(position).getCategory();
         String avatar = list.get(position).getAvatar();
+        String classId =String.valueOf(list.get(position).getId());
         holder.setData(title,teacher_name,category,avatar);
     }
 
@@ -56,6 +61,7 @@ public class CreatedClassesAdapterMainAct extends RecyclerView.Adapter<CreatedCl
         private TextView teacherTextView;
         private ImageView classImage;
         String category;
+        String class_id;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTV);
@@ -102,6 +108,19 @@ public class CreatedClassesAdapterMainAct extends RecyclerView.Adapter<CreatedCl
                     Picasso.get().load(avatar).placeholder(R.drawable.learninglogo2).error(R.drawable.learninglogo2).into(classImage);
                     break;
             }
+            classImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent event = new Intent(context, ClassProfileActivity.class);
+                    event.putExtra("class_name",title);
+                    event.putExtra("class_teacher",teacher);
+                    event.putExtra("class_category",category);
+                    event.putExtra("class_id",class_id);
+                    event.putExtra("user_token",userToken);
+                    event.putExtra("user_access",userAccess);
+                    context.startActivity(event);
+                }
+            });
         }
     }
 }

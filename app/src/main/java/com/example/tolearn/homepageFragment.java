@@ -58,10 +58,6 @@ public class homepageFragment extends Fragment {
         createdClassesTV = rootView.findViewById(R.id.createdClassesTV);
         joinedClassesList = rootView.findViewById(R.id.joinedClassesScroll);
         createdClassesList = rootView.findViewById(R.id.createdClassList);
-//        RecyclerViewLayoutManager
-//                = new LinearLayoutManager(
-//                getApplicationContext());
-//        createdClassesList.setLayoutManager(RecyclerViewLayoutManager);
 
         HorizontalLayout
                 = new LinearLayoutManager(
@@ -97,7 +93,7 @@ public class homepageFragment extends Fragment {
                 else{
                     int responseCode = response.code();
                     myCreatedClasses = response.body();
-                    createdClassAdapter = new CreatedClassesAdapterMainAct(getActivity(),myCreatedClasses,userToken);
+                    createdClassAdapter = new CreatedClassesAdapterMainAct(getActivity(),myCreatedClasses,userToken, "teacher");
 
                     createdClassesList.setAdapter(createdClassAdapter);
                     mFrameLayout.startShimmer();
@@ -122,7 +118,7 @@ public class homepageFragment extends Fragment {
                 else{
                     int responseCode = response.code();
                     myjoinedClasses = response.body();
-                    joinedClassAdapter = new CreatedClassesAdapterMainAct(getActivity(),myjoinedClasses,userToken);
+                    joinedClassAdapter = new CreatedClassesAdapterMainAct(getActivity(),myjoinedClasses,userToken , "student");
 
                     joinedClassesList.setAdapter(joinedClassAdapter);
                     mFrameLayout.startShimmer();

@@ -18,7 +18,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 
 public interface ClassAPI {
-    public static final String BASE_URL = "http://172.17.3.122:8000/";
+    public static final String BASE_URL = "http://185.235.42.101:8000/";
     @Headers({"Accept: application/json",
             "Content-Type: application/json"
     })
@@ -49,5 +49,6 @@ public interface ClassAPI {
     @PUT("classrooms/edit/")
     Call<JsonObject> EditClass(@Header("Authorization") String user_token,@Body JsonObject classInfo);
 
-
+    @POST("classrooms/get-joined/")
+    Call<List<myClass>> joinedClasses(@Header("Authorization") String user_token);
 }

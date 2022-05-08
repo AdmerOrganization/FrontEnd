@@ -33,8 +33,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class homepageFragment extends Fragment {
 
     RecyclerView createdClassesList;
+    RecyclerView joinedClassesList;
     List<myClass> myCreatedClasses;
+    List<myClass> myjoinedClasses;
     CreatedClassesAdapterMainAct createdClassAdapter;
+    CreatedClassesAdapterMainAct joinedClassAdapter;
     RecyclerView.LayoutManager RecyclerViewLayoutManager;
     LinearLayoutManager HorizontalLayout;
     UserAPI userAPI;
@@ -42,8 +45,8 @@ public class homepageFragment extends Fragment {
     ClassAPI classAPI;
     TextView joinedClassesTV;
     TextView createdClassesTV;
-    ScrollView joinedClassesScroll;
     ShimmerFrameLayout mFrameLayout;
+    LinearLayoutManager HorizontalLayout2;
 
     @Nullable
     @Override
@@ -53,7 +56,7 @@ public class homepageFragment extends Fragment {
         mFrameLayout = rootView.findViewById(R.id.shimmerLayout);
         joinedClassesTV = rootView.findViewById(R.id.joinedClassesTV);
         createdClassesTV = rootView.findViewById(R.id.createdClassesTV);
-        joinedClassesScroll = rootView.findViewById(R.id.joinedClassesScroll);
+        joinedClassesList = rootView.findViewById(R.id.joinedClassesScroll);
         createdClassesList = rootView.findViewById(R.id.createdClassList);
 //        RecyclerViewLayoutManager
 //                = new LinearLayoutManager(
@@ -65,7 +68,13 @@ public class homepageFragment extends Fragment {
                 getActivity(),
                 LinearLayoutManager.HORIZONTAL,
                 false);
+        HorizontalLayout2
+                = new LinearLayoutManager(
+                getActivity(),
+                LinearLayoutManager.HORIZONTAL,
+                false);
         createdClassesList.setLayoutManager(HorizontalLayout);
+        joinedClassesList.setLayoutManager(HorizontalLayout2);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userInformation",getActivity().MODE_PRIVATE);
         userToken = sharedPreferences.getString("token","");
@@ -98,10 +107,34 @@ public class homepageFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<myClass>> call, Throwable t) {
-
+                CustomeAlertDialog myClass = new CustomeAlertDialog(getActivity(),"Response Error","There is a problem with your internet connection");
             }
         });
 
+        Call<List<myClass>> callBack1 = classAPI.joinedClasses("token "+userToken);
+        callBack1.enqueue(new Callback<List<myClass>>() {
+            @Override
+            public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
+                if(!response.isSuccessful())
+                {
+                    CustomeAlertDialog myClass = new CustomeAlertDialog(getActivity(),"Response Error","There is a problem with your internet connection");
+                }
+                else{
+                    int responseCode = response.code();
+                    myjoinedClasses = response.body();
+                    joinedClassAdapter = new CreatedClassesAdapterMainAct(getActivity(),myjoinedClasses,userToken);
+
+                    joinedClassesList.setAdapter(joinedClassAdapter);
+                    mFrameLayout.startShimmer();
+                    mFrameLayout.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<myClass>> call, Throwable t) {
+                CustomeAlertDialog myClass = new CustomeAlertDialog(getActivity(),"Response Error","There is a problem with your internet connection");
+            }
+        });
         return rootView;
     }
 }

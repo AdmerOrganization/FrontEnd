@@ -16,14 +16,21 @@
             android:layout_height="wrap_content"
             android:text="Joined Classes"
             android:gravity="center"
+            android:elevation="20dp"
             android:background="@drawable/border_shadow_white_background"
             android:textSize="22sp"
             android:textColor="@color/blue_learning"
             ></TextView>
-        <ScrollView
+
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/joinedClassesScroll"
             android:layout_width="match_parent"
-            android:layout_height="280dp"></ScrollView>
+            android:layout_height="300dp"
+            android:orientation="horizontal"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"></androidx.recyclerview.widget.RecyclerView>
+
         <TextView
             android:id="@+id/createdClassesTV"
             android:layout_width="match_parent"

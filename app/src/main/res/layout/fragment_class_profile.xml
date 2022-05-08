@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA">
+
+
+    <TextView
+        android:id="@+id/classroomTitleTV"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border_shadow_white_background"
+        android:drawableLeft="@drawable/ic_baseline_title_24"
+        android:elevation="20dp"
+        android:gravity="center"
+        android:text="tla1202"
+        android:textColor="@color/blue_learning"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/classroomCategory"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/border_shadow_white_background"
+        android:drawableLeft="@drawable/ic_baseline_subtitles_24"
+        android:elevation="20dp"
+        android:gravity="center"
+        android:text="tla1202"
+        android:textColor="@color/blue_learning"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/classroomTitleTV">
+
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/classroomTeacherTV"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border_shadow_white_background"
+        android:drawableLeft="@drawable/ic_baseline_account_circle_24"
+        android:elevation="20dp"
+        android:gravity="center"
+        android:text="Dr.Entezari"
+        android:textColor="@color/blue_learning"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/classroomCategory">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/classroomDescTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border_shadow_white_background"
+        android:drawableLeft="@drawable/ic_baseline_description_24"
+        android:elevation="20dp"
+        android:minLines="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/classroomTeacherTV"
+        android:text="this is a test for class profile . not a real class"
+        android:textSize="22sp"
+        android:textColor="@color/blue_learning"
+        android:gravity="center"
+        >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/limitTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border_shadow_white_background"
+        android:drawableLeft="@drawable/ic_baseline_format_list_numbered_24"
+        android:elevation="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/classroomDescTV"
+        android:text="50"
+        android:textSize="22sp"
+        android:textColor="@color/blue_learning"
+        android:gravity="center"
+        >
+
+    </TextView>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/limitTV"></ListView>
+</androidx.constraintlayout.widget.ConstraintLayout>

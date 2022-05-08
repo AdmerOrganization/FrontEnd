@@ -53,7 +53,9 @@
             android:name=".ForgetPassword"
             android:exported="true" />
         <activity android:name=".AlertDialogs.HomeworkCreationDialog"
-            android:exported="true"/>
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".Login"
             android:exported="true">

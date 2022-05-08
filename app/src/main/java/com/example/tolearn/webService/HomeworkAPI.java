@@ -32,7 +32,7 @@ public interface HomeworkAPI {
     Call<Homework> Create(@Header("Authorization") String user_token , @Part("title") RequestBody titleR,
                            @Part("description")RequestBody descR,
                            @Part("deadline")RequestBody dateR,
-                           @Part("class") Integer class_id,
+                           @Part("classroom") Integer class_id,
                            @Part MultipartBody.Part file);
 
 //    @Multipart

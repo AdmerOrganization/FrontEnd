@@ -1,6 +1,7 @@
 package com.example.tolearn.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tolearn.AlertDialogs.CustomeAlertdialogJoinClass;
 import com.example.tolearn.Entity.Homework;
@@ -60,6 +62,22 @@ public class homeworkAdapter extends BaseAdapter implements Filterable {
         TextView deadline = view.findViewById(R.id.deadlineTextview);
         title.setText(currentHomework.getTitle());
         deadline.setText(currentHomework.getDeadline());
+
+        Button editBtn = view.findViewById(R.id.editBtn);
+        SharedPreferences shp2 = context.getSharedPreferences("classId",context.MODE_PRIVATE);
+        String access = shp2.getString("user_access","");
+        if(access.equals("student"))
+        {
+            editBtn.setClickable(false);
+            editBtn.setVisibility(View.INVISIBLE);
+        }
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "click here to go to the edit class", Toast.LENGTH_SHORT).show();
+                //Intent to edit homework page ....
+            }
+        });
 
 //        TextView title = view.findViewById(R.id.titleEventView);
 //        TextView date = view.findViewById(R.id.dateTimeEventView);

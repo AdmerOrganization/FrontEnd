@@ -6,7 +6,8 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/border_homework"
+        android:background="@drawable/border_shadow_blue_background"
+        android:elevation="20dp"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="10dp"
@@ -22,7 +23,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:text="HomeworkTitle"
-            android:textColor="@color/darkBlueText"
+            android:textColor="@color/darker_blue_learning"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,23 +31,35 @@
         <TextView
             android:id="@+id/deadlineTextview"
             android:layout_width="wrap_content"
-            android:textColor="@color/darkBlueText"
+            android:textColor="@color/darker_blue_learning"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="28dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:textSize="19sp"
             android:text="2 days"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/SubmitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="28dp"
             android:layout_marginBottom="4dp"
-            android:backgroundTint="@color/darkBlueHomework"
+            android:backgroundTint="@color/darker_blue_learning"
             android:text="Details / Submit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/editBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:backgroundTint="@color/darker_blue_learning"
+            android:text="Edit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/SubmitBtn"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

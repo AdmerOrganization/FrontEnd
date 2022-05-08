@@ -1,5 +1,6 @@
 package com.example.tolearn.webService;
 
+import com.example.tolearn.Entity.member;
 import com.example.tolearn.Entity.myClass;
 import com.google.gson.JsonObject;
 
@@ -53,4 +54,9 @@ public interface ClassAPI {
     @HTTP(method = "DELETE", path = "classrooms/delete/", hasBody = true)
     Call<JsonObject> deleteClass(@Header("Authorization") String user_token, @Body JsonObject jsonObject);
 
+    @POST("classrooms/students/")
+    Call<List<member>> classMembers(@Header("Authorization") String user_token , @Body JsonObject jsonObject);
+
+    @POST("classrooms/retrieve/")
+    Call<myClass> classInfo(@Header("Authorization") String user_toke , @Body JsonObject jsonObject);
 }

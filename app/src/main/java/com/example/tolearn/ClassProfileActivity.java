@@ -1,7 +1,9 @@
 package com.example.tolearn;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -58,7 +60,13 @@ public class ClassProfileActivity extends AppCompatActivity {
             category = extras.getString("class_category");
             class_id = extras.getInt("class_id");
             user_token = extras.getString("user_token");
+
+            SharedPreferences classId = getSharedPreferences("classId",MODE_PRIVATE);
+            SharedPreferences.Editor myEdit = classId.edit();
+            myEdit.putString("Id",String.valueOf(class_id));
+            myEdit.apply();
         }
+
         binding = ActivityClassProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         JsonObject jsonObject = new JsonObject();

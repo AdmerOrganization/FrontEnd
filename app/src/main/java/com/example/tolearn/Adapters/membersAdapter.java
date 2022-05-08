@@ -47,7 +47,7 @@ public class membersAdapter extends BaseAdapter {
 
         TextView memberName = view.findViewById(R.id.memberName);
         member currentMember = members.get(i);
-        memberName.setText(currentMember.getName());
+        memberName.setText(currentMember.getFullName());
         return view;
     }
 }

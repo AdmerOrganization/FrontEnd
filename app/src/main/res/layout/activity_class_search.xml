@@ -91,4 +91,16 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_baseline_filter_alt_24"
         tools:ignore="SpeakableTextPresentCheck" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/searchByTokenBtn"
+        android:onClick="SearchByToken"
+        android:layout_marginTop="90dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:src="@drawable/ic_baseline_search_24"
+        tools:ignore="SpeakableTextPresentCheck" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

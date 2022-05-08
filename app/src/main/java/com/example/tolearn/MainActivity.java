@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
@@ -21,19 +23,29 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tolearn.Adapters.CreatedClassMainAdapter;
+import com.example.tolearn.Adapters.CreatedClassesAdapterMainAct;
+import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.Entity.User;
+import com.example.tolearn.Entity.myClass;
+import com.example.tolearn.webService.ClassAPI;
 import com.example.tolearn.webService.UserAPI;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -48,7 +60,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+//    RecyclerView createdClassesList;
+//    List<myClass> myCreatedClasses;
+//    CreatedClassesAdapterMainAct createdClassAdapter;
+//    RecyclerView.LayoutManager RecyclerViewLayoutManager;
+//    LinearLayoutManager HorizontalLayout;
     UserAPI userAPI;
+    String userToken;
+    ClassAPI classAPI;
+//    TextView joinedClassesTV;
+//    TextView createdClassesTV;
+//    ScrollView joinedClassesScroll;
+    private ShimmerFrameLayout mFrameLayout;
     TextView userNameNavigationHeader;
     private static final int PICK_PHOTO_FOR_AVATAR = 0;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -76,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new MessageFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_message);
+                    new homepageFragment()).commit();
+            navigationView.setCheckedItem(R.id.homepage);
         }
 
         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
@@ -100,8 +123,75 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userAPI =LoginRetrofit.create(UserAPI.class);
         initRetro();
         verifyStoragePermissions(this);
+        //init();
 
     }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        mFrameLayout.startShimmer();
+//    }
+
+//    public void init()
+//    {
+//        mFrameLayout = findViewById(R.id.shimmerLayout);
+//        joinedClassesTV = findViewById(R.id.joinedClassesTV);
+//        createdClassesTV = findViewById(R.id.createdClassesTV);
+//        joinedClassesScroll = findViewById(R.id.joinedClassesScroll);
+//        createdClassesList = findViewById(R.id.createdClassList);
+//        RecyclerViewLayoutManager
+//                = new LinearLayoutManager(
+//                getApplicationContext());
+//        createdClassesList.setLayoutManager(RecyclerViewLayoutManager);
+//
+//        HorizontalLayout
+//                = new LinearLayoutManager(
+//                MainActivity.this,
+//                LinearLayoutManager.HORIZONTAL,
+//                false);
+//        createdClassesList.setLayoutManager(HorizontalLayout);
+//
+//        SharedPreferences sharedPreferences = getSharedPreferences("userInformation",MODE_PRIVATE);
+//        userToken = sharedPreferences.getString("token","");
+//
+//        Retrofit myClasses = new Retrofit.Builder()
+//                .baseUrl(ClassAPI.BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        classAPI = myClasses.create(ClassAPI.class);
+//
+//        fillCreatedClassesList();
+//    }
+
+//    public void fillCreatedClassesList()
+//    {
+//        Call<List<myClass>> callBack = classAPI.GetCreatedClasses("token "+userToken);
+//        callBack.enqueue(new Callback<List<myClass>>() {
+//            @Override
+//            public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
+//                if(!response.isSuccessful())
+//                {
+//                    CustomeAlertDialog myClass = new CustomeAlertDialog(MainActivity.this,"Response Error","There is a problem with your internet connection");
+//
+//                }
+//                else{
+//                    int responseCode = response.code();
+//                    myCreatedClasses = response.body();
+//                    createdClassAdapter = new CreatedClassesAdapterMainAct(MainActivity.this,myCreatedClasses,userToken);
+//
+//                    createdClassesList.setAdapter(createdClassAdapter);
+//                    mFrameLayout.startShimmer();
+//                    mFrameLayout.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<myClass>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
     private void initRetro() {
         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
@@ -171,16 +261,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    protected void onPause() {
+        //mFrameLayout.stopShimmer();
+        super.onPause();
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_message:
+            case R.id.homepage:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MessageFragment()).commit();
+                        new homepageFragment()).commit();
                 break;
-            case R.id.nav_chat:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ChatFragment()).commit();
-                break;
+
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProfileFragment()).commit();

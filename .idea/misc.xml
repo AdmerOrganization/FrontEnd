@@ -75,6 +75,13 @@
         <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_profile.xml" value="0.1" />
         <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_signout.xml" value="0.1" />
         <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_support.xml" value="0.1" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_main.xml" value="0.33695652173913043" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/custome_alert_dialog_edit_class.xml" value="0.2563405797101449" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/fragment_message.xml" value="0.22282608695652173" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/homepage_fragment.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/search_by_token_dialog.xml" value="0.3375" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/menu/drawer_menu.xml" value="0.35989583333333336" />
       </map>
     </option>
   </component>

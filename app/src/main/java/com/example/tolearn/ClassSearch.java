@@ -21,6 +21,7 @@ import com.example.tolearn.Adapters.classAdapterManage;
 import com.example.tolearn.Adapters.classAdapterSearch;
 import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.AlertDialogs.CustomeFilterSearcch;
+import com.example.tolearn.AlertDialogs.SearchByTokenDialog;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.webService.ClassAPI;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -197,6 +198,53 @@ public class ClassSearch extends AppCompatActivity {
                             myClassesAdap.notifyDataSetChanged();
                             myEventsList.setAdapter(myClassesAdap);
                             filter.alertDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<myClass>> call, Throwable t) {
+                        Toast.makeText(ClassSearch.this, "There is a problem with your internet connection", Toast.LENGTH_SHORT).show();
+                        view.setClickable(true);
+                    }
+                });
+            }
+        });
+    }
+
+    public void SearchByToken(View view) {
+        SearchByTokenDialog searchByTokenDialog = new SearchByTokenDialog(this, myCreatedClasses);
+        searchByTokenDialog.searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.setClickable(false);
+
+                String class_Token = searchByTokenDialog.tokenET.getText().toString();
+
+                JsonObject jsonObject = new JsonObject();
+                if(!class_Token.equals(""))
+                {
+                    jsonObject.addProperty("classroom_token",class_Token);
+                }
+
+                SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
+                String token = shP.getString("token", "");
+
+                Call<List<myClass>> searchByToken = classAPI.Filter("token "+token,jsonObject);
+                searchByToken.enqueue(new Callback<List<myClass>>() {
+                    @Override
+                    public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
+                        if(!response.isSuccessful())
+                        {
+                            Toast.makeText(ClassSearch.this, "There is a problem with your internet connection", Toast.LENGTH_SHORT).show();
+                            view.setClickable(true);
+                        }
+                        else
+                        {
+                            myCreatedClasses =  response.body();
+                            myClassesAdap = new classAdapterSearch(ClassSearch.this,myCreatedClasses,"Search");
+                            myClassesAdap.notifyDataSetChanged();
+                            myEventsList.setAdapter(myClassesAdap);
+                            searchByTokenDialog.alertDialog.dismiss();
                         }
                     }
 

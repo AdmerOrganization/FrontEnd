@@ -47,8 +47,8 @@ public class CreatedClassesAdapterMainAct extends RecyclerView.Adapter<CreatedCl
         String teacher_name = list.get(position).getTeacher_name();
         String category = list.get(position).getCategory();
         String avatar = list.get(position).getAvatar();
-        String classId =String.valueOf(list.get(position).getId());
-        holder.setData(title,teacher_name,category,avatar);
+        Integer classId =(list.get(position).getId());
+        holder.setData(title,teacher_name,category,avatar,classId);
     }
 
 
@@ -69,7 +69,7 @@ public class CreatedClassesAdapterMainAct extends RecyclerView.Adapter<CreatedCl
             classImage = itemView.findViewById(R.id.categoryImageItemEventView);
         }
 
-        public void setData(String title, String teacher, String category , String avatar) {
+        public void setData(String title, String teacher, String category , String avatar , Integer class_id) {
             titleTextView.setText(title);
             teacherTextView.setText(teacher);
             switch (category)

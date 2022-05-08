@@ -7,6 +7,8 @@ import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,9 +23,11 @@ import com.example.tolearn.Adapters.classAdapterManage;
 import com.example.tolearn.Controllers.classCreationValidations;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.R;
+import com.example.tolearn.class_creation_page_2;
 import com.example.tolearn.manageClass;
 import com.example.tolearn.webService.ClassAPI;
 import com.example.tolearn.webService.UserAPI;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
@@ -64,17 +68,16 @@ public class CustomEditClassAlertDialog extends Activity {
         titleET = alertView.findViewById(R.id.titleET);
         teacherET = alertView.findViewById(R.id.teacherET);
         descET = alertView.findViewById(R.id.descET);
-        passwordET = alertView.findViewById(R.id.passwordET);
         limitSpinner = alertView.findViewById(R.id.limitSpinner);
         classImage = alertView.findViewById(R.id.classImage);
         btnEdit = alertView.findViewById(R.id.editBtn);
+        btnEdit.setClickable(true);
         Controller = new classCreationValidations();
 
         //load form the data.....
         titleET.setText(title);
         teacherET.setText(teacher);
         descET.setText(desc);
-        passwordET.setText(password);
 
 
         switch (limit){
@@ -219,6 +222,11 @@ public class CustomEditClassAlertDialog extends Activity {
             @Override
             public void onClick(View view) {
 
+                view.setClickable(false);
+
+                Animation animation = AnimationUtils.loadAnimation(context,R.anim.blink_anim);
+                view.startAnimation(animation);
+
                 HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
                 interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
                 OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).addInterceptor(interceptor).build();
@@ -231,59 +239,67 @@ public class CustomEditClassAlertDialog extends Activity {
                         .build();
                 classAPI =SignUpRefrofit.create(ClassAPI.class);
 
-                if(!Controller.ClassPassword(passwordET.getText().toString()))
-                {
-                    Toast.makeText(context, "Password has to be at least 8 characters with at least one uppercase and one number", Toast.LENGTH_SHORT).show();
-                }
-                else if(!Controller.classTeacher(teacherET.getText().toString()))
+                if(!Controller.classTeacher(teacherET.getText().toString()))
                 {
                     Toast.makeText(context, "Teacher can not be empty", Toast.LENGTH_SHORT).show();
+                    view.setClickable(true);
+                    view.clearAnimation();
                 }
                 else if(!Controller.classTitle(titleET.getText().toString()))
                 {
                     Toast.makeText(context, "Title can not be empty", Toast.LENGTH_SHORT).show();
+                    view.setClickable(true);
+                    view.clearAnimation();
                 }
                 else if(!Controller.ClassDescriotion(descET.getText().toString()))
                 {
                     Toast.makeText(context, "Description can not be empty", Toast.LENGTH_SHORT).show();
+                    view.setClickable(true);
+                    view.clearAnimation();
                 }
                 else if(limitSpinner.getSelectedItem().toString().equals("limit"))
                 {
                     Toast.makeText(context, "Limit can not be unselected", Toast.LENGTH_SHORT).show();
+                    view.setClickable(true);
+                    view.clearAnimation();
                 }
                 else if(categorySpinner.getSelectedItem().toString().equals("category"))
                 {
                     Toast.makeText(context, "Category can not be unselected", Toast.LENGTH_SHORT).show();
+                    view.setClickable(true);
+                    view.clearAnimation();
                 }
                 else {
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("classroom_token",class_token);
-                    jsonObject.addProperty("title",title);
-                    jsonObject.addProperty("teacher_name",teacher);
-                    jsonObject.addProperty("description",desc);
-                    jsonObject.addProperty("limit",limit);
-                    jsonObject.addProperty("password",passwordET.getText().toString());
-                    jsonObject.addProperty("category",category);
-                    jsonObject.addProperty("users","['Ford', 'BMW', 'Fiat']");
+                    jsonObject.addProperty("title",titleET.getText().toString());
+                    jsonObject.addProperty("teacher_name",teacherET.getText().toString());
+                    jsonObject.addProperty("description",descET.getText().toString());
+                    jsonObject.addProperty("limit",limitSpinner.getSelectedItem().toString());
+                    jsonObject.addProperty("category",categorySpinner.getSelectedItem().toString());
                     Call<JsonObject> callBack = classAPI.EditClass("token "+ userToken,jsonObject);
                     callBack.enqueue(new Callback<JsonObject>() {
                         @Override
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                             if(!response.isSuccessful())
                             {
-                                alertDialog.dismiss();
+                                view.setClickable(true);
+                                view.clearAnimation();
                                // CustomeAlertDialog myEvents = new CustomeAlertDialog(CustomEditClassAlertDialog.this,"Response Error","There is a problem with your internet connection");
                             }
                             else{
                                 int responseCode = response.code();
                                 JsonObject myCreatedClasses = response.body();
+                                view.clearAnimation();
+                                Toast.makeText(context, "Class edited successfully.", Toast.LENGTH_SHORT).show();
                                 alertDialog.dismiss();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<JsonObject> call, Throwable t) {
-                            alertDialog.dismiss();
+                            view.setClickable(true);
+                            view.clearAnimation();
                           //  CustomeAlertDialog myEvents = new CustomeAlertDialog(CustomEditClassAlertDialog.this,"Error","There is a problem with your internet connection");
                         }
                     });

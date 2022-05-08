@@ -51,6 +51,8 @@ public interface ClassAPI {
     @PUT("classrooms/edit/")
     Call<JsonObject> EditClass(@Header("Authorization") String user_token,@Body JsonObject classInfo);
 
+    @POST("classrooms/get-joined/")
+    Call<List<myClass>> joinedClasses(@Header("Authorization") String user_token);
     @HTTP(method = "DELETE", path = "classrooms/delete/", hasBody = true)
     Call<JsonObject> deleteClass(@Header("Authorization") String user_token, @Body JsonObject jsonObject);
 

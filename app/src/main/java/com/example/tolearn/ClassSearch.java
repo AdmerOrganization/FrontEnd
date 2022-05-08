@@ -229,10 +229,10 @@ public class ClassSearch extends AppCompatActivity {
                 SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
                 String token = shP.getString("token", "");
 
-                Call<List<myClass>> searchByToken = classAPI.Filter("token "+userToken,jsonObject);
-                searchByToken.enqueue(new Callback<List<myClass>>() {
+                Call<myClass> searchByToken = classAPI.Search("token "+userToken,jsonObject);
+                searchByToken.enqueue(new Callback<myClass>() {
                     @Override
-                    public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
+                    public void onResponse(Call<myClass> call, Response<myClass> response) {
                         if(!response.isSuccessful())
                         {
                             Toast.makeText(ClassSearch.this, "There is a problem with your internet connection", Toast.LENGTH_SHORT).show();
@@ -240,7 +240,9 @@ public class ClassSearch extends AppCompatActivity {
                         }
                         else
                         {
-                            myCreatedClasses =  response.body();
+                            myClass currentClass = response.body();
+                            myCreatedClasses.clear();
+                            myCreatedClasses.add(currentClass);
                             myClassesAdap = new classAdapterSearch(ClassSearch.this,myCreatedClasses,"Search");
                             myClassesAdap.notifyDataSetChanged();
                             myEventsList.setAdapter(myClassesAdap);
@@ -249,7 +251,7 @@ public class ClassSearch extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<List<myClass>> call, Throwable t) {
+                    public void onFailure(Call<myClass> call, Throwable t) {
                         Toast.makeText(ClassSearch.this, "There is a problem with your internet connection", Toast.LENGTH_SHORT).show();
                         view.setClickable(true);
                     }

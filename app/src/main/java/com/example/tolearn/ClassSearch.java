@@ -229,7 +229,7 @@ public class ClassSearch extends AppCompatActivity {
                 SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
                 String token = shP.getString("token", "");
 
-                Call<List<myClass>> searchByToken = classAPI.Filter("token "+token,jsonObject);
+                Call<List<myClass>> searchByToken = classAPI.Filter("token "+userToken,jsonObject);
                 searchByToken.enqueue(new Callback<List<myClass>>() {
                     @Override
                     public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {

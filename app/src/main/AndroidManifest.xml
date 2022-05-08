@@ -15,7 +15,16 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.ToLearn">
+        <activity
+            android:name=".Homework_detail"
+            android:exported="false" />
+        <activity
+            android:name=".ClassProfileActivity"
+            android:exported="false"
+            android:label="@string/title_activity_class_profile"
+            android:theme="@style/Theme.ToLearn.NoActionBar" />
         <activity
             android:name=".ClassSearch"
             android:exported="false" />
@@ -44,6 +53,10 @@
         <activity
             android:name=".ForgetPassword"
             android:exported="true" />
+        <activity android:name=".AlertDialogs.HomeworkCreationDialog"
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".Login"
             android:exported="true">

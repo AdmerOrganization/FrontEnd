@@ -1,0 +1,128 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/border_shadow_white_background"
+    android:elevation="10dp"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/Homework"
+            android:layout_width="135dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="Homework"
+            android:textColor="@color/blue_learning"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:background="@drawable/border_shadow_white_background"
+            android:elevation="10dp"
+            android:minLines="1"
+            android:maxLines="1"
+            android:id="@+id/titleET"
+            android:hint="title"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            android:textColor="@color/blue_learning"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Homework"></EditText>
+
+        <EditText
+            android:background="@drawable/border_shadow_white_background"
+            android:elevation="10dp"
+            android:minLines="2"
+            android:maxLines="5"
+            android:id="@+id/descET"
+            android:hint="Desc"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            android:textColor="@color/blue_learning"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleET"></EditText>
+
+        <TextView
+            android:id="@+id/Deadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descET"
+            android:text="Deadline"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/blue_learning"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/datePickerConstraint"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Deadline">
+            <DatePicker
+                android:background="@drawable/border_shadow_white_background"
+                android:elevation="10dp"
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"></DatePicker>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:text="chose pdf"
+            android:textColor="@color/blue_learning"
+            android:id="@+id/homeworkPdfSelection"
+            android:backgroundTint="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/datePickerConstraint"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"></Button>
+
+        <Button
+            android:id="@+id/HomeworkCreate"
+            android:layout_width="190dp"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/blue_learning"
+            android:text="ok"
+            app:layout_constraintTop_toBottomOf="@+id/homeworkPdfSelection"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@+id/HomeworkCreate"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+        </TextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>

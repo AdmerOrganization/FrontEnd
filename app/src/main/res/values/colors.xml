@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_500">#54ABEF</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
@@ -20,5 +20,7 @@
     <color name="shimmer_placeholder">#dddddd</color>
     <color name="colorPrimaryDark">#292b3d</color>
     <color name="recycler_background">#FFA7DD</color>
+    <color name="darkBlueHomework">#175676</color>
+    <color name="darkBlueText">#0A2533</color>
 
 </resources>

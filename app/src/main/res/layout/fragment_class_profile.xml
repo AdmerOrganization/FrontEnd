@@ -111,6 +111,7 @@
     </TextView>
 
     <ListView
+        android:id="@+id/membersList"
         android:layout_width="match_parent"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"

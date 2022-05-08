@@ -6,13 +6,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@drawable/border_shadow_white_background"
-        android:layout_height="90dp"
+        android:background="@drawable/border_shadow_with_blue_background"
+        android:elevation="20dp"
+        android:layout_height="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+
+            android:textColor="@color/white"
+            android:textSize="19sp"
+            android:text="saman"
+            android:gravity="center"
             android:id="@+id/memberName"
             android:layout_marginRight="130dp"
             android:layout_width="match_parent"

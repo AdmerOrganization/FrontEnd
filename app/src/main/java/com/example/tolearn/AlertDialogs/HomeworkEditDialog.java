@@ -339,7 +339,7 @@ public class HomeworkEditDialog extends Activity {
                                 finish();
                                 Log.i("PHOTO", "SUCCED");
                                 //                           Log.i("IMAGE URL",user.getAvatar().toString());
-                                Toast.makeText(HomeworkEditDialog.this, "Homework created!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(HomeworkEditDialog.this, "Homework updated!", Toast.LENGTH_SHORT).show();
 
                             }
                         }

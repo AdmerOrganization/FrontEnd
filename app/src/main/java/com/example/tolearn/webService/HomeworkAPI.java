@@ -35,8 +35,16 @@ public interface HomeworkAPI {
                            @Part("classroom") Integer class_id,
                            @Part MultipartBody.Part file);
 
-    @POST("/homeworks/display")
+    @POST("homeworks/display/")
     Call<Homework> Display(@Header("Authorization") String user_token , @Body JsonObject class_token);
+
+    @POST("homeworks/edit/")
+    Call<Homework> Edit(@Header("Authorization") String user_token ,
+                          @Part("homework_token") RequestBody homeworkR,
+                          @Part("title") RequestBody titleR,
+                          @Part("description")RequestBody descR,
+                          @Part("deadline")RequestBody dateR,
+                          @Part MultipartBody.Part file);
     //    @Multipart
 //    @POST("classrooms/create/")
 //    Call<JsonObject> CreateClass(@Header("Authorization") String user_token, @Part("title") RequestBody title

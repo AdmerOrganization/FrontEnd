@@ -45,7 +45,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -263,6 +266,7 @@ public class HomeworkEditDialog extends Activity {
             public void onResponse(Call<Homework> call, Response<Homework> response) {
                 if(!response.isSuccessful())
                 {
+                    Log.i("RESPONES ERORRRRRR",response.errorBody().toString());
                     CustomeAlertDialog myEvents = new CustomeAlertDialog(HomeworkEditDialog.this,"Response Error","There is a problem with your internet connection");
                 }
                 else{
@@ -304,7 +308,49 @@ public class HomeworkEditDialog extends Activity {
                     Toast.makeText(HomeworkEditDialog.this, "You can not select a date in the past.", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    //connection to back for sending the info
+                    File file = new File(path);
+                    RequestBody requestFile =
+                            RequestBody.create(MediaType.parse("*/*"), file);
+
+// MultipartBody.Part is used to send also the actual file name
+                    MultipartBody.Part body =
+                            MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+                    RequestBody homeworkTokenR =
+                            RequestBody.create(MediaType.parse("multipart/form-data"), homeworkToken);
+                    RequestBody titleR =
+                            RequestBody.create(MediaType.parse("multipart/form-data"), titleET.getText().toString());
+                    RequestBody descR =
+                            RequestBody.create(MediaType.parse("multipart/form-data"), descET.getText().toString());
+                    RequestBody dateR =
+                            RequestBody.create(MediaType.parse("multipart/form-data"), year+"-"+month+"-"+day);
+                    SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
+                    String token = shP.getString("token", "");
+                    Call<Homework> homeworkCall = homeworkAPI.Edit("token " + token,homeworkTokenR,titleR, descR, dateR, body);
+                    Log.i("5", "5");
+                    homeworkCall.enqueue(new Callback<Homework>() {
+                        @Override
+                        public void onResponse(Call<Homework> call, Response<Homework> response) {
+                            if (!response.isSuccessful()) {
+                                Toast.makeText(HomeworkEditDialog.this, "Some Field Wrong", Toast.LENGTH_SHORT).show();
+                                Log.i("MOSHKEL", response.message());
+                            } else {
+                                String code = Integer.toString(response.code());
+                                Homework homework = response.body();
+                                finish();
+                                Log.i("PHOTO", "SUCCED");
+                                //                           Log.i("IMAGE URL",user.getAvatar().toString());
+                                Toast.makeText(HomeworkEditDialog.this, "Homework created!", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Homework> call, Throwable t) {
+                            Log.i("moshkel","injas");
+                            Log.i("Moshkel",t.getMessage());
+                            Toast.makeText(HomeworkEditDialog.this, "error is :" + t.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             }
         });

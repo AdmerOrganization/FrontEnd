@@ -37,7 +37,7 @@ public interface HomeworkAPI {
 
     @POST("homeworks/display/")
     Call<Homework> Display(@Header("Authorization") String user_token , @Body JsonObject class_token);
-
+    @Multipart
     @POST("homeworks/edit/")
     Call<Homework> Edit(@Header("Authorization") String user_token ,
                           @Part("homework_token") RequestBody homeworkR,

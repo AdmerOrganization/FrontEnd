@@ -57,6 +57,10 @@
             android:exported="true">
 
         </activity>
+        <activity android:name=".AlertDialogs.HomeworkEditDialog"
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".Login"
             android:exported="true">

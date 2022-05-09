@@ -1,6 +1,7 @@
 package com.example.tolearn.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tolearn.AlertDialogs.CustomeAlertdialogJoinClass;
+import com.example.tolearn.AlertDialogs.HomeworkEditDialog;
 import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.R;
@@ -75,7 +77,9 @@ public class homeworkAdapter extends BaseAdapter implements Filterable {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "click here to go to the edit class", Toast.LENGTH_SHORT).show();
-                //Intent to edit homework page ....
+                Intent gotoEdit = new Intent(context,HomeworkEditDialog.class);
+                gotoEdit.putExtra("homework_token",currentHomework.getHomework_token());
+
             }
         });
 

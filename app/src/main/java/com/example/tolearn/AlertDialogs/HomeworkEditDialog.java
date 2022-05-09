@@ -244,7 +244,7 @@ public class HomeworkEditDialog extends Activity {
         Controller = new homework_creation_validations();
 
 
-
+        setContentView(R.layout.edit_homework_dialog);
 
 
         //init

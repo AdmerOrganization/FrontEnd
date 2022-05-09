@@ -79,6 +79,7 @@ public class homeworkAdapter extends BaseAdapter implements Filterable {
                 Toast.makeText(context, "click here to go to the edit class", Toast.LENGTH_SHORT).show();
                 Intent gotoEdit = new Intent(context,HomeworkEditDialog.class);
                 gotoEdit.putExtra("homework_token",currentHomework.getHomework_token());
+                context.startActivity(gotoEdit);
 
             }
         });

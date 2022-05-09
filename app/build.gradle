@@ -65,4 +65,6 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     implementation 'com.karumi:dexter:5.0.0'
+
+    testImplementation "com.squareup.okhttp3:mockwebserver:4.7.2"
 }

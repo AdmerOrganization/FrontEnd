@@ -95,7 +95,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="16dp"
                 android:maxLength="60"
-                android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +138,7 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="12dp"
-                android:background="@drawable/date3"
+                android:background="@drawable/calendar"
                 app:layout_constraintStart_toEndOf="@+id/logoid"
                 app:layout_constraintTop_toBottomOf="@+id/titleEventView" />
 
@@ -148,7 +148,7 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/loc"
+                android:background="@drawable/avt"
                 app:layout_constraintStart_toEndOf="@+id/logoid"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -160,7 +160,7 @@
                 android:layout_height="30dp"
                 app:layout_constraintStart_toEndOf="@+id/logoid"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                android:background="@drawable/desc2"/>
+                android:background="@drawable/jobseeking"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

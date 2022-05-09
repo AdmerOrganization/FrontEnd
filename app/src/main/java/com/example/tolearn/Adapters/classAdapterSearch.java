@@ -60,10 +60,10 @@ public class classAdapterSearch extends BaseAdapter implements Filterable {
         TextView date = view.findViewById(R.id.dateTimeEventView);
         TextView teacher = view.findViewById(R.id.TeacherTextView);
         TextView desc = view.findViewById(R.id.descEventView);
-        Button editOrJoinBtn = view.findViewById(R.id.eventEditOrJoinBtn);
-        Button deleteBtn = view.findViewById(R.id.deleteBtn);
+        com.google.android.material.button.MaterialButton editOrJoinBtn = view.findViewById(R.id.eventEditOrJoinBtn);
+        com.google.android.material.button.MaterialButton  deleteBtn = view.findViewById(R.id.deleteBtn);
         deleteBtn.setVisibility(View.INVISIBLE);
-        editOrJoinBtn.setText("Join");
+        editOrJoinBtn.setIconResource(R.drawable.ic_baseline_person_add_24);
         ImageView imageViewCategory = view.findViewById(R.id.categoryImageItemEventView);
         String dateTime = currentMyClass.getTime().toString();
         String [] dateTimeInfo = dateTime.split("T");

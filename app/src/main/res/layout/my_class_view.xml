@@ -7,13 +7,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="270dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="380dp"
-            android:layout_height="280dp"
+            android:layout_height="250dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/border_shadow"
             android:elevation="10dp"
@@ -24,10 +25,10 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/logoid"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
                 android:layout_marginTop="50dp"
-                app:cardCornerRadius="160dp"
+                app:cardCornerRadius="170dp"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.04"
@@ -35,15 +36,15 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
                     android:layout_gravity="center"
                     app:cardCornerRadius="250dp">
 
                     <ImageView
                         android:id="@+id/categoryImageItemEventView"
-                        android:layout_width="160dp"
-                        android:layout_height="160dp" />
+                        android:layout_width="170dp"
+                        android:layout_height="170dp" />
 
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
@@ -93,7 +94,7 @@
                 android:layout_width="120dp"
                 android:layout_height="65dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:maxLength="60"
                 android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 android:textColor="@color/colorPrimaryDark"
@@ -103,34 +104,39 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toBottomOf="@+id/TeacherTextView" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/eventEditOrJoinBtn"
-                android:layout_width="250dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="0dp"
-                android:backgroundTint="@color/recycler_background"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/cirular_button"
+                android:gravity="center"
+                android:paddingLeft="25dp"
                 android:text=""
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/logoid"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-            <Button
+                app:iconGravity="textStart"
+                app:iconPadding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descEventView" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/deleteBtn"
-                android:layout_width="57dp"
+                android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="@color/recycler_background"
-                android:drawableLeft="@drawable/ic_baseline_delete_24"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/cirular_button"
+                android:gravity="center"
+                android:paddingLeft="25dp"
                 android:text=""
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/logoid"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/eventEditOrJoinBtn" />
+                app:icon="@drawable/ic_baseline_delete_24"
+                app:iconGravity="textStart"
+                app:iconPadding="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/eventEditOrJoinBtn"
+                app:layout_constraintStart_toEndOf="@+id/logoid"
+                app:layout_constraintTop_toBottomOf="@+id/descEventView" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -153,14 +159,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <ImageView
-                android:layout_marginStart="20dp"
                 android:id="@+id/imageView3"
-                android:layout_marginTop="20dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/jobseeking"
                 app:layout_constraintStart_toEndOf="@+id/logoid"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                android:background="@drawable/jobseeking"/>
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -84,9 +84,9 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
         TextView date = view.findViewById(R.id.dateTimeEventView);
         TextView teacher = view.findViewById(R.id.TeacherTextView);
         TextView desc = view.findViewById(R.id.descEventView);
-        Button deleteBtn = view.findViewById(R.id.deleteBtn);
-        Button editOrJoinBtn = view.findViewById(R.id.eventEditOrJoinBtn);
-        editOrJoinBtn.setText("Edit");
+        com.google.android.material.button.MaterialButton  deleteBtn = view.findViewById(R.id.deleteBtn);
+        com.google.android.material.button.MaterialButton  editOrJoinBtn = view.findViewById(R.id.eventEditOrJoinBtn);
+        editOrJoinBtn.setIconResource(R.drawable.ic_baseline_edit_24);
         ImageView imageViewCategory = view.findViewById(R.id.categoryImageItemEventView);
         String dateTime = currentMyClass.getTime().toString();
         String[] dateTimeInfo = dateTime.split("T");

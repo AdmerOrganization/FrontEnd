@@ -83,7 +83,6 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
         TextView title = view.findViewById(R.id.titleEventView);
         TextView date = view.findViewById(R.id.dateTimeEventView);
         TextView teacher = view.findViewById(R.id.TeacherTextView);
-        TextView desc = view.findViewById(R.id.descEventView);
         com.google.android.material.button.MaterialButton  deleteBtn = view.findViewById(R.id.deleteBtn);
         com.google.android.material.button.MaterialButton  editOrJoinBtn = view.findViewById(R.id.eventEditOrJoinBtn);
         editOrJoinBtn.setIconResource(R.drawable.ic_baseline_edit_24);
@@ -130,6 +129,7 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
             @Override
             public void onClick(View view) {
                 CustomeConfirmAlertDialog confirmCancel = new CustomeConfirmAlertDialog(context,"Confirmation","Do you want to delete this class("+currentMyClass.getTitle().toString()+")?");
+                confirmCancel.image.setImageResource(R.drawable.trash);
                 confirmCancel.Yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -176,7 +176,6 @@ public class classAdapterManage extends BaseAdapter implements Filterable {
         title.setText(currentMyClass.getTitle().toString());
         date.setText(dateTime);
         teacher.setText(currentMyClass.getTeacher_name().toString());
-        desc.setText(currentMyClass.getDescription().toString());
         String category = currentMyClass.getCategory().toString();
         //Picasso.get().load(currentMyClass.getAvatar()).placeholder(R.drawable.learninglogo2).error(R.drawable.learninglogo2).into(imageViewCategory);
 

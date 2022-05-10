@@ -59,7 +59,6 @@ public class classAdapterSearch extends BaseAdapter implements Filterable {
         TextView title = view.findViewById(R.id.titleEventView);
         TextView date = view.findViewById(R.id.dateTimeEventView);
         TextView teacher = view.findViewById(R.id.TeacherTextView);
-        TextView desc = view.findViewById(R.id.descEventView);
         com.google.android.material.button.MaterialButton editOrJoinBtn = view.findViewById(R.id.eventEditOrJoinBtn);
         com.google.android.material.button.MaterialButton  deleteBtn = view.findViewById(R.id.deleteBtn);
         deleteBtn.setVisibility(View.INVISIBLE);

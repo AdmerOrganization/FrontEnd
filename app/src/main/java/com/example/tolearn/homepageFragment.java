@@ -133,4 +133,59 @@ public class homepageFragment extends Fragment {
         });
         return rootView;
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        Call<List<myClass>> callBack = classAPI.GetCreatedClasses("token "+userToken);
+//        callBack.enqueue(new Callback<List<myClass>>() {
+//            @Override
+//            public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
+//                if(!response.isSuccessful())
+//                {
+//                    CustomeAlertDialog myClass = new CustomeAlertDialog(getActivity(),"Response Error","There is a problem with your internet connection");
+//
+//                }
+//                else{
+//                    int responseCode = response.code();
+//                    myCreatedClasses = response.body();
+//                    createdClassAdapter = new CreatedClassesAdapterMainAct(getActivity(),myCreatedClasses,userToken, "teacher");
+//
+//                    createdClassesList.setAdapter(createdClassAdapter);
+//                    mFrameLayout.startShimmer();
+//                    mFrameLayout.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<myClass>> call, Throwable t) {
+//                CustomeAlertDialog myClass = new CustomeAlertDialog(getActivity(),"Response Error","There is a problem with your internet connection");
+//            }
+//        });
+//
+//        Call<List<myClass>> callBack1 = classAPI.joinedClasses("token "+userToken);
+//        callBack1.enqueue(new Callback<List<myClass>>() {
+//            @Override
+//            public void onResponse(Call<List<myClass>> call, Response<List<myClass>> response) {
+//                if(!response.isSuccessful())
+//                {
+//                    CustomeAlertDialog myClass = new CustomeAlertDialog(getActivity(),"Response Error","There is a problem with your internet connection");
+//                }
+//                else{
+//                    int responseCode = response.code();
+//                    myjoinedClasses = response.body();
+//                    joinedClassAdapter = new CreatedClassesAdapterMainAct(getActivity(),myjoinedClasses,userToken , "student");
+//
+//                    joinedClassesList.setAdapter(joinedClassAdapter);
+//                    mFrameLayout.startShimmer();
+//                    mFrameLayout.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<myClass>> call, Throwable t) {
+//                CustomeAlertDialog myClass = new CustomeAlertDialog(getActivity(),"Response Error","There is a problem with your internet connection");
+//            }
+//        });
+//    }
 }

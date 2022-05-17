@@ -10,16 +10,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tolearn.AlertDialogs.CustomeAlertdialogJoinClass;
 import com.example.tolearn.AlertDialogs.HomeworkEditDialog;
 import com.example.tolearn.Entity.Homework;
-import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +60,7 @@ public class homeworkAdapter extends BaseAdapter implements Filterable {
         TextView deadline = view.findViewById(R.id.deadlineTextview);
         title.setText(currentHomework.getTitle());
         deadline.setText(currentHomework.getDeadline());
-
+        Button submit = view.findViewById(R.id.SubmitBtn);
         Button editBtn = view.findViewById(R.id.editBtn);
         SharedPreferences shp2 = context.getSharedPreferences("classId",context.MODE_PRIVATE);
         String access = shp2.getString("user_access","");
@@ -73,11 +69,23 @@ public class homeworkAdapter extends BaseAdapter implements Filterable {
             editBtn.setClickable(false);
             editBtn.setVisibility(View.INVISIBLE);
         }
+        submit.setOnClickListener(new View.OnClickListener() {
+                                      @Override
+                                      public void onClick(View v) {
+                                          Intent gotoSubmit = new Intent(context, com.example.tolearn.DetailSubmit.class);
+                                          gotoSubmit.putExtra("homework_title",currentHomework.getTitle());
+                                          gotoSubmit.putExtra("homework_token",currentHomework.getHomework_token());
+                                          gotoSubmit.putExtra("homework_deadline",currentHomework.getDeadline());
+                                          gotoSubmit.putExtra("homework_id",currentHomework.getId());
+                                          context.startActivity(gotoSubmit);
+                                      }
+                                  }
+        );
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "click here to go to the edit class", Toast.LENGTH_SHORT).show();
-                Intent gotoEdit = new Intent(context,HomeworkEditDialog.class);
+                Intent gotoEdit = new Intent(context, HomeworkEditDialog.class);
                 gotoEdit.putExtra("homework_token",currentHomework.getHomework_token());
                 context.startActivity(gotoEdit);
 

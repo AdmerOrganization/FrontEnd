@@ -2,9 +2,6 @@ package com.example.tolearn.AlertDialogs;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.JsonReader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -13,25 +10,17 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.tolearn.Adapters.classAdapterManage;
 import com.example.tolearn.Controllers.classCreationValidations;
-import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.R;
-import com.example.tolearn.class_creation_page_2;
-import com.example.tolearn.manageClass;
 import com.example.tolearn.webService.ClassAPI;
 import com.example.tolearn.webService.UserAPI;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -65,9 +54,9 @@ public class CustomEditClassAlertDialog extends Activity {
         alertDialog.show();
 
         categorySpinner = alertView.findViewById(R.id.categorySpinner);
-        titleET = alertView.findViewById(R.id.titleET);
+        titleET = alertView.findViewById(R.id.detailTitleET);
         teacherET = alertView.findViewById(R.id.teacherET);
-        descET = alertView.findViewById(R.id.descET);
+        descET = alertView.findViewById(R.id.detailDescET);
         limitSpinner = alertView.findViewById(R.id.limitSpinner);
         classImage = alertView.findViewById(R.id.classImage);
         btnEdit = alertView.findViewById(R.id.editBtn);

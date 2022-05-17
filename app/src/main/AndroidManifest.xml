@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tolearn" >
+    package="com.example.tolearn">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -9,13 +9,16 @@
 
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:icon="@drawable/learninglogo2"
         android:label="Amoozande"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/learninglogo2"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ToLearn">
+        android:theme="@style/Theme.ToLearn"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".DetailSubmit"
+            android:exported="false" />
         <activity
             android:name=".Homework_detail"
             android:exported="false" />
@@ -29,8 +32,7 @@
             android:exported="false" />
         <activity
             android:name=".manageClass"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".class_creation_page_2"
             android:exported="false" />
@@ -53,14 +55,12 @@
         <activity
             android:name=".ForgetPassword"
             android:exported="true" />
-        <activity android:name=".AlertDialogs.HomeworkCreationDialog"
-            android:exported="true">
-
-        </activity>
-        <activity android:name=".AlertDialogs.HomeworkEditDialog"
-            android:exported="true">
-
-        </activity>
+        <activity
+            android:name=".AlertDialogs.HomeworkCreationDialog"
+            android:exported="true"></activity>
+        <activity
+            android:name=".AlertDialogs.HomeworkEditDialog"
+            android:exported="true"></activity>
         <activity
             android:name=".Login"
             android:exported="true">

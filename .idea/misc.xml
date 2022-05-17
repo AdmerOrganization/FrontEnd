@@ -21,7 +21,9 @@
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.15833333333333333" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_class_search.xml" value="0.25416666666666665" />
+        <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_detail_submit.xml" value="0.264" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_edit_profile.xml" value="0.13125" />
+        <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_main.xml" value="0.12681159420289856" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_manage_class.xml" value="0.18177083333333333" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/custome_alert_dialog_edit_class.xml" value="0.2" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/edit_homework_dialog.xml" value="0.1671195652173913" />
@@ -79,33 +81,17 @@
         <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_support.xml" value="0.1" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/border_homework.xml" value="0.318" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/border_shadow_white_background.xml" value="0.2425" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/border_shadow_with_blue_background.xml" value="0.318" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/cirular_button.xml" value="0.2555" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/ic_baseline_title_24.xml" value="0.361" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/side_nav_bar.xml" value="0.2425" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/submit_btn.xml" value="0.2555" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_class_search.xml" value="0.3233695652173913" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_homework_detail.xml" value="0.19882246376811594" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_main.xml" value="0.33695652173913043" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/alert_dialog_confirm.xml" value="0.21743421052631579" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/alert_dialog_layout.xml" value="0.21743421052631579" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/custome_alert_dialog_edit_class.xml" value="0.2563405797101449" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/custome_alert_dialog_join_class.xml" value="0.21743421052631579" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/custome_date_picker.xml" value="0.1" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/fragment_class_profile.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/fragment_home.xml" value="0.21743421052631579" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/fragment_message.xml" value="0.22282608695652173" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/homepage_fragment.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/homework_list_view.xml" value="0.3233695652173913" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/joined_classes_main_view.xml" value="0.3496376811594203" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/member_homework_item.xml" value="0.22" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/member_item.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/my_class_view.xml" value="0.22" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/nav_header.xml" value="0.3233695652173913" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/nav_header_class_profile.xml" value="0.19882246376811594" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/my_class_view.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/search_by_token_dialog.xml" value="0.3375" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/shimmer_placeholder_layout.xml" value="0.21743421052631579" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/menu/drawer_menu.xml" value="0.35989583333333336" />
       </map>
     </option>

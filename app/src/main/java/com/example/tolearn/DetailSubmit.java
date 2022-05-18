@@ -1,9 +1,12 @@
-package com.example.tolearn.AlertDialogs;
+package com.example.tolearn;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
-import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,22 +15,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-
-import com.example.tolearn.Entity.Homework;
-import com.example.tolearn.R;
-
-import android.content.SharedPreferences;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
+import com.example.tolearn.AlertDialogs.HomeworkEditDialog;
+import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.webService.HomeworkAPI;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonObject;
-
-import com.example.tolearn.Controllers.homework_creation_validations;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -56,27 +52,151 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HomeworkEditDialog extends Activity {
-    public AlertDialog alertDialog;
-    public EditText titleET;
-    public EditText descET;
-    public DatePicker datePicker;
+public class DetailSubmit extends AppCompatActivity {
+    Bundle extras;
+    String title , Desc , Deadline , homeworkToken , path , pdfLink;
+    TextView titleTextView , DescTextView , DeadlineTextView;
+    int homeworkId;
+    HomeworkAPI homeworkAPI;
     public Button fileSelection;
-    public Button homeworkEditBtn;
+    public Button homeworkSubmitBtn;
+    public Button getPdf;
     private static final int BUFFER_SIZE = 1024 * 2;
     private static final String IMAGE_DIRECTORY = "/Download";
-    HomeworkAPI homeworkAPI;
-    Context myContext;
-    String path;
-    String homeworkToken;
     private static final int PICK_PDF_FOR_FILE = 0;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-    Bundle extras;
-    public homework_creation_validations Controller;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+        Retrofit LoginRetrofit = new Retrofit.Builder()
+                .baseUrl(HomeworkAPI.BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        homeworkAPI =LoginRetrofit.create(HomeworkAPI.class);
+        extras = getIntent().getExtras();
+        setContentView(R.layout.activity_detail_submit);
+        titleTextView = findViewById(R.id.detailTitleET);
+        DescTextView = findViewById(R.id.detailDescET);
+        DeadlineTextView = findViewById(R.id.detailDeadlineET);
+        if (extras != null) {
+            title = extras.getString("homework_title");
+            homeworkToken = extras.getString("homework_token");
+            Deadline = extras.getString("homework_deadline");
+            homeworkId = extras.getInt("homework_id");
+            titleTextView.setText(title);
+           // DescTextView.setText(Desc);
+            DeadlineTextView.setText(Deadline);
+        }
+        fileSelection = findViewById(R.id.detailHomeworkPdfSelection);
+        homeworkSubmitBtn = findViewById(R.id.detailSubmitHomework);
+        getPdf = findViewById(R.id.detailHomeworkGetPdf);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("homework_token",homeworkToken);
+        SharedPreferences sharedPreferences = getSharedPreferences("userInformation",MODE_PRIVATE);
+        String userToken = sharedPreferences.getString("token","");
+        Call<Homework> callback = homeworkAPI.Display("token "+userToken,jsonObject);
+        callback.enqueue(new Callback<Homework>() {
+            @Override
+            public void onResponse(Call<Homework> call, Response<Homework> response) {
+                if(!response.isSuccessful())
+                {
+                    Log.i("RESPONES ERORRRRRR",response.errorBody().toString());
+                    CustomeAlertDialog myEvents = new CustomeAlertDialog(DetailSubmit.this,"Response Error","There is a problem with your internet connection");
+                }
+                else{
+                    Homework currHomework = response.body();
+                    DescTextView.setText(currHomework.getDescription());
+                    homeworkId = currHomework.getId();
+                    pdfLink = currHomework.getFile();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Homework> call, Throwable t) {
+                CustomeAlertDialog myEvents = new CustomeAlertDialog(DetailSubmit.this,"Error","There is a problem with your internet connection");
+            }
+        });
+        getPdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initDownload();
+            }
+        });
+        fileSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                browseDocuments();
+            }
+        });
+        homeworkSubmitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    File file = new File(path);
+                    RequestBody requestFile =
+                            RequestBody.create(MediaType.parse("*/*"), file);
+
+// MultipartBody.Part is used to send also the actual file name
+                    MultipartBody.Part body =
+                            MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+                    SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
+                    String token = shP.getString("token", "");
+                    Call<JsonObject> homeworkCall = homeworkAPI.Submit("token " + token,homeworkId, body);
+                    Log.i("5", "5");
+                    homeworkCall.enqueue(new Callback<JsonObject>() {
+                        @Override
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                            if (!response.isSuccessful()) {
+                                Toast.makeText(DetailSubmit.this, "Some Field Wrong", Toast.LENGTH_SHORT).show();
+                                Log.i("MOSHKEL", response.message());
+                            } else {
+                                String code = Integer.toString(response.code());
+                                JsonObject homeworkSubmitResponse = response.body();
+                                finish();
+                                Log.i("PHOTO", "SUCCED");
+                                //                           Log.i("IMAGE URL",user.getAvatar().toString());
+                                Toast.makeText(DetailSubmit.this, "Homework updated!", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<JsonObject> call, Throwable t) {
+                            Log.i("moshkel","injas");
+                            Log.i("Moshkel",t.getMessage());
+                            Toast.makeText(DetailSubmit.this, "error is :" + t.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+            }
+        });
+    }
+    private void initDownload() {
+        String uri = pdfLink;
+        download(getApplicationContext(), title, ".pdf", "Downloads", uri.trim());
+    }
+    private void download(Context context, String Filename, String FileExtension, String DesignationDirectory, String url) {
+        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalFilesDir(context, DesignationDirectory, Filename + FileExtension);
+        assert downloadManager != null;
+        downloadManager.enqueue(request);
+        Snackbar snackbar = (Snackbar) Snackbar
+                .make(findViewById(android.R.id.content), "Downloading...", Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
     private void browseDocuments(){
 
         String[] mimeTypes =
@@ -228,131 +348,5 @@ public class HomeworkEditDialog extends Activity {
                 })
                 .onSameThread()
                 .check();
-    }
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        extras = getIntent().getExtras();
-        homeworkToken = extras.getString("homework_token");
-        super.onCreate(savedInstanceState);
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-
-        Retrofit LoginRetrofit = new Retrofit.Builder()
-                .baseUrl(HomeworkAPI.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        homeworkAPI =LoginRetrofit.create(HomeworkAPI.class);
-        Controller = new homework_creation_validations();
-
-
-        setContentView(R.layout.edit_homework_dialog);
-
-
-        //init
-        titleET = findViewById(R.id.detailTitleET);
-        descET = findViewById(R.id.detailDescET);
-        datePicker = findViewById(R.id.datePicker);
-        fileSelection = findViewById(R.id.detailHomeworkPdfSelection);
-        homeworkEditBtn = findViewById(R.id.detailSubmitHomework);
-        SharedPreferences sharedPreferences = getSharedPreferences("userInformation",MODE_PRIVATE);
-        String userToken = sharedPreferences.getString("token","");
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("homework_token",homeworkToken);
-        Call<Homework> callback = homeworkAPI.Display("token "+userToken,jsonObject);
-        callback.enqueue(new Callback<Homework>() {
-            @Override
-            public void onResponse(Call<Homework> call, Response<Homework> response) {
-                if(!response.isSuccessful())
-                {
-                    Log.i("RESPONES ERORRRRRR",response.errorBody().toString());
-                    CustomeAlertDialog myEvents = new CustomeAlertDialog(HomeworkEditDialog.this,"Response Error","There is a problem with your internet connection");
-                }
-                else{
-                    Homework currHomework = response.body();
-                    titleET.setText(currHomework.getTitle());
-                    descET.setText(currHomework.getDescription());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Homework> call, Throwable t) {
-                CustomeAlertDialog myEvents = new CustomeAlertDialog(HomeworkEditDialog.this,"Error","There is a problem with your internet connection");
-            }
-        });
-        fileSelection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                browseDocuments();
-            }
-        });
-
-        homeworkEditBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int year = datePicker.getYear();
-                int month = datePicker.getMonth();
-                month = month + 1;
-                int day = datePicker.getDayOfMonth();
-                if(!Controller.IsTitleCorrect(titleET.getText().toString()))
-                {
-                    Toast.makeText(HomeworkEditDialog.this, "Please enter a title for homework", Toast.LENGTH_SHORT).show();
-                }
-                else if(!Controller.IsDescCorrect(descET.getText().toString()))
-                {
-                    Toast.makeText(HomeworkEditDialog.this, "Please enter a desc for homework", Toast.LENGTH_SHORT).show();
-                }
-                else if(!Controller.IsDateValid(year,month,day))
-                {
-                    Toast.makeText(HomeworkEditDialog.this, "You can not select a date in the past.", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    File file = new File(path);
-                    RequestBody requestFile =
-                            RequestBody.create(MediaType.parse("*/*"), file);
-
-// MultipartBody.Part is used to send also the actual file name
-                    MultipartBody.Part body =
-                            MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-                    RequestBody homeworkTokenR =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), homeworkToken);
-                    RequestBody titleR =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), titleET.getText().toString());
-                    RequestBody descR =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), descET.getText().toString());
-                    RequestBody dateR =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), year+"-"+month+"-"+day);
-                    SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
-                    String token = shP.getString("token", "");
-                    Call<Homework> homeworkCall = homeworkAPI.Edit("token " + token,homeworkTokenR,titleR, descR, dateR, body);
-                    Log.i("5", "5");
-                    homeworkCall.enqueue(new Callback<Homework>() {
-                        @Override
-                        public void onResponse(Call<Homework> call, Response<Homework> response) {
-                            if (!response.isSuccessful()) {
-                                Toast.makeText(HomeworkEditDialog.this, "Some Field Wrong", Toast.LENGTH_SHORT).show();
-                                Log.i("MOSHKEL", response.message());
-                            } else {
-                                String code = Integer.toString(response.code());
-                                Homework homework = response.body();
-                                finish();
-                                Log.i("PHOTO", "SUCCED");
-                                //                           Log.i("IMAGE URL",user.getAvatar().toString());
-                                Toast.makeText(HomeworkEditDialog.this, "Homework updated!", Toast.LENGTH_SHORT).show();
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Homework> call, Throwable t) {
-                            Log.i("moshkel","injas");
-                            Log.i("Moshkel",t.getMessage());
-                            Toast.makeText(HomeworkEditDialog.this, "error is :" + t.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            }
-        });
     }
 }

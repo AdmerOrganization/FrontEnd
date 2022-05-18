@@ -29,7 +29,7 @@
             android:elevation="10dp"
             android:minLines="1"
             android:maxLines="1"
-            android:id="@+id/titleET"
+            android:id="@+id/detailTitleET"
             android:hint="title"
             android:gravity="center"
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
             android:elevation="10dp"
             android:minLines="2"
             android:maxLines="5"
-            android:id="@+id/descET"
+            android:id="@+id/detailDescET"
             android:hint="Desc"
             android:gravity="center"
             android:layout_width="match_parent"
@@ -58,15 +58,15 @@
             android:textColor="@color/blue_learning"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleET"></EditText>
+            app:layout_constraintTop_toBottomOf="@+id/detailTitleET"></EditText>
 
         <TextView
-            android:id="@+id/Deadline"
+            android:id="@+id/detailDeadline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descET"
+            app:layout_constraintTop_toBottomOf="@+id/detailDescET"
             android:text="Deadline"
             android:gravity="center"
             android:textSize="16sp"
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Deadline">
+            app:layout_constraintTop_toBottomOf="@+id/detailDeadline">
             <DatePicker
                 android:background="@drawable/border_shadow_white_background"
                 android:elevation="10dp"
@@ -94,7 +94,7 @@
         <Button
             android:text="chose pdf"
             android:textColor="@color/blue_learning"
-            android:id="@+id/homeworkPdfSelection"
+            android:id="@+id/detailHomeworkPdfSelection"
             android:backgroundTint="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,18 +106,18 @@
             android:layout_marginEnd="25dp"></Button>
 
         <Button
-            android:id="@+id/HomeworkCreate"
+            android:id="@+id/detailSubmitHomework"
             android:layout_width="190dp"
             android:layout_height="48dp"
             android:backgroundTint="@color/blue_learning"
             android:text="ok"
-            app:layout_constraintTop_toBottomOf="@+id/homeworkPdfSelection"
+            app:layout_constraintTop_toBottomOf="@+id/detailHomeworkPdfSelection"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            app:layout_constraintTop_toBottomOf="@+id/HomeworkCreate"
+            app:layout_constraintTop_toBottomOf="@+id/detailSubmitHomework"
             android:layout_width="match_parent"
             android:layout_height="30dp">
         </TextView>

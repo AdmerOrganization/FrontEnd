@@ -37,7 +37,7 @@
     <EditText
         android:background="@drawable/border_shadow_white_background"
         android:elevation="10dp"
-        android:id="@+id/titleET"
+        android:id="@+id/detailTitleET"
         android:layout_width="match_parent"
         android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
@@ -63,7 +63,7 @@
         android:textColor="@color/blue_learning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleET"/>
+        app:layout_constraintTop_toBottomOf="@+id/detailTitleET"/>
 
 
     <EditText

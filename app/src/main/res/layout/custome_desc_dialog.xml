@@ -27,7 +27,7 @@
         android:elevation="10dp"
         android:minLines="2"
         android:maxLines="5"
-        android:id="@+id/descET"
+        android:id="@+id/detailDescET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -44,7 +44,7 @@
         android:layout_height="48dp"
         android:backgroundTint="@color/blue_learning"
         android:text="ok"
-        app:layout_constraintTop_toBottomOf="@+id/descET"
+        app:layout_constraintTop_toBottomOf="@+id/detailDescET"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

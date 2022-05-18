@@ -325,11 +325,11 @@ public class HomeworkCreationDialog extends Activity {
         setContentView(R.layout.homework_creation_dialog);
 
         //init
-        titleET = findViewById(R.id.titleET);
-        descET = findViewById(R.id.descET);
+        titleET = findViewById(R.id.detailTitleET);
+        descET = findViewById(R.id.detailDescET);
         datePicker = findViewById(R.id.datePicker);
-        fileSelection = findViewById(R.id.homeworkPdfSelection);
-        homeworkCreation = findViewById(R.id.HomeworkCreate);
+        fileSelection = findViewById(R.id.detailHomeworkPdfSelection);
+        homeworkCreation = findViewById(R.id.detailSubmitHomework);
 
         fileSelection.setOnClickListener(new View.OnClickListener() {
             @Override

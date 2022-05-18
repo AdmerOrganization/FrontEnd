@@ -27,7 +27,7 @@ public class CustomeAlertDialogDescription {
         alertDialog = builder.create();
         alertDialog.show();
 
-        desc = alertView.findViewById(R.id.descET);
+        desc = alertView.findViewById(R.id.detailDescET);
         desc.setText(descriptionField.getText().toString());
 
         btnOK = alertView.findViewById(R.id.okBtn);

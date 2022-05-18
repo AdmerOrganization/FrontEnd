@@ -59,7 +59,7 @@
     <EditText
         android:background="@drawable/border_shadow_white_background"
         android:elevation="10dp"
-        android:id="@+id/titleET"
+        android:id="@+id/detailTitleET"
         android:layout_width="match_parent"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -81,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleET" />
+        app:layout_constraintTop_toBottomOf="@+id/detailTitleET" />
 
     <EditText
         android:background="@drawable/border_shadow_white_background"
@@ -171,7 +171,7 @@
     <EditText
         android:background="@drawable/border_shadow_white_background"
         android:elevation="10dp"
-        android:id="@+id/descET"
+        android:id="@+id/detailDescET"
         android:layout_width="match_parent"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -191,7 +191,7 @@
         android:text="Edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descET"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/detailDescET"></Button>
         <TextView
             app:layout_constraintTop_toBottomOf="@+id/editBtn"
             android:layout_width="match_parent"

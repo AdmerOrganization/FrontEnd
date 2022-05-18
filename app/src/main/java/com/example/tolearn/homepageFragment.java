@@ -43,7 +43,6 @@ public class homepageFragment extends Fragment {
     UserAPI userAPI;
     String userToken;
     ClassAPI classAPI;
-    TextView joinedClassesTV;
     TextView createdClassesTV;
     ShimmerFrameLayout mFrameLayout;
     LinearLayoutManager HorizontalLayout2;
@@ -54,7 +53,6 @@ public class homepageFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.homepage_fragment, container, false);
 
         mFrameLayout = rootView.findViewById(R.id.shimmerLayout);
-        joinedClassesTV = rootView.findViewById(R.id.joinedClassesTV);
         createdClassesTV = rootView.findViewById(R.id.createdClassesTV);
         joinedClassesList = rootView.findViewById(R.id.joinedClassesScroll);
         createdClassesList = rootView.findViewById(R.id.createdClassList);

@@ -5,9 +5,8 @@
             <padding android:left="10dp" android:right="10dp" android:top="10dp" android:bottom="10dp"/>
             <gradient
                 android:angle="135"
-                android:centerColor="@color/purple_200"
                 android:endColor="@color/blue_learning"
-                android:startColor="@color/red_learning"
+                android:startColor="@color/side_bar_background"
                 android:type="linear" />
             <corners android:radius="20dp"/>
 

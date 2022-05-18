@@ -115,7 +115,7 @@ public class CustomeAlertdialogJoinClass {
                             }
                             else{
                                 alertDialog.dismiss();
-                                CustomeAlertDialog joinedToClass = new CustomeAlertDialog(context, "joined successfully", "");
+                                CustomeAlertDialog joinedToClass = new CustomeAlertDialog(context, "Successful", "joined to the class successfully");
                                 joinedToClass.imageView.setImageResource(R.drawable.celeberate);
                                 joinedToClass.btnOk.setOnClickListener(new View.OnClickListener() {
                                     @Override

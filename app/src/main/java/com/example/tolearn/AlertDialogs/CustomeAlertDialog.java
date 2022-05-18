@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -13,6 +14,7 @@ import com.example.tolearn.R;
 public class CustomeAlertDialog {
 
     public AlertDialog alertDialog;
+    public ImageView imageView;
     TextView titleTV;
     TextView messageTV;
     public Button btnOk;
@@ -27,6 +29,7 @@ public class CustomeAlertDialog {
         alertDialog = builder.create();
         alertDialog.show();
 
+        imageView = alertView.findViewById(R.id.logo_alert_s);
         titleTV = alertView.findViewById(R.id.titleTv);
         messageTV = alertView.findViewById(R.id.messageTv);
         btnOk = alertView.findViewById(R.id.okBtn);

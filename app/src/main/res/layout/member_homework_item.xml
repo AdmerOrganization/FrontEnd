@@ -1,36 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="75dp"
         android:background="@drawable/border_shadow_white_background"
-        android:layout_height="90dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/memberName"
-            android:layout_marginRight="140dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="140dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/downloadHomeworkPdf"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></TextView>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/downloadHomeworkPdf"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/homework_button"
-            android:text="Download"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/cirular_button"
+            android:paddingLeft="25dp"
+            android:text=""
+            app:icon="@drawable/ic_baseline_cloud_download_24"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></Button>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.617"></com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_marginStart="30dp"
+            android:id="@+id/correctHomeworkPdf"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/cirular_button"
+            android:paddingLeft="25dp"
+            android:text=""
+            app:icon="@drawable/ic_baseline_verified_24"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/downloadHomeworkPdf"
+            app:layout_constraintStart_toEndOf="@+id/memberName"
+            app:layout_constraintTop_toTopOf="parent"></com.google.android.material.button.MaterialButton>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

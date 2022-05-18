@@ -51,6 +51,15 @@ public class User {
         this.last_name = last_name;
     }
 
+    //Answer_list
+    public User(String first_name,String last_name , String username , Integer id)
+    {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.username = username;
+        this.ID = id;
+    }
+
     public int getID() {
         return ID;
     }

@@ -115,20 +115,25 @@ public class Homework_results extends AppCompatActivity {
                     resultsAdapter = new homework_result_item_adapter(Homework_results.this,resultsList,userToken);
 
                     memberResultsView.setAdapter(resultsAdapter);
+                    if(resultsList.size() == 0)
+                    {
+                        memberResultsView.setVisibility(View.INVISIBLE);
+                        ConstraintLayout no_item = findViewById(R.id.not_found);
+                        no_item.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<List<Homework_result>> call, Throwable t) {
-
+                CustomeAlertDialog results = new CustomeAlertDialog(Homework_results.this,"Response Error","There is a problem with your internet connection");
+                results.btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                });
             }
         });
-
-        if(resultsList.size() == 0)
-        {
-            memberResultsView.setVisibility(View.INVISIBLE);
-            ConstraintLayout no_item = findViewById(R.id.not_found);
-            no_item.setVisibility(View.VISIBLE);
-        }
     }
 }

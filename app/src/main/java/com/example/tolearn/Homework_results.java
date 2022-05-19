@@ -94,9 +94,9 @@ public class Homework_results extends AppCompatActivity {
 
     public void fillResultList()
     {
-        JsonObject hw_id = new JsonObject();
-        hw_id.addProperty("homework",this.hw_id);
-        Call<List<Homework_result>> callBack = homeworkAPI.homework_answers("token "+userToken ,hw_id );
+        JsonObject hw_id_json = new JsonObject();
+        hw_id_json.addProperty("homework",hw_id);
+        Call<List<Homework_result>> callBack = homeworkAPI.homework_answers("token "+userToken, hw_id_json );
         callBack.enqueue(new Callback<List<Homework_result>>() {
             @Override
             public void onResponse(Call<List<Homework_result>> call, Response<List<Homework_result>> response) {

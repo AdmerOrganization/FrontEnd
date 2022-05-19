@@ -3,6 +3,7 @@ package com.example.tolearn.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,7 +101,7 @@ public class homeworkAdapter extends BaseAdapter implements Filterable {
                 Intent goToResults = new Intent(context, Homework_results.class);
                 goToResults.putExtra("title",currentHomework.getTitle());
                 goToResults.putExtra("deadline",currentHomework.getDeadline());
-                goToResults.putExtra("id",currentHomework.getId());
+                goToResults.putExtra("id",String.valueOf(currentHomework.getId()));
                 context.startActivity(goToResults);
             }
         });

@@ -53,5 +53,5 @@ public interface HomeworkAPI {
                             @Part MultipartBody.Part file);
 
     @POST("homeworks/list_answer/")
-    Call<List<Homework_result>> homework_answers(@Header("Authorization") String user_token, JsonObject homework_id);
+    Call<List<Homework_result>> homework_answers(@Header("Authorization") String user_token,@Body JsonObject homework_id);
 }

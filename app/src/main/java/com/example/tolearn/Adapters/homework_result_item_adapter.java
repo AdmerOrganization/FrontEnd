@@ -1,12 +1,14 @@
 package com.example.tolearn.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.tolearn.AlertDialogs.Homework_result_detailed;
 import com.example.tolearn.Entity.Homework_result;
 import com.example.tolearn.Entity.User;
 import com.example.tolearn.Homework_results;
@@ -67,7 +69,7 @@ public class homework_result_item_adapter extends BaseAdapter {
         downloadbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo
+                Homework_result_detailed result_detailed = new Homework_result_detailed(context , full_name_str , date , url);
             }
         });
         return view;

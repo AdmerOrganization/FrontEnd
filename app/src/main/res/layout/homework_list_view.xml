@@ -11,6 +11,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -24,10 +25,10 @@
 
             <TextView
                 android:layout_width="2dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@color/blue_learning"
-                android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -82,25 +83,40 @@
                 android:layout_width="100dp"
                 android:layout_height="45dp"
                 android:layout_marginBottom="8dp"
-                android:text="SUBMIT"
                 android:backgroundTint="@color/darker_blue_learning"
+                android:text="SUBMIT"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/editBtn"
-                android:paddingLeft="25dp"
-                android:text=""
-                app:icon="@drawable/ic_baseline_edit_24"
-                app:iconGravity="textStart"
-                app:iconPadding="10dp"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/cirular_button"
+                android:paddingLeft="25dp"
+                android:text=""
+                app:icon="@drawable/ic_baseline_edit_24"
+                app:iconGravity="textStart"
+                app:iconPadding="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/SubmitBtn" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/resultBtn"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/cirular_button"
+                android:paddingLeft="25dp"
+                android:text=""
+                app:icon="@drawable/ic_baseline_rate_review_24"
+                app:iconGravity="textStart"
+                app:iconPadding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/editBtn" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

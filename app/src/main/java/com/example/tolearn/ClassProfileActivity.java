@@ -89,23 +89,7 @@ public class ClassProfileActivity extends AppCompatActivity {
 
 
         setSupportActionBar(binding.appBarClassProfile.classProfiletoolbar);
-        binding.appBarClassProfile.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences shp2 = getSharedPreferences("classId",MODE_PRIVATE);
-                String access = shp2.getString("user_access","");
 
-                if(access.equals("teacher"))
-                {
-                    Intent createHomework = new Intent(ClassProfileActivity.this,HomeworkCreationDialog.class);
-                    createHomework.putExtra("id",class_id);
-                    startActivity(createHomework);
-                }
-                else{
-                    Toast.makeText(ClassProfileActivity.this, "You don't have the right access to create a homework for this class", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each

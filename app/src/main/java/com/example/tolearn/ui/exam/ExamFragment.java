@@ -1,5 +1,6 @@
 package com.example.tolearn.ui.exam;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.tolearn.ExamProfile;
 import com.example.tolearn.databinding.FragmentExamBinding;
 
 public class ExamFragment extends Fragment {
@@ -32,6 +34,15 @@ public class ExamFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
+            }
+        });
+
+        final com.google.android.material.floatingactionbutton.FloatingActionButton addExamBtn = binding.addExam;
+        addExamBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToExamCreation = new Intent(getActivity() , ExamProfile.class);
+                startActivity(goToExamCreation);
             }
         });
         return root;

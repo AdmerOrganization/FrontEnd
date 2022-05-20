@@ -3,6 +3,7 @@ package com.example.tolearn;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,8 +55,19 @@ public class ExamProfile extends AppCompatActivity {
             int currentMonth = c.get(Calendar.MONTH);
             currentMonth = currentMonth + 1;
             int currentYear = c.get(Calendar.YEAR);
-            String today = String.valueOf(currentYear) + "_" +String.valueOf(currentMonth) +"_"+String.valueOf(currentDay);
-            Toast.makeText(this, today, Toast.LENGTH_LONG).show();
+            String yearStr = String.valueOf(currentYear);
+            String monthStr = String.valueOf(currentMonth);
+            String dayStr = String.valueOf(currentDay);
+            if(monthStr.length()==1)
+            {
+                monthStr = "0"+monthStr;
+            }
+            if(dayStr.length()==1)
+            {
+                dayStr = "0"+dayStr;
+            }
+            String today = yearStr + "_" +monthStr +"_"+dayStr;
+
             if(date.equals(today))
             {
                 CustomeTimePicker startTimePicker = new CustomeTimePicker(ExamProfile.this,startTimeTv,true);

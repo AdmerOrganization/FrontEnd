@@ -124,7 +124,7 @@
         <Button
             android:onClick="createExam"
             android:text="DONE"
-            android:backgroundTint="@color/red_learning"
+            android:backgroundTint="#ED3DF3"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

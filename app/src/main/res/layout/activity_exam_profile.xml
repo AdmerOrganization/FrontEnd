@@ -5,17 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ExamProfile"
-    android:background="@color/red_learning">
+    android:background="@drawable/border_shadow_white_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_margin="10dp"
         android:background="@drawable/border_shadow_white_background"
-        android:elevation="5dp">
+        android:elevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/titleEt"
@@ -36,18 +37,18 @@
             app:layout_constraintTop_toTopOf="parent"></EditText>
 
         <TextView
-            android:onClick="dateSelection"
             android:id="@+id/examDate"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/red_button_circular"
+            android:background="@drawable/answers_border"
             android:gravity="center"
             android:hint="chose exam date"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:onClick="dateSelection"
+            android:textColor="@color/red_learning"
+            android:textColorHint="@color/red_learning"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,18 +56,18 @@
             app:layout_constraintTop_toBottomOf="@+id/titleEt"></TextView>
 
         <TextView
-            android:onClick="StartTimeSelection"
             android:id="@+id/startTimeET"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/red_button_circular"
+            android:background="@drawable/answers_border"
             android:gravity="center"
             android:hint="chose start time"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:onClick="StartTimeSelection"
+            android:textColor="@color/red_learning"
+            android:textColorHint="@color/red_learning"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,18 +75,18 @@
             app:layout_constraintTop_toBottomOf="@+id/examDate"></TextView>
 
         <TextView
-            android:onClick="EndTimeSelection"
             android:id="@+id/EndTimeEt"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/red_button_circular"
+            android:background="@drawable/answers_border"
             android:gravity="center"
             android:hint="chose end time"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:onClick="EndTimeSelection"
+            android:textColor="@color/red_learning"
+            android:textColorHint="@color/red_learning"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -94,30 +95,42 @@
 
         <ListView
             android:id="@+id/questions"
-            android:background="@drawable/border_shadow_white_background"
-            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="50dp"
+            android:background="@drawable/border_shadow_white_background"
+            android:elevation="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EndTimeEt"></ListView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/searchByTokenBtn"
+            android:id="@+id/addQuestionBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|right"
-            android:onClick="addQuestion"
             android:backgroundTint="@color/red_learning"
+            android:onClick="addQuestion"
             android:src="@drawable/ic_baseline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />
+
+
+        <Button
+            android:onClick="createExam"
+            android:text="DONE"
+            android:backgroundTint="@color/red_learning"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/questions" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

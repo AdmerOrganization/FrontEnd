@@ -41,7 +41,7 @@ public class ExamProfile extends AppCompatActivity {
         examDate = findViewById(R.id.examDate);
         questionsListView = findViewById(R.id.questions);
         questionList = new ArrayList<>();
-        questionsAdapter = new questionsAdapter(ExamProfile.this , questionList);
+        questionsAdapter = new questionsAdapter(ExamProfile.this , questionList , questionsListView );
         questionsListView.setAdapter(questionsAdapter);
     }
 
@@ -113,5 +113,11 @@ public class ExamProfile extends AppCompatActivity {
         Toast.makeText(this, questionList.toString(), Toast.LENGTH_LONG).show();
 
 
+    }
+
+    public void createExam(View view) {
+        //todo connection to back ....
+        // all of the questions are in questionsList
+        //question and exam entities are created
     }
 }

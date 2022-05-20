@@ -145,7 +145,7 @@ public class CustomeTimePicker {
         int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
         int minutes = calendar.get(Calendar.MINUTE);
 
-        if(hour >= hour24hrs && min >= minutes)
+        if(hour > hour24hrs || (hour == hour24hrs && min >= minutes))
         {
             return true;
         }

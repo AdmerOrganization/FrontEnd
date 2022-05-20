@@ -10,11 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.example.tolearn.Adapters.questionsAdapter;
 import com.example.tolearn.Entity.question;
 import com.example.tolearn.R;
 
@@ -31,7 +33,7 @@ public class question_item_dialog {
     EditText answer4_ET;
     String right_ans;
     public Button DoneBtn;
-    public question_item_dialog(Context context,String counter, List<question> questionList)
+    public question_item_dialog(Context context, String counter, List<question> questionList , questionsAdapter adap , ListView questionsListView)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(true);
@@ -157,6 +159,8 @@ public class question_item_dialog {
                 {
                     question question = new question(counter,questionET.getText().toString(),answer1_ET.getText().toString(),answer2_ET.getText().toString(),answer3_ET.getText().toString(),answer4_ET.getText().toString(),right_ans);
                     questionList.add(question);
+                    adap.notifyDataSetChanged();
+                    questionsListView.setAdapter(adap);
                     alertDialog.dismiss();
                 }
             }

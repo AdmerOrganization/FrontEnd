@@ -56,7 +56,7 @@ public class ExamProfile extends AppCompatActivity {
             int currentYear = c.get(Calendar.YEAR);
             String today = String.valueOf(currentYear) + "_" +String.valueOf(currentMonth) +"_"+String.valueOf(currentDay);
             Toast.makeText(this, today, Toast.LENGTH_LONG).show();
-            if(date == today)
+            if(date.equals(today))
             {
                 CustomeTimePicker startTimePicker = new CustomeTimePicker(ExamProfile.this,startTimeTv,true);
             }
@@ -89,7 +89,7 @@ public class ExamProfile extends AppCompatActivity {
                 int startHour = Integer.valueOf(arr[0]);
                 int startMin = Integer.valueOf(arr[1]);
                 String today = String.valueOf(currentYear) + "_" +String.valueOf(currentMonth) +"_"+String.valueOf(currentDay);
-                if(date == today)
+                if(date.equals(today))
                 {
                     CustomeTimePicker endTimePicker = new CustomeTimePicker(ExamProfile.this,endTimeTv,true , startHour  , startMin);
                 }
@@ -109,9 +109,9 @@ public class ExamProfile extends AppCompatActivity {
 
     public void addQuestion(View view) {
         int counter = questionList.size() + 1;
-        question_item_dialog newQuestion = new question_item_dialog(ExamProfile.this,String.valueOf(counter),questionList);
+        question_item_dialog newQuestion = new question_item_dialog(ExamProfile.this,String.valueOf(counter),questionList,questionsAdapter,questionsListView);
         Toast.makeText(this, questionList.toString(), Toast.LENGTH_LONG).show();
-        questionsAdapter.notifyDataSetChanged();
-        questionsListView.setAdapter(questionsAdapter);
+
+
     }
 }

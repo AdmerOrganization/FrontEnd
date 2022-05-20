@@ -17,6 +17,15 @@
         android:theme="@style/Theme.ToLearn"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ExamProfile"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Homework_results"
             android:exported="false" />
         <activity

@@ -7,9 +7,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:background="@drawable/border_shadow_with_blue_background"
-        android:elevation="20dp"
+        android:elevation="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,8 +32,8 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="12dp"
             android:background="@drawable/cirular_button"
             android:paddingRight="5dp"
@@ -46,8 +46,8 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton2"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@drawable/cirular_button"
             android:paddingRight="5dp"
             app:icon="@drawable/ic_baseline_person_remove_24"

@@ -3,6 +3,7 @@ package com.example.tolearn.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.tolearn.AlertDialogs.HomeworkEditDialog;
 import com.example.tolearn.Entity.Homework;
+import com.example.tolearn.Homework_results;
 import com.example.tolearn.R;
 
 import java.util.ArrayList;
@@ -62,12 +64,15 @@ public class homeworkAdapter extends BaseAdapter implements Filterable {
         deadline.setText(currentHomework.getDeadline());
         Button submit = view.findViewById(R.id.SubmitBtn);
         Button editBtn = view.findViewById(R.id.editBtn);
+        Button resultsBtn = view.findViewById(R.id.resultBtn);
         SharedPreferences shp2 = context.getSharedPreferences("classId",context.MODE_PRIVATE);
         String access = shp2.getString("user_access","");
         if(access.equals("student"))
         {
             editBtn.setClickable(false);
             editBtn.setVisibility(View.INVISIBLE);
+            resultsBtn.setClickable(false);
+            resultsBtn.setVisibility(View.INVISIBLE);
         }
         submit.setOnClickListener(new View.OnClickListener() {
                                       @Override
@@ -84,11 +89,20 @@ public class homeworkAdapter extends BaseAdapter implements Filterable {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "click here to go to the edit class", Toast.LENGTH_SHORT).show();
                 Intent gotoEdit = new Intent(context, HomeworkEditDialog.class);
                 gotoEdit.putExtra("homework_token",currentHomework.getHomework_token());
                 context.startActivity(gotoEdit);
 
+            }
+        });
+        resultsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToResults = new Intent(context, Homework_results.class);
+                goToResults.putExtra("title",currentHomework.getTitle());
+                goToResults.putExtra("deadline",currentHomework.getDeadline());
+                goToResults.putExtra("id",String.valueOf(currentHomework.getId()));
+                context.startActivity(goToResults);
             }
         });
 

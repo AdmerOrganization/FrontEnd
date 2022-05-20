@@ -16,7 +16,10 @@ import com.example.tolearn.webService.ClassAPI;
 import com.example.tolearn.webService.UserAPI;
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
+
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -88,11 +91,38 @@ public class CustomeAlertdialogJoinClass {
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                             if(!response.isSuccessful())
                             {
-                                Toast.makeText(context, "Password is not correct", Toast.LENGTH_SHORT).show();
+                                ResponseBody responseBody = response.errorBody();
+                                String resp = null;
+                                try {
+                                    resp = responseBody.string();
+                                    resp = resp.replace("{","");
+                                    resp = resp.replace("}","");
+                                    resp = resp.replace('"',' ');
+
+                                    if(resp.contains("already")){
+                                        Toast.makeText(context, "you are already in the class ", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        Toast.makeText(context, "Password is not correct", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(context, "Password is not correct", Toast.LENGTH_SHORT).show();
+                                }
+
                                 view.setClickable(true);
                             }
                             else{
                                 alertDialog.dismiss();
+                                CustomeAlertDialog joinedToClass = new CustomeAlertDialog(context, "Successful", "joined to the class successfully");
+                                joinedToClass.imageView.setImageResource(R.drawable.celeberate);
+                                joinedToClass.btnOk.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        joinedToClass.alertDialog.dismiss();
+                                    }
+                                });
                             }
                         }
 

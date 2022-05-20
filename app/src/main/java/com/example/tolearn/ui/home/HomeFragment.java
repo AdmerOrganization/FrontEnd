@@ -44,8 +44,8 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        TextView homeworkTitle = root.findViewById(R.id.homeworkTextviewSingle);
-        TextView deadline = root.findViewById(R.id.deadlineTextviewSingle);
+//        TextView homeworkTitle = root.findViewById(R.id.homeworkTextviewSingle);
+//        TextView deadline = root.findViewById(R.id.deadlineTextviewSingle);
 
 
 //        final TextView textView = binding.textHome;

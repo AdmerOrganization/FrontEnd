@@ -17,6 +17,9 @@
         android:theme="@style/Theme.ToLearn"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Homework_results"
+            android:exported="false" />
+        <activity
             android:name=".DetailSubmit"
             android:exported="false" />
         <activity
@@ -32,7 +35,7 @@
             android:exported="false" />
         <activity
             android:name=".manageClass"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".class_creation_page_2"
             android:exported="false" />
@@ -57,10 +60,10 @@
             android:exported="true" />
         <activity
             android:name=".AlertDialogs.HomeworkCreationDialog"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".AlertDialogs.HomeworkEditDialog"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Login"
             android:exported="true">

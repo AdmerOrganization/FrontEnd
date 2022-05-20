@@ -1,6 +1,7 @@
 package com.example.tolearn.webService;
 
 import com.example.tolearn.Entity.Homework;
+import com.example.tolearn.Entity.Homework_result;
 import com.example.tolearn.Entity.User;
 import com.example.tolearn.Entity.myClass;
 import com.google.gson.JsonObject;
@@ -50,33 +51,7 @@ public interface HomeworkAPI {
     Call<JsonObject> Submit(@Header("Authorization") String user_token ,
                             @Part("homework") Integer homework_id,
                             @Part MultipartBody.Part file);
-    //    @Multipart
-//    @POST("classrooms/create/")
-//    Call<JsonObject> CreateClass(@Header("Authorization") String user_token, @Part("title") RequestBody title
-//                                 , @Part MultipartBody.Part image
-//                                 , @Part("teacher_name") RequestBody TeacherName
-//                                 , @Part("description") RequestBody Description
-//                                 , @Part("limit") RequestBody Limit
-//                                 , @Part("password") RequestBody password
-//    );
-//
-//    @POST("classrooms/create/")
-//    Call<JsonObject> CreateClassWithoutAvatar(@Header("Authorization") String user_token,@Body JsonObject classInfo);
-//    @POST("classrooms/join/")
-//    Call<JsonObject> JoinClass(@Header("Authorization") String user_token,@Body JsonObject joinInfo);
-//    @GET("classrooms/get-created/")
-//    Call<List<myClass>> GetCreatedClasses(@Header("Authorization") String user_token);
-//
-//    @GET("classrooms/get-all/")
-//    Call<List<myClass>> GetAllClasses(@Header("Authorization") String user_token);
-//
-//    @POST("classrooms/search/")
-//    Call<List<myClass>> Filter(@Header("Authorization") String user_token,@Body JsonObject seachInfo);
-//
-//    @PUT("classrooms/edit/")
-//    Call<JsonObject> EditClass(@Header("Authorization") String user_token,@Body JsonObject classInfo);
-//
-//    @HTTP(method = "DELETE", path = "classrooms/delete/", hasBody = true)
-//    Call<JsonObject> deleteClass(@Header("Authorization") String user_token, @Body JsonObject jsonObject);
 
+    @POST("homeworks/list_answer/")
+    Call<List<Homework_result>> homework_answers(@Header("Authorization") String user_token,@Body JsonObject homework_id);
 }

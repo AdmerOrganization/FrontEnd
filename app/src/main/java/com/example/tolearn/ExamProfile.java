@@ -2,9 +2,11 @@ package com.example.tolearn;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,20 +14,42 @@ import android.widget.Toast;
 import com.example.tolearn.Adapters.questionsAdapter;
 import com.example.tolearn.AlertDialogs.CustomDatePicker;
 import com.example.tolearn.AlertDialogs.CustomeTimePicker;
+import com.example.tolearn.AlertDialogs.HomeworkCreationDialog;
 import com.example.tolearn.AlertDialogs.question_item_dialog;
+import com.example.tolearn.Entity.Exam;
+import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.Entity.question;
+import com.example.tolearn.webService.ExamAPI;
+import com.example.tolearn.webService.HomeworkAPI;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ExamProfile extends AppCompatActivity {
 
     TextView startTimeTv;
     TextView endTimeTv;
     TextView examDate;
+    EditText titleET;
+    ExamAPI examAPI;
     ListView questionsListView;
     questionsAdapter questionsAdapter;
+
+    public List<question> getQuestionList() {
+        return questionList;
+    }
+
     List<question> questionList;
 
     @Override
@@ -37,6 +61,16 @@ public class ExamProfile extends AppCompatActivity {
     }
     public void init()
     {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        Retrofit createHomeworkRetro = new Retrofit.Builder()
+                .baseUrl(ExamAPI.BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        examAPI =createHomeworkRetro.create(ExamAPI.class);
+        titleET = findViewById(R.id.titleEt);
         startTimeTv = findViewById(R.id.startTimeET);
         endTimeTv = findViewById(R.id.EndTimeEt);
         examDate = findViewById(R.id.examDate);
@@ -131,5 +165,40 @@ public class ExamProfile extends AppCompatActivity {
         //todo connection to back ....
         // all of the questions are in questionsList
         //question and exam entities are created
+        if(!titleET.getText().toString().equals("")) {
+            String examD;
+            examD = examDate.getText().toString().replaceAll("_","-");
+            Exam myExam = new Exam(questionList,examD+" "+startTimeTv.getText().toString()+":00",examD+" "+endTimeTv.getText().toString()+":00",questionList.size(),titleET.getText().toString());
+            SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
+            String token = shP.getString("token", "");
+            Call<JsonObject> examCreateCall = examAPI.ExamCreate("token " + token,myExam);
+            examCreateCall.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(ExamProfile.this, "Some Field Wrong", Toast.LENGTH_SHORT).show();
+                        Log.i("MOSHKEL", response.message());
+                    } else {
+                        String code = Integer.toString(response.code());
+                        JsonObject Response = response.body();
+                        Log.i("PHOTO", "SUCCED");
+                        //                           Log.i("IMAGE URL",user.getAvatar().toString());
+                        Toast.makeText(ExamProfile.this, "Homework created!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    Log.i("moshkel","injas");
+                    Log.i("Moshkel",t.getMessage());
+                    Toast.makeText(ExamProfile.this, "error is :" + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
+        else{
+            Toast.makeText(this,"Title is Empty",Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.example.tolearn.Adapters.questionsAdapter;
 import com.example.tolearn.Entity.question;
+import com.example.tolearn.ExamProfile;
 import com.example.tolearn.R;
 
 import java.util.List;
@@ -289,7 +290,6 @@ public class question_item_dialog {
         DoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
     }

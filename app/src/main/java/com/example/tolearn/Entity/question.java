@@ -3,25 +3,18 @@ package com.example.tolearn.Entity;
 import com.google.gson.annotations.SerializedName;
 
 public class question {
-    @SerializedName("id")
     String id;
 
-    @SerializedName("")
     String question;
 
-    @SerializedName("")
     String answer1;
 
-    @SerializedName("")
     String answer2;
 
-    @SerializedName("")
     String answer3;
 
-    @SerializedName("")
     String answer4;
 
-    @SerializedName("")
     String righ_ans;
 
     public question(String id, String question, String answer1, String answer2, String answer3, String answer4, String righ_ans) {

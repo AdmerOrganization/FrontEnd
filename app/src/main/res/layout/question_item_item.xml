@@ -17,11 +17,11 @@
 
         <TextView
             android:id="@+id/question"
-            android:maxLength="30"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="100dp"
             android:gravity="center"
+            android:maxLength="30"
             android:text="saman"
             android:textColor="@color/red_learning"
             android:textSize="19sp"
@@ -42,6 +42,21 @@
             app:iconPadding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></com.google.android.material.button.MaterialButton>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/deleteQuestion"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/red_learning"
+            android:paddingRight="5dp"
+            app:icon="@drawable/ic_baseline_delete_24"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/editQuestion"
+            app:layout_constraintStart_toEndOf="@+id/question"
             app:layout_constraintTop_toTopOf="parent"></com.google.android.material.button.MaterialButton>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

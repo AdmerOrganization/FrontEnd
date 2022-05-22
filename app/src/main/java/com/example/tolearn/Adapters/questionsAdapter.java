@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.AlertDialogs.question_item_dialog;
 import com.example.tolearn.Entity.question;
 import com.example.tolearn.R;
@@ -51,6 +52,7 @@ public class questionsAdapter extends BaseAdapter {
 
         TextView question = view.findViewById(R.id.question);
         com.google.android.material.button.MaterialButton editQuestion = view.findViewById(R.id.editQuestion);
+        com.google.android.material.button.MaterialButton deleteQuestion = view.findViewById(R.id.deleteQuestion);
 
         question currentQuestion = questionList.get(i);
         question.setText(currentQuestion.getQuestion());
@@ -96,6 +98,29 @@ public class questionsAdapter extends BaseAdapter {
                     }
                 });
 
+            }
+        });
+
+        deleteQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomeConfirmAlertDialog deleteConfirmation = new CustomeConfirmAlertDialog(context , "Confrimation"  , "Are you sure you want to delete this question ?");
+                deleteConfirmation.image.setImageResource(R.drawable.trash);
+                deleteConfirmation.No.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        deleteConfirmation.alertDialog.dismiss();
+                    }
+                });
+                deleteConfirmation.Yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        questionList.remove(i);
+                        notifyDataSetChanged();
+                        Toast.makeText(context, "question deleted", Toast.LENGTH_SHORT).show();
+                        deleteConfirmation.alertDialog.dismiss();
+                    }
+                });
             }
         });
 

@@ -66,4 +66,15 @@ dependencies {
     implementation 'com.karumi:dexter:5.0.0'
 
     testImplementation "com.squareup.okhttp3:mockwebserver:4.7.2"
+
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib"
+
+    androidTestImplementation ('com.android.support.test.espresso:espresso-contrib:2.2.2') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude module: 'support-annotations'
+        exclude module: 'support-v4'
+        exclude module: 'support-v13'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'appcompat-v7'
+    }
 }

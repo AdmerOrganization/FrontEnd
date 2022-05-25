@@ -21,6 +21,13 @@
             android:exported="true">
 
         </activity>
+
+        <activity
+            android:name=".ExamUpdate"
+            android:exported="true">
+
+        </activity>
+
         <activity
             android:name=".Homework_results"
             android:exported="false" />

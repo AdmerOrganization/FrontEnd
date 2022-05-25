@@ -18,6 +18,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 
 public interface ExamAPI {
@@ -28,8 +29,14 @@ public interface ExamAPI {
     @POST("exams/exams_create/")
     Call<JsonObject> ExamCreate(@Header("Authorization") String user_token,@Body Exam examInfo);
 
+    @PUT("exams/exams_edit/")
+    Call<JsonObject> ExamUpdate(@Header("Authorization") String user_token,@Body Exam examInfo);
+
     @GET("exams/exams_create/")
     Call<List<ExamNew>> GetAllExams(@Header("Authorization") String user_token);
+
+    @POST("exams/exams_retrieve/")
+    Call<JsonObject> GetExamDetails (@Header("Authorization") String user_token,@Body JsonObject examId);
 //    @POST("homeworks/list/")
 //    Call<List<Homework>> GetAllHomework(@Header("Authorization") String user_token,@Body JsonObject classInfo);
 //    @Multipart

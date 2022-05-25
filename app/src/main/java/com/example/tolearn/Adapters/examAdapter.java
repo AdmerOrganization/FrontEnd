@@ -3,6 +3,7 @@ package com.example.tolearn.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,11 @@ import com.example.tolearn.AlertDialogs.HomeworkEditDialog;
 import com.example.tolearn.Entity.Exam;
 import com.example.tolearn.Entity.ExamNew;
 import com.example.tolearn.Entity.Homework;
+import com.example.tolearn.ExamUpdate;
 import com.example.tolearn.Homework_results;
 import com.example.tolearn.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +82,21 @@ public class examAdapter extends BaseAdapter implements Filterable {
             resultsBtn.setClickable(false);
             resultsBtn.setVisibility(View.INVISIBLE);
         }
+
+
         String id = currentExam.getId().toString();
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToExamUpdate = new Intent(context, ExamUpdate.class);
+                goToExamUpdate.putExtra("id",id);
+                goToExamUpdate.putExtra("question_count",String.valueOf(currentExam.getQuestions_count()));
+                goToExamUpdate.putExtra("name",currentExam.getName());
+                goToExamUpdate.putExtra("start_time",currentExam.getStartDate());
+                goToExamUpdate.putExtra("end_time",currentExam.getEndDate());
+                context.startActivity(goToExamUpdate);
+            }
+        });
         return view;
     }
 

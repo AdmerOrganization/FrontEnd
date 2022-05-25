@@ -1,8 +1,10 @@
 package com.example.tolearn.webService;
 
 import com.example.tolearn.Entity.Exam;
+import com.example.tolearn.Entity.ExamNew;
 import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.Entity.Homework_result;
+import com.example.tolearn.Entity.myClass;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -11,6 +13,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -22,8 +25,11 @@ public interface ExamAPI {
     @Headers({"Accept: application/json",
             "Content-Type: application/json"
     })
-    @POST("/exams/exams_create/")
+    @POST("exams/exams_create/")
     Call<JsonObject> ExamCreate(@Header("Authorization") String user_token,@Body Exam examInfo);
+
+    @GET("exams/exams_create/")
+    Call<List<ExamNew>> GetAllExams(@Header("Authorization") String user_token);
 //    @POST("homeworks/list/")
 //    Call<List<Homework>> GetAllHomework(@Header("Authorization") String user_token,@Body JsonObject classInfo);
 //    @Multipart

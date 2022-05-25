@@ -6,33 +6,22 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Exam {
+public class ExamNew {
     @SerializedName("questions_count")
     int questions_count;
     @SerializedName("name")
     String name;
     List<question> questionList;
     @SerializedName("data")
-    List<List<Object>> data;
+    List<JsonObject> data;
     @SerializedName("start_time")
     String StartDate;
     @SerializedName("finish_time")
     String EndDate;
     List<JsonObject> data_2;
-    public Exam (List<question> list, String sd , String ed , int qc ,String name)
+    public ExamNew(List<question> list, String sd , String ed , int qc , String name)
     {
-        data = new ArrayList<>();
-        questionList = list;
-        for (int i = 0 ; i < questionList.size();i++){
-            data.add(new ArrayList<>());
-            data.get(i).add(i+1);
-            data.get(i).add(questionList.get(i).getQuestion());
-            data.get(i).add(questionList.get(i).getAnswer1());
-            data.get(i).add(questionList.get(i).getAnswer2());
-            data.get(i).add(questionList.get(i).getAnswer3());
-            data.get(i).add(questionList.get(i).getAnswer4());
-            data.get(i).add(Integer.parseInt(questionList.get(i).getRigh_ans()));
-        }
+        data = new ArrayList<JsonObject>();
         StartDate = sd;
         EndDate = ed;
         questions_count = qc;
@@ -52,7 +41,7 @@ public class Exam {
         return questionList;
     }
 
-    public List<List<Object>> getData() {
+    public List<JsonObject> getData() {
         return data;
     }
 

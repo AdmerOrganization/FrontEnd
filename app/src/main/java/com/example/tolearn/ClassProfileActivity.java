@@ -19,8 +19,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.AlertDialogs.HomeworkCreationDialog;
+import com.example.tolearn.Entity.Exam;
 import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.databinding.ActivityClassProfileBinding;
+import com.example.tolearn.webService.ExamAPI;
 import com.example.tolearn.webService.HomeworkAPI;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.JsonObject;
@@ -43,6 +45,7 @@ public class ClassProfileActivity extends AppCompatActivity {
     public int class_id;
     public List<Homework> homeworktypeList;
     HomeworkAPI homeworkAPI;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,7 @@ public class ClassProfileActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         homeworkAPI = Homeworks.create(HomeworkAPI.class);
+
 
         extras = getIntent().getExtras();
         if (extras != null) {
@@ -83,9 +87,10 @@ public class ClassProfileActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Homework>> call, Throwable t) {
                 CustomeAlertDialog errorConnecting = new CustomeAlertDialog(ClassProfileActivity.this,"error","there is a problem with your internet connection");
-
+                Log.i("ERROR2",t.getMessage());
             }
         });
+
 
 
         setSupportActionBar(binding.appBarClassProfile.classProfiletoolbar);

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExamNew {
+    @SerializedName("id")
+    Integer id;
     @SerializedName("questions_count")
     int questions_count;
     @SerializedName("name")
@@ -19,13 +21,14 @@ public class ExamNew {
     @SerializedName("finish_time")
     String EndDate;
     List<JsonObject> data_2;
-    public ExamNew(List<question> list, String sd , String ed , int qc , String name)
+    public ExamNew(List<question> list, String sd , String ed , int qc , String name,int id)
     {
         data = new ArrayList<JsonObject>();
         StartDate = sd;
         EndDate = ed;
         questions_count = qc;
         this.name = name;
+        this.id = id;
     }
 
 
@@ -51,5 +54,13 @@ public class ExamNew {
 
     public String getEndDate() {
         return EndDate;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

@@ -60,8 +60,13 @@ public class examAdapter extends BaseAdapter implements Filterable {
         ExamNew currentExam = list.get(i);
         TextView title = view.findViewById(R.id.homeworkTextview);
         TextView deadline = view.findViewById(R.id.deadlineTextview);
-        title.setText(currentExam.getName());
-        deadline.setText(String.valueOf(currentExam.getQuestions_count()));
+        title.setText("  "+ currentExam.getName());
+        String start = currentExam.getStartDate().replace("T"," ");
+        String end = currentExam.getEndDate().replace("T"," ");
+        start = start.replace(":00Z","\n");
+        end = end.replace(":00Z","");
+        start = "  "+start;
+        deadline.setText(start + "  " + end);
         Button submit = view.findViewById(R.id.SubmitBtn);
         Button editBtn = view.findViewById(R.id.editBtn);
         Button resultsBtn = view.findViewById(R.id.resultBtn);
@@ -74,122 +79,7 @@ public class examAdapter extends BaseAdapter implements Filterable {
             resultsBtn.setClickable(false);
             resultsBtn.setVisibility(View.INVISIBLE);
         }
-//        submit.setOnClickListener(new View.OnClickListener() {
-//                                      @Override
-//                                      public void onClick(View v) {
-//                                          Intent gotoSubmit = new Intent(context, com.example.tolearn.DetailSubmit.class);
-//                                          gotoSubmit.putExtra("homework_title",currentHomework.getTitle());
-//                                          gotoSubmit.putExtra("homework_token",currentHomework.getHomework_token());
-//                                          gotoSubmit.putExtra("homework_deadline",currentHomework.getDeadline());
-//                                          gotoSubmit.putExtra("homework_id",currentHomework.getId());
-//                                          context.startActivity(gotoSubmit);
-//                                      }
-//                                  }
-//        );
-//        editBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent gotoEdit = new Intent(context, HomeworkEditDialog.class);
-//                gotoEdit.putExtra("homework_token",currentHomework.getHomework_token());
-//                context.startActivity(gotoEdit);
-//
-//            }
-//        });
-//        resultsBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent goToResults = new Intent(context, Homework_results.class);
-//                goToResults.putExtra("title",currentHomework.getTitle());
-//                goToResults.putExtra("deadline",currentHomework.getDeadline());
-//                goToResults.putExtra("id",String.valueOf(currentHomework.getId()));
-//                context.startActivity(goToResults);
-//            }
-//        });
-
-//        TextView title = view.findViewById(R.id.titleEventView);
-//        TextView date = view.findViewById(R.id.dateTimeEventView);
-//        TextView teacher = view.findViewById(R.id.TeacherTextView);
-//        TextView desc = view.findViewById(R.id.descEventView);
-//        Button editOrJoinBtn = view.findViewById(R.id.eventEditOrJoinBtn);
-//        Button deleteBtn = view.findViewById(R.id.deleteBtn);
-//        deleteBtn.setVisibility(View.INVISIBLE);
-//        editOrJoinBtn.setText("Join");
-//        ImageView imageViewCategory = view.findViewById(R.id.categoryImageItemEventView);
-//        String dateTime = currentHomework.getTime().toString();
-//        String [] dateTimeInfo = dateTime.split("T");
-//        dateTime = dateTimeInfo[0];
-//        title.setText(currentHomework.getTitle().toString());
-//        date.setText(dateTime);
-//        teacher.setText(currentHomework.getTeacher_name().toString());
-        //desc.setText(currentHomework.getDescription().toString());
-
-        //Picasso.get().load(currentHomework.getAvatar()).placeholder(R.drawable.learninglogo2).error(R.drawable.learninglogo2).into(imageViewCategory);
-
-//        try{
-//            String category = currentHomework.getCategory().toString();
-//
-//            switch (category)
-//            {
-//                case "Math":
-//                    imageViewCategory.setImageResource(R.drawable.math);
-//                    break;
-//                case "Chemistry":
-//                    imageViewCategory.setImageResource(R.drawable.chemistry);
-//                    break;
-//                case "Physics":
-//                    imageViewCategory.setImageResource(R.drawable.atom);
-//                    break;
-//                case "Engineering":
-//                    imageViewCategory.setImageResource(R.drawable.engineering);
-//                    break;
-//                case "Paint":
-//                    imageViewCategory.setImageResource(R.drawable.paint);
-//                    break;
-//                case "Music":
-//                    imageViewCategory.setImageResource(R.drawable.musical);
-//                    break;
-//                case "Cinema":
-//                    imageViewCategory.setImageResource(R.drawable.clapperboard);
-//                    break;
-//                case "athletic":
-//                    imageViewCategory.setImageResource(R.drawable.athletics);
-//                    break;
-//                case "computer science":
-//                    imageViewCategory.setImageResource(R.drawable.responsive);
-//                    break;
-//                case "language":
-//                    imageViewCategory.setImageResource(R.drawable.languages);
-//                    break;
-//                default:
-//                    Picasso.get().load(currentHomework.getAvatar()).placeholder(R.drawable.learninglogo2).error(R.drawable.learninglogo2).into(imageViewCategory);
-//                    break;
-//            }
-//        }
-//        catch (Exception exception)
-//        {
-//            imageViewCategory.setImageResource(R.drawable.learninglogo2);
-//        }
-
-
-//        editOrJoinBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String classroom_token = currentHomework.getClassroom_token().toString();
-//                CustomeAlertdialogJoinClass joinClass = new CustomeAlertdialogJoinClass(context,classroom_token);
-//
-//            }
-//        });
-
-
-//        editOrJoinBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                Intent intent = new Intent(context, EditEventActivity.class);
-//                intent.putExtra("token", currentEvent.getEvent_token());
-//                context.startActivity(intent);
-//            }
-//        });
-
+        String id = currentExam.getId().toString();
         return view;
     }
 

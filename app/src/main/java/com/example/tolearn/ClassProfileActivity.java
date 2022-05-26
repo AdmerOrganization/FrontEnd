@@ -2,6 +2,7 @@ package com.example.tolearn;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,10 +21,12 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.AlertDialogs.HomeworkCreationDialog;
 import com.example.tolearn.Entity.Exam;
+import com.example.tolearn.Entity.ExamNew;
 import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.databinding.ActivityClassProfileBinding;
 import com.example.tolearn.webService.ExamAPI;
 import com.example.tolearn.webService.HomeworkAPI;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
@@ -44,7 +47,57 @@ public class ClassProfileActivity extends AppCompatActivity {
     public String title,teacher,category,user_token,user_access;
     public int class_id;
     public List<Homework> homeworktypeList;
+    public List<ExamNew> examtypeList;
     HomeworkAPI homeworkAPI;
+    ExamAPI examAPI;
+    private ShimmerFrameLayout mFrameLayout;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFrameLayout.startShimmer();
+        fillItems();
+    }
+    public void fillItems(){
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("classroom",class_id);
+        Call<List<Homework>> callBack = homeworkAPI.GetAllHomework("token "+user_token,jsonObject);
+        callBack.enqueue(new Callback<List<Homework>>() {
+            @Override
+            public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
+                homeworktypeList = response.body();
+                Log.i("salam","sas");
+            }
+
+            @Override
+            public void onFailure(Call<List<Homework>> call, Throwable t) {
+                CustomeAlertDialog errorConnecting = new CustomeAlertDialog(ClassProfileActivity.this,"error","there is a problem with your internet connection");
+                Log.i("ERROR2",t.getMessage());
+            }
+        });
+
+        SharedPreferences sharedPreferences = getSharedPreferences("userInformation",MODE_PRIVATE);
+        String user_token = sharedPreferences.getString("token","");
+        Call<List<ExamNew>> callBackNew = examAPI.GetAllExams("token "+user_token);
+        callBackNew.enqueue(new Callback<List<ExamNew>>() {
+            @Override
+            public void onResponse(Call<List<ExamNew>> call, Response<List<ExamNew>> response) {
+                examtypeList = response.body();
+                Log.i("salam","sas222222222222");
+
+            }
+
+            @Override
+            public void onFailure(Call<List<ExamNew>> call, Throwable t) {
+                CustomeAlertDialog errorConnecting = new CustomeAlertDialog(ClassProfileActivity.this,"error","there is a problem with your internet connection");
+                Log.i("ERROR",t.getMessage());
+            }
+        });
+    }
+    @Override
+    protected void onPause() {
+        mFrameLayout.stopShimmer();
+        super.onPause();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +107,11 @@ public class ClassProfileActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         homeworkAPI = Homeworks.create(HomeworkAPI.class);
+        Retrofit Exams = new Retrofit.Builder()
+                .baseUrl(ExamAPI.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        examAPI = Exams.create(ExamAPI.class);
 
 
         extras = getIntent().getExtras();
@@ -74,22 +132,7 @@ public class ClassProfileActivity extends AppCompatActivity {
 
         binding = ActivityClassProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("classroom",class_id);
-        Call<List<Homework>> callBack = homeworkAPI.GetAllHomework("token "+user_token,jsonObject);
-        callBack.enqueue(new Callback<List<Homework>>() {
-            @Override
-            public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
-                homeworktypeList = response.body();
-                Log.i("salam","sas");
-            }
 
-            @Override
-            public void onFailure(Call<List<Homework>> call, Throwable t) {
-                CustomeAlertDialog errorConnecting = new CustomeAlertDialog(ClassProfileActivity.this,"error","there is a problem with your internet connection");
-                Log.i("ERROR2",t.getMessage());
-            }
-        });
 
 
 

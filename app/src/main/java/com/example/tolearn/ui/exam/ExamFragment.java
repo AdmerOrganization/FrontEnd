@@ -107,4 +107,61 @@ public class ExamFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        examViewModel =
+                new ViewModelProvider(this).get(ExamViewModel.class);
+
+        View root = binding.getRoot();
+        Retrofit Exams = new Retrofit.Builder()
+                .baseUrl(ExamAPI.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        examAPI = Exams.create(ExamAPI.class);
+
+        ListView examsListview = root.findViewById(R.id.examsList);
+        SharedPreferences sharedPreferences = root.getContext().getSharedPreferences("userInformation",root.getContext().MODE_PRIVATE);
+        String user_token = sharedPreferences.getString("token","");
+        SharedPreferences shP2 = getContext().getSharedPreferences("classId", getContext().MODE_PRIVATE);
+        String id = shP2.getString("Id", "");
+        String role = shP2.getString("user_access","");
+        int classroom_id = Integer.parseInt(id);
+        JsonObject classroomID = new JsonObject();
+        classroomID.addProperty("classroom",classroom_id );
+        Call<List<ExamNew>> callBackNew = examAPI.GetAllExamsForClass("token "+user_token,classroomID);
+        callBackNew.enqueue(new Callback<List<ExamNew>>() {
+            @Override
+            public void onResponse(Call<List<ExamNew>> call, Response<List<ExamNew>> response) {
+                examtypeList = response.body();
+                Log.i("salam","sas222222222222");
+                examAdapter myadap = new examAdapter(root.getContext(),examtypeList,"");
+                examsListview.setAdapter(myadap);
+            }
+
+            @Override
+            public void onFailure(Call<List<ExamNew>> call, Throwable t) {
+                CustomeAlertDialog errorConnecting = new CustomeAlertDialog(root.getContext(),"error","there is a problem with your internet connection");
+                Log.i("ERROR",t.getMessage());
+            }
+        });
+
+        examAdapter myadap = new examAdapter(root.getContext(),((ClassProfileActivity)getActivity()).examtypeList,"");
+        examsListview.setAdapter(myadap);
+        final com.google.android.material.floatingactionbutton.FloatingActionButton addExamBtn = binding.addExam;
+        addExamBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(role.equals("teacher"))
+                {
+                    Intent goToExamCreation = new Intent(getActivity() , ExamProfile.class);
+                    startActivity(goToExamCreation);
+                }
+                else{
+                    Toast.makeText(getContext(), "you do not have right permission to create exams", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 }

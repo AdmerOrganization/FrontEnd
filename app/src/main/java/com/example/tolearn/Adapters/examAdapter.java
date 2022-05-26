@@ -20,22 +20,31 @@ import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.ExamUpdate;
 import com.example.tolearn.Homework_results;
 import com.example.tolearn.R;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class examAdapter extends BaseAdapter implements Filterable {
+public class examAdapter extends BaseAdapter{
 
     private Context context;
-    private List<ExamNew> list;
-    private List<ExamNew> temp;
+    private List<JsonObject> list;
+    private List<JsonObject> temp;
     String type;
 
-    public examAdapter(Context context, List<ExamNew> list, String type) {
+    public examAdapter(Context context, JsonArray list, String type) {
         this.context = context;
-        this.list = list;
-        this.temp = list;
+        int i  =0;
+        this.list = new ArrayList<>();
+        this.temp = new ArrayList<>();
+        for( i= 0;i<list.size();i++)
+        {
+            JsonObject newExam = list.get(i).getAsJsonObject();
+            this.list.add(newExam);
+            this.temp.add(newExam);
+        }
         this.type = type;
     }
     @Override
@@ -60,7 +69,7 @@ public class examAdapter extends BaseAdapter implements Filterable {
             view = LayoutInflater.from(context).inflate(R.layout.exam_item_view,null);
         }
 
-        ExamNew currentExam = list.get(i);
+        ExamNew currentExam = new ExamNew(list.get(i));
         TextView title = view.findViewById(R.id.homeworkTextview);
         TextView deadline = view.findViewById(R.id.deadlineTextview);
         title.setText("  "+ currentExam.getName());
@@ -99,35 +108,5 @@ public class examAdapter extends BaseAdapter implements Filterable {
         });
         return view;
     }
-
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                FilterResults filterResults = new FilterResults();
-
-                ArrayList<ExamNew> filterList = new ArrayList<>();
-                for(ExamNew item:temp)
-                {
-                    if(item.getName().toString().toLowerCase().contains(charSequence.toString().toLowerCase()))
-                    {
-                        filterList.add(item);
-                    }
-                }
-
-                filterResults.count = filterList.size();
-                filterResults.values = filterList;
-
-                return  filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                list = (List<ExamNew>) filterResults.values;
-                notifyDataSetChanged();
-            }
-        };
-    }
-
 
 }

@@ -28,6 +28,7 @@ import com.example.tolearn.webService.ExamAPI;
 import com.example.tolearn.webService.HomeworkAPI;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
@@ -48,7 +49,7 @@ public class ClassProfileActivity extends AppCompatActivity {
     public String title,teacher,category,user_token,user_access;
     public int class_id;
     public List<Homework> homeworktypeList;
-    public List<ExamNew> examtypeList;
+    public JsonArray examtypeList;
     HomeworkAPI homeworkAPI;
     ExamAPI examAPI;
     TextView homeworkTitleTextview;
@@ -75,8 +76,11 @@ public class ClassProfileActivity extends AppCompatActivity {
             public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
                 homeworktypeList = response.body();
                 Log.i("salam","sas");
-                homeworkTitleTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getTitle());
-                homeworkDeadlineTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getDeadline());
+                if(homeworktypeList.size()>0)
+                {
+                    homeworkTitleTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getTitle());
+                    homeworkDeadlineTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getDeadline());
+                }
            //     mFrameLayout.startShimmer();
  //               mFrameLayout.setVisibility(View.GONE);
             }
@@ -90,19 +94,40 @@ public class ClassProfileActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("userInformation",MODE_PRIVATE);
         String user_token = sharedPreferences.getString("token","");
-        Call<List<ExamNew>> callBackNew = examAPI.GetAllExams("token "+user_token);
-        callBackNew.enqueue(new Callback<List<ExamNew>>() {
+        SharedPreferences shP = getSharedPreferences("classId", MODE_PRIVATE);
+        String id = shP.getString("Id", "");
+        JsonObject classIdJson = new JsonObject();
+        classIdJson.addProperty("classroom",Integer.parseInt(id));
+        Call<JsonArray> callBackNew = examAPI.GetAllExamsJsonForClass("token "+user_token,classIdJson);
+        callBackNew.enqueue(new Callback<JsonArray>() {
             @Override
-            public void onResponse(Call<List<ExamNew>> call, Response<List<ExamNew>> response) {
-                examtypeList = response.body();
-                examTitleTextview.setText(examtypeList.get(examtypeList.size()-1).getName());
-                examCountTextview.setText(examtypeList.get(examtypeList.size()-1).getStartDate() + "\n" + examtypeList.get(examtypeList.size()-1).getEndDate());
-                Log.i("salam","sas222222222222");
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.isSuccessful())
+                {
+                    JsonArray Response = response.body();
+                    examtypeList = Response;
+                    if(Response.size()>0)
+                    {
+                        try {
+                            JsonObject jo = Response.get(Response.size()-1).getAsJsonObject();
+                            examTitleTextview.setText(jo.get("name").toString());
+                            examCountTextview.setText(jo.get("start_time").toString() + "\n" + jo.get("start_time").toString());
+                            Log.i("salam","sas222222222222");
+                        }
+                        catch (Exception exception)
+                        {
+                            //nothing
+                        }
+                    }
+                }
+                else{
+                    Toast.makeText(ClassProfileActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
 
             }
 
             @Override
-            public void onFailure(Call<List<ExamNew>> call, Throwable t) {
+            public void onFailure(Call<JsonArray> call, Throwable t) {
                 CustomeAlertDialog errorConnecting = new CustomeAlertDialog(ClassProfileActivity.this,"error","there is a problem with your internet connection");
                 Log.i("ERROR",t.getMessage());
             }
@@ -116,6 +141,7 @@ public class ClassProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         Retrofit Homeworks = new Retrofit.Builder()

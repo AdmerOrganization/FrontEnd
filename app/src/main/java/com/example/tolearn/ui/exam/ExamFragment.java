@@ -27,6 +27,7 @@ import com.example.tolearn.ExamProfile;
 import com.example.tolearn.R;
 import com.example.tolearn.databinding.FragmentExamBinding;
 import com.example.tolearn.webService.ExamAPI;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class ExamFragment extends Fragment {
 
     private ExamViewModel examViewModel;
     private FragmentExamBinding binding;
-    public List<ExamNew> examtypeList;
+    public JsonArray examtypeList;
     ExamAPI examAPI;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -66,10 +67,10 @@ public class ExamFragment extends Fragment {
         int classroom_id = Integer.parseInt(id);
         JsonObject classroomID = new JsonObject();
         classroomID.addProperty("classroom",classroom_id );
-        Call<List<ExamNew>> callBackNew = examAPI.GetAllExamsForClass("token "+user_token,classroomID);
-        callBackNew.enqueue(new Callback<List<ExamNew>>() {
+        Call<JsonArray> callBackNew = examAPI.GetAllExamsJsonForClass("token "+user_token,classroomID);
+        callBackNew.enqueue(new Callback<JsonArray>() {
             @Override
-            public void onResponse(Call<List<ExamNew>> call, Response<List<ExamNew>> response) {
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 examtypeList = response.body();
                 Log.i("salam","sas222222222222");
                 examAdapter myadap = new examAdapter(root.getContext(),examtypeList,"");
@@ -77,7 +78,7 @@ public class ExamFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<ExamNew>> call, Throwable t) {
+            public void onFailure(Call<JsonArray> call, Throwable t) {
                 CustomeAlertDialog errorConnecting = new CustomeAlertDialog(root.getContext(),"error","there is a problem with your internet connection");
                 Log.i("ERROR",t.getMessage());
             }
@@ -131,10 +132,10 @@ public class ExamFragment extends Fragment {
         int classroom_id = Integer.parseInt(id);
         JsonObject classroomID = new JsonObject();
         classroomID.addProperty("classroom",classroom_id );
-        Call<List<ExamNew>> callBackNew = examAPI.GetAllExamsForClass("token "+user_token,classroomID);
-        callBackNew.enqueue(new Callback<List<ExamNew>>() {
+        Call<JsonArray> callBackNew = examAPI.GetAllExamsJsonForClass("token "+user_token,classroomID);
+        callBackNew.enqueue(new Callback<JsonArray>() {
             @Override
-            public void onResponse(Call<List<ExamNew>> call, Response<List<ExamNew>> response) {
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 examtypeList = response.body();
                 Log.i("salam","sas222222222222");
                 examAdapter myadap = new examAdapter(root.getContext(),examtypeList,"");
@@ -142,7 +143,7 @@ public class ExamFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<ExamNew>> call, Throwable t) {
+            public void onFailure(Call<JsonArray> call, Throwable t) {
                 CustomeAlertDialog errorConnecting = new CustomeAlertDialog(root.getContext(),"error","there is a problem with your internet connection");
                 Log.i("ERROR",t.getMessage());
             }

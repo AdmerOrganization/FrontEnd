@@ -31,6 +31,15 @@ public class ExamNew {
         this.id = id;
     }
 
+    public ExamNew(JsonObject exam)
+    {
+        data = new ArrayList<JsonObject>();
+        StartDate = exam.get("start_time").toString();
+        EndDate = exam.get("finish_time").toString();
+        questions_count = Integer.parseInt(exam.get("questions_count").toString());
+        this.name = exam.get("name").toString();
+        this.id = Integer.parseInt(exam.get("id").toString());
+    }
 
     public int getQuestions_count() {
         return questions_count;

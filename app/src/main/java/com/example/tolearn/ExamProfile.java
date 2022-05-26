@@ -156,7 +156,7 @@ public class ExamProfile extends AppCompatActivity {
     public void addQuestion(View view) {
         int counter = questionList.size() + 1;
         question_item_dialog newQuestion = new question_item_dialog(ExamProfile.this,String.valueOf(counter),questionList,questionsAdapter,questionsListView);
-        Toast.makeText(this, questionList.toString(), Toast.LENGTH_LONG).show();
+
     }
 
     public void createExam(View view) {
@@ -184,7 +184,7 @@ public class ExamProfile extends AppCompatActivity {
                         JsonObject Response = response.body();
                         Log.i("PHOTO", "SUCCED");
                         //                           Log.i("IMAGE URL",user.getAvatar().toString());
-                        Toast.makeText(ExamProfile.this, "Homework created!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ExamProfile.this, "Exam created!", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }

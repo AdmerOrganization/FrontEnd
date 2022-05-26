@@ -50,11 +50,11 @@ public class ClassProfileActivity extends AppCompatActivity {
     public List<ExamNew> examtypeList;
     HomeworkAPI homeworkAPI;
     ExamAPI examAPI;
-    private ShimmerFrameLayout mFrameLayout;
+    //private ShimmerFrameLayout mFrameLayout;
     @Override
     protected void onResume() {
         super.onResume();
-        mFrameLayout.startShimmer();
+        //mFrameLayout.startShimmer();
         fillItems();
     }
     public void fillItems(){
@@ -95,12 +95,13 @@ public class ClassProfileActivity extends AppCompatActivity {
     }
     @Override
     protected void onPause() {
-        mFrameLayout.stopShimmer();
+        //mFrameLayout.stopShimmer();
         super.onPause();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         Retrofit Homeworks = new Retrofit.Builder()
                 .baseUrl(HomeworkAPI.BASE_URL)
@@ -113,7 +114,7 @@ public class ClassProfileActivity extends AppCompatActivity {
                 .build();
         examAPI = Exams.create(ExamAPI.class);
 
-
+        //mFrameLayout = findViewById(R.id.shimmerLayout);
         extras = getIntent().getExtras();
         if (extras != null) {
             title = extras.getString("class_name");

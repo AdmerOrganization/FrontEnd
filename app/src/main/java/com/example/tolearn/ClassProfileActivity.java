@@ -31,6 +31,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -50,11 +51,19 @@ public class ClassProfileActivity extends AppCompatActivity {
     public List<ExamNew> examtypeList;
     HomeworkAPI homeworkAPI;
     ExamAPI examAPI;
-    //private ShimmerFrameLayout mFrameLayout;
+    TextView homeworkTitleTextview;
+    TextView examTitleTextview;
+    TextView examCountTextview;
+    TextView homeworkDeadlineTextview ;
+    private ShimmerFrameLayout mFrameLayout;
     @Override
     protected void onResume() {
         super.onResume();
-        //mFrameLayout.startShimmer();
+//        mFrameLayout.startShimmer();
+        homeworkTitleTextview = findViewById(R.id.homeworkTextview);
+        examTitleTextview = findViewById(R.id.examTextview);
+        examCountTextview = findViewById(R.id.questionCountTextview);
+        homeworkDeadlineTextview = findViewById(R.id.deadlineTextview);
         fillItems();
     }
     public void fillItems(){
@@ -66,6 +75,10 @@ public class ClassProfileActivity extends AppCompatActivity {
             public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
                 homeworktypeList = response.body();
                 Log.i("salam","sas");
+                homeworkTitleTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getTitle());
+                homeworkDeadlineTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getDeadline());
+           //     mFrameLayout.startShimmer();
+ //               mFrameLayout.setVisibility(View.GONE);
             }
 
             @Override
@@ -82,6 +95,8 @@ public class ClassProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<ExamNew>> call, Response<List<ExamNew>> response) {
                 examtypeList = response.body();
+                examTitleTextview.setText(examtypeList.get(examtypeList.size()-1).getName());
+                examCountTextview.setText(examtypeList.get(examtypeList.size()-1).getStartDate() + "\n" + examtypeList.get(examtypeList.size()-1).getEndDate());
                 Log.i("salam","sas222222222222");
 
             }
@@ -95,7 +110,7 @@ public class ClassProfileActivity extends AppCompatActivity {
     }
     @Override
     protected void onPause() {
-        //mFrameLayout.stopShimmer();
+    //    mFrameLayout.stopShimmer();
         super.onPause();
     }
 
@@ -114,7 +129,8 @@ public class ClassProfileActivity extends AppCompatActivity {
                 .build();
         examAPI = Exams.create(ExamAPI.class);
 
-        //mFrameLayout = findViewById(R.id.shimmerLayout);
+
+      //  mFrameLayout = findViewById(R.id.shimmerLayout);
         extras = getIntent().getExtras();
         if (extras != null) {
             title = extras.getString("class_name");

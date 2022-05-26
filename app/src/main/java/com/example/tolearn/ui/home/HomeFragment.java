@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.tolearn.ClassProfileActivity;
+import com.example.tolearn.Entity.ExamNew;
 import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.Entity.myClass;
 import com.example.tolearn.R;
@@ -23,6 +24,7 @@ import com.google.gson.JsonObject;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,6 +45,8 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+
 
 //        TextView homeworkTitle = root.findViewById(R.id.homeworkTextviewSingle);
 //        TextView deadline = root.findViewById(R.id.deadlineTextviewSingle);

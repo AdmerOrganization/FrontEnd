@@ -56,6 +56,7 @@ public class ExamUpdate extends AppCompatActivity {
 
     List<question> questionList;
     JsonArray list;
+    String examID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class ExamUpdate extends AppCompatActivity {
     public void init()
     {
         Intent getInfo = getIntent();
-        String id = getInfo.getStringExtra("id");
+        examID = getInfo.getStringExtra("id");
         String questionCount = getInfo.getStringExtra("question_count");
         String name = getInfo.getStringExtra("name");
         String start_time = getInfo.getStringExtra("start_time");
@@ -115,7 +116,7 @@ public class ExamUpdate extends AppCompatActivity {
         String token = shP.getString("token", "");
 
         JsonObject examId = new JsonObject();
-        examId.addProperty("id",Integer.valueOf(id));
+        examId.addProperty("id",Integer.valueOf(examID));
 
         Call<JsonObject> callBack = examAPI.GetExamDetails("token " + token,examId);
         callBack.enqueue(new Callback<JsonObject>() {
@@ -247,7 +248,7 @@ public class ExamUpdate extends AppCompatActivity {
             String examD;
             examD = examDate.getText().toString().replaceAll("_","-");
             //Toast.makeText(this, "oooooooooooooooooooooooooooooooooo", Toast.LENGTH_SHORT).show();
-            Exam exam = new Exam(questionList , examD + " "+startTimeTv.getText().toString()+":00" , examD + " " +endTimeTv.getText().toString()+":00" , questionList.size() ,titleET.getText().toString());
+            Exam exam = new Exam(questionList , examD + " "+startTimeTv.getText().toString()+":00" , examD + " " +endTimeTv.getText().toString()+":00" , questionList.size() ,titleET.getText().toString(),Integer.parseInt(examID));
             //Exam myExam = new Exam(questionList,examD+" "+startTimeTv.getText().toString()+":00",examD+" "+endTimeTv.getText().toString()+":00",questionList.size(),titleET.getText().toString());
             SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
             String token = shP.getString("token", "");

@@ -19,7 +19,7 @@
 
     <Button
 
-        android:backgroundTint="@color/blue_learning"
+        android:backgroundTint="#9006F3"
         android:elevation="10dp"
         android:id="@+id/okBtn"
         android:layout_width="120dp"

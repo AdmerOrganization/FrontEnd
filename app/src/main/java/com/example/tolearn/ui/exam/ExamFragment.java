@@ -122,6 +122,7 @@ public class ExamFragment extends Fragment {
         examAPI = Exams.create(ExamAPI.class);
 
         ListView examsListview = root.findViewById(R.id.examsList);
+
         SharedPreferences sharedPreferences = root.getContext().getSharedPreferences("userInformation",root.getContext().MODE_PRIVATE);
         String user_token = sharedPreferences.getString("token","");
         SharedPreferences shP2 = getContext().getSharedPreferences("classId", getContext().MODE_PRIVATE);

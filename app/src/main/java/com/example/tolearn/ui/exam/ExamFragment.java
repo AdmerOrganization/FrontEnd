@@ -40,8 +40,6 @@ public class ExamFragment extends Fragment {
 
     private ExamViewModel examViewModel;
     private FragmentExamBinding binding;
-    public List<ExamNew> examtypeList;
-    ExamAPI examAPI;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -50,11 +48,8 @@ public class ExamFragment extends Fragment {
 
         binding = FragmentExamBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Retrofit Exams = new Retrofit.Builder()
-                .baseUrl(ExamAPI.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        examAPI = Exams.create(ExamAPI.class);
+
+
         ListView examsListview = root.findViewById(R.id.examsList);
         SharedPreferences sharedPreferences = root.getContext().getSharedPreferences("userInformation",root.getContext().MODE_PRIVATE);
         String user_token = sharedPreferences.getString("token","");
@@ -81,6 +76,8 @@ public class ExamFragment extends Fragment {
         });
 
 
+        examAdapter myadap = new examAdapter(root.getContext(),((ClassProfileActivity)getActivity()).examtypeList,"");
+        examsListview.setAdapter(myadap);
         final com.google.android.material.floatingactionbutton.FloatingActionButton addExamBtn = binding.addExam;
         addExamBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -57,6 +57,7 @@ public class ExamUpdate extends AppCompatActivity {
     List<question> questionList;
     JsonArray list;
     String examID;
+    String questionCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,7 @@ public class ExamUpdate extends AppCompatActivity {
     {
         Intent getInfo = getIntent();
         examID = getInfo.getStringExtra("id");
-        String questionCount = getInfo.getStringExtra("question_count");
+        questionCount = getInfo.getStringExtra("question_count");
         String name = getInfo.getStringExtra("name");
         String start_time = getInfo.getStringExtra("start_time");
         String end_time = getInfo.getStringExtra("end_time");
@@ -118,20 +119,22 @@ public class ExamUpdate extends AppCompatActivity {
         JsonObject examId = new JsonObject();
         examId.addProperty("id",Integer.valueOf(examID));
 
-        Call<JsonObject> callBack = examAPI.GetExamDetails("token " + token,examId);
-        callBack.enqueue(new Callback<JsonObject>() {
+        Call<JsonArray> callBack = examAPI.GetExamDetails("token " + token,examId);
+        callBack.enqueue(new Callback<JsonArray>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if (!response.isSuccessful()) {
                     //Toast.makeText(ExamUpdate.this, "Some Field Wrong", Toast.LENGTH_SHORT).show();
                     Log.i("MOSHKEL", response.message());
                 } else {
                     String code = Integer.toString(response.code());
-                    JsonObject Response = response.body();
+                    JsonObject Response = response.body().get(0).getAsJsonObject();
                     list = (JsonArray) Response.get("data");
+                    questionCount = String.valueOf(Response.get("questions_count"));
                     Log.i("PHOTO", "SUCCED");
                     int i =0;
                     int q = Integer.parseInt(questionCount);
+                    Log.i("PHOTO", String.valueOf(q));
                     for (i = 0 ; i< q;i++)
                     {
                         JsonObject jsonObject = list.get(i).getAsJsonObject();
@@ -153,7 +156,7 @@ public class ExamUpdate extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<JsonArray> call, Throwable t) {
                 Log.i("moshkel","injas");
                 Log.i("Moshkel",t.getMessage());
                 //Toast.makeText(ExamUpdate.this, "error is :" + t.getMessage(), Toast.LENGTH_LONG).show();
@@ -238,7 +241,7 @@ public class ExamUpdate extends AppCompatActivity {
     public void addQuestion(View view) {
         int counter = questionList.size() + 1;
         question_item_dialog newQuestion = new question_item_dialog(ExamUpdate.this,String.valueOf(counter),questionList,questionsAdapter,questionsListView);
-        Toast.makeText(this, questionList.toString(), Toast.LENGTH_LONG).show();
+
 
 
     }
@@ -248,10 +251,14 @@ public class ExamUpdate extends AppCompatActivity {
             String examD;
             examD = examDate.getText().toString().replaceAll("_","-");
             //Toast.makeText(this, "oooooooooooooooooooooooooooooooooo", Toast.LENGTH_SHORT).show();
-            Exam exam = new Exam(questionList , examD + " "+startTimeTv.getText().toString()+":00" , examD + " " +endTimeTv.getText().toString()+":00" , questionList.size() ,titleET.getText().toString(),Integer.parseInt(examID));
+            Log.i("queesssstionssss", questionList.toString());
+            SharedPreferences shP = getSharedPreferences("classId", MODE_PRIVATE);
+            String id = shP.getString("Id", "");
+            int classroom_id = Integer.parseInt(id);
+            Exam exam = new Exam(questionList , examD + " "+startTimeTv.getText().toString()+":00" , examD + " " +endTimeTv.getText().toString()+":00" , questionList.size() ,titleET.getText().toString(),Integer.parseInt(examID),classroom_id);
             //Exam myExam = new Exam(questionList,examD+" "+startTimeTv.getText().toString()+":00",examD+" "+endTimeTv.getText().toString()+":00",questionList.size(),titleET.getText().toString());
-            SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
-            String token = shP.getString("token", "");
+            SharedPreferences shP2 = getSharedPreferences("userInformation", MODE_PRIVATE);
+            String token = shP2.getString("token", "");
             Call<JsonObject> examCreateCall = examAPI.ExamUpdate("token " + token,exam);
             examCreateCall.enqueue(new Callback<JsonObject>() {
                 @Override

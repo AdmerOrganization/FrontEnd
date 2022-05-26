@@ -26,6 +26,7 @@ import com.example.tolearn.ExamProfile;
 import com.example.tolearn.R;
 import com.example.tolearn.databinding.FragmentExamBinding;
 import com.example.tolearn.webService.ExamAPI;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -57,7 +58,12 @@ public class ExamFragment extends Fragment {
         ListView examsListview = root.findViewById(R.id.examsList);
         SharedPreferences sharedPreferences = root.getContext().getSharedPreferences("userInformation",root.getContext().MODE_PRIVATE);
         String user_token = sharedPreferences.getString("token","");
-        Call<List<ExamNew>> callBackNew = examAPI.GetAllExams("token "+user_token);
+        SharedPreferences shP2 = getContext().getSharedPreferences("classId", getContext().MODE_PRIVATE);
+        String id = shP2.getString("Id", "");
+        int classroom_id = Integer.parseInt(id);
+        JsonObject classroomID = new JsonObject();
+        classroomID.addProperty("classroom",classroom_id );
+        Call<List<ExamNew>> callBackNew = examAPI.GetAllExamsForClass("token "+user_token,classroomID);
         callBackNew.enqueue(new Callback<List<ExamNew>>() {
             @Override
             public void onResponse(Call<List<ExamNew>> call, Response<List<ExamNew>> response) {

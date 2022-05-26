@@ -5,6 +5,7 @@ import com.example.tolearn.Entity.ExamNew;
 import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.Entity.Homework_result;
 import com.example.tolearn.Entity.myClass;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -36,7 +37,10 @@ public interface ExamAPI {
     Call<List<ExamNew>> GetAllExams(@Header("Authorization") String user_token);
 
     @POST("exams/exams_retrieve/")
-    Call<JsonObject> GetExamDetails (@Header("Authorization") String user_token,@Body JsonObject examId);
+    Call<List<ExamNew>> GetAllExamsForClass(@Header("Authorization") String user_token,@Body JsonObject classroomID);
+
+    @POST("exams/exams_retrieve/")
+    Call<JsonArray> GetExamDetails (@Header("Authorization") String user_token, @Body JsonObject examId);
 //    @POST("homeworks/list/")
 //    Call<List<Homework>> GetAllHomework(@Header("Authorization") String user_token,@Body JsonObject classInfo);
 //    @Multipart

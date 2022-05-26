@@ -157,8 +157,6 @@ public class ExamProfile extends AppCompatActivity {
         int counter = questionList.size() + 1;
         question_item_dialog newQuestion = new question_item_dialog(ExamProfile.this,String.valueOf(counter),questionList,questionsAdapter,questionsListView);
         Toast.makeText(this, questionList.toString(), Toast.LENGTH_LONG).show();
-
-
     }
 
     public void createExam(View view) {
@@ -168,9 +166,12 @@ public class ExamProfile extends AppCompatActivity {
         if(!titleET.getText().toString().equals("")) {
             String examD;
             examD = examDate.getText().toString().replaceAll("_","-");
-            Exam myExam = new Exam(questionList,examD+" "+startTimeTv.getText().toString()+":00",examD+" "+endTimeTv.getText().toString()+":00",questionList.size(),titleET.getText().toString());
-            SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
-            String token = shP.getString("token", "");
+            SharedPreferences shP = getSharedPreferences("classId", MODE_PRIVATE);
+            String id = shP.getString("Id", "");
+            int classroom_id = Integer.parseInt(id);
+            Exam myExam = new Exam(questionList,examD+" "+startTimeTv.getText().toString()+":00",examD+" "+endTimeTv.getText().toString()+":00",questionList.size(),titleET.getText().toString(),classroom_id);
+            SharedPreferences shP2 = getSharedPreferences("userInformation", MODE_PRIVATE);
+            String token = shP2.getString("token", "");
             Call<JsonObject> examCreateCall = examAPI.ExamCreate("token " + token,myExam);
             examCreateCall.enqueue(new Callback<JsonObject>() {
                 @Override

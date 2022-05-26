@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Exam {
+    @SerializedName("classroom")
+    int classroom_id;
     @SerializedName("id")
     int id ;
     @SerializedName("questions_count")
@@ -21,7 +23,7 @@ public class Exam {
     @SerializedName("finish_time")
     String EndDate;
     List<JsonObject> data_2;
-    public Exam (List<question> list, String sd , String ed , int qc ,String name)
+    public Exam (List<question> list, String sd , String ed , int qc ,String name,int classroom_id)
     {
         data = new ArrayList<>();
         questionList = list;
@@ -39,8 +41,9 @@ public class Exam {
         EndDate = ed;
         questions_count = qc;
         this.name = name;
+        this.classroom_id = classroom_id;
     }
-    public Exam (List<question> list, String sd , String ed , int qc ,String name, int id)
+    public Exam (List<question> list, String sd , String ed , int qc ,String name, int id,int classroom_id)
     {
         data = new ArrayList<>();
         questionList = list;
@@ -59,6 +62,7 @@ public class Exam {
         questions_count = qc;
         this.name = name;
         this.id = id;
+        this.classroom_id = classroom_id;
     }
 
     public int getQuestions_count() {

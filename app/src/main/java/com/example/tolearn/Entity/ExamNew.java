@@ -35,9 +35,12 @@ public class ExamNew {
     {
         data = new ArrayList<JsonObject>();
         StartDate = exam.get("start_time").toString();
+        StartDate = StartDate.replace("\"","");
         EndDate = exam.get("finish_time").toString();
+        EndDate = EndDate.replace("\"","");
         questions_count = Integer.parseInt(exam.get("questions_count").toString());
         this.name = exam.get("name").toString();
+        this.name = this.name.replace("\"","");
         this.id = Integer.parseInt(exam.get("id").toString());
     }
 

@@ -308,10 +308,14 @@ public class HomeworkCreationDialog extends Activity {
 //        Uri uri = Uri.fromParts("package", getPackageName(), null);
 //        intent.setData(uri);
 //        startActivity(intent);
+        path = "";
         verifyStoragePermissions(this);
         Controller = new homework_creation_validations();
         extras = getIntent().getExtras();
         class_id = extras.getInt("id");
+        SharedPreferences shP = getSharedPreferences("classId", MODE_PRIVATE);
+        String id = shP.getString("Id", "");
+        class_id = Integer.parseInt(id);
         super.onCreate(savedInstanceState);
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -354,46 +358,53 @@ public class HomeworkCreationDialog extends Activity {
                 } else if (!Controller.IsDateValid(year, month, day)) {
                     Toast.makeText(HomeworkCreationDialog.this, "You can not select a date in the past.", Toast.LENGTH_SHORT).show();
                 } else {
-                    File file = new File(path);
-                    RequestBody requestFile =
-                            RequestBody.create(MediaType.parse("*/*"), file);
+                    if(!path.equals(""))
+                    {
+                        File file = new File(path);
+                        RequestBody requestFile =
+                                RequestBody.create(MediaType.parse("*/*"), file);
 
 // MultipartBody.Part is used to send also the actual file name
-                    MultipartBody.Part body =
-                            MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-                    RequestBody titleR =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), titleET.getText().toString());
-                    RequestBody descR =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), descET.getText().toString());
-                    RequestBody dateR =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), year+"-"+month+"-"+day);
-                    SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
-                    String token = shP.getString("token", "");
-                    Call<Homework> homeworkCall = homeworkAPI.Create("token " + token, titleR, descR, dateR,class_id, body);
-                    Log.i("5", "5");
-                    homeworkCall.enqueue(new Callback<Homework>() {
-                        @Override
-                        public void onResponse(Call<Homework> call, Response<Homework> response) {
-                            if (!response.isSuccessful()) {
-                                Toast.makeText(HomeworkCreationDialog.this, "Some Field Wrong", Toast.LENGTH_SHORT).show();
-                                Log.i("MOSHKEL", response.message());
-                            } else {
-                                String code = Integer.toString(response.code());
-                                Homework homework = response.body();
-                                Log.i("PHOTO", "SUCCED");
-                                //                           Log.i("IMAGE URL",user.getAvatar().toString());
-                                Toast.makeText(HomeworkCreationDialog.this, "Homework created!", Toast.LENGTH_SHORT).show();
+                        MultipartBody.Part body =
+                                MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+                        RequestBody titleR =
+                                RequestBody.create(MediaType.parse("multipart/form-data"), titleET.getText().toString());
+                        RequestBody descR =
+                                RequestBody.create(MediaType.parse("multipart/form-data"), descET.getText().toString());
+                        RequestBody dateR =
+                                RequestBody.create(MediaType.parse("multipart/form-data"), year+"-"+month+"-"+day);
+                        SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
+                        String token = shP.getString("token", "");
+                        Call<Homework> homeworkCall = homeworkAPI.Create("token " + token, titleR, descR, dateR,class_id, body);
+                        Log.i("5", "5");
+                        homeworkCall.enqueue(new Callback<Homework>() {
+                            @Override
+                            public void onResponse(Call<Homework> call, Response<Homework> response) {
+                                if (!response.isSuccessful()) {
+                                    Toast.makeText(HomeworkCreationDialog.this, response.message(), Toast.LENGTH_SHORT).show();
+                                    Log.i("MOSHKEL", response.message());
+                                } else {
+                                    String code = Integer.toString(response.code());
+                                    Homework homework = response.body();
+                                    Log.i("PHOTO", "SUCCED");
+                                    //                           Log.i("IMAGE URL",user.getAvatar().toString());
+                                    Toast.makeText(HomeworkCreationDialog.this, "Homework created!", Toast.LENGTH_SHORT).show();
 
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<Homework> call, Throwable t) {
-                            Log.i("moshkel","injas");
-                            Log.i("Moshkel",t.getMessage());
-                            Toast.makeText(HomeworkCreationDialog.this, "error is :" + t.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<Homework> call, Throwable t) {
+                                Log.i("moshkel","injas");
+                                Log.i("Moshkel",t.getMessage());
+                                Toast.makeText(HomeworkCreationDialog.this, "error is :" + t.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    else{
+                        Toast.makeText(HomeworkCreationDialog.this, "select a pdf file", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             }
         });

@@ -61,10 +61,7 @@ public class ClassProfileActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 //        mFrameLayout.startShimmer();
-        homeworkTitleTextview = findViewById(R.id.homeworkTextview);
-        examTitleTextview = findViewById(R.id.examTextview);
-        examCountTextview = findViewById(R.id.questionCountTextview);
-        homeworkDeadlineTextview = findViewById(R.id.deadlineTextview);
+
         fillItems();
     }
     public void fillItems(){
@@ -80,6 +77,14 @@ public class ClassProfileActivity extends AppCompatActivity {
                 {
                     homeworkTitleTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getTitle());
                     homeworkDeadlineTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getDeadline());
+//                    try {
+//                        homeworkTitleTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getTitle());
+//                        homeworkDeadlineTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getDeadline());
+//                    }
+//                    catch (Exception exception)
+//                    {
+//                        //nothing
+//                    }
                 }
            //     mFrameLayout.startShimmer();
  //               mFrameLayout.setVisibility(View.GONE);
@@ -108,16 +113,20 @@ public class ClassProfileActivity extends AppCompatActivity {
                     examtypeList = Response;
                     if(Response.size()>0)
                     {
-                        try {
-                            JsonObject jo = Response.get(Response.size()-1).getAsJsonObject();
-                            examTitleTextview.setText(jo.get("name").toString());
-                            examCountTextview.setText(jo.get("start_time").toString() + "\n" + jo.get("start_time").toString());
-                            Log.i("salam","sas222222222222");
-                        }
-                        catch (Exception exception)
-                        {
-                            //nothing
-                        }
+                        JsonObject jo = Response.get(Response.size()-1).getAsJsonObject();
+                        examTitleTextview.setText(jo.get("name").toString());
+                        examCountTextview.setText(jo.get("start_time").toString() + "\n" + jo.get("start_time").toString());
+//                        Log.i("salam","sas222222222222");
+//                        try {
+//                            JsonObject jo = Response.get(Response.size()-1).getAsJsonObject();
+//                            examTitleTextview.setText(jo.get("name").toString());
+//                            examCountTextview.setText(jo.get("start_time").toString() + "\n" + jo.get("start_time").toString());
+//                            Log.i("salam","sas222222222222");
+//                        }
+//                        catch (Exception exception)
+//                        {
+//                            //nothing
+//                        }
                     }
                 }
                 else{
@@ -141,9 +150,8 @@ public class ClassProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
+
         Retrofit Homeworks = new Retrofit.Builder()
                 .baseUrl(HomeworkAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -177,7 +185,10 @@ public class ClassProfileActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-
+        homeworkTitleTextview = findViewById(R.id.homeworkTextview);
+        examTitleTextview = findViewById(R.id.examTextview);
+        examCountTextview = findViewById(R.id.questionCountTextview);
+        homeworkDeadlineTextview = findViewById(R.id.deadlineTextview);
 
         setSupportActionBar(binding.appBarClassProfile.classProfiletoolbar);
 
@@ -233,7 +244,7 @@ public class ClassProfileActivity extends AppCompatActivity {
                     break;
             }
         }
-
+        fillItems();
     }
 
     @Override

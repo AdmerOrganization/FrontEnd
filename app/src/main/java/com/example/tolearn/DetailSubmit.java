@@ -39,6 +39,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Calendar;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -76,7 +77,7 @@ public class DetailSubmit extends AppCompatActivity {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-
+        path = "";
         Retrofit LoginRetrofit = new Retrofit.Builder()
                 .baseUrl(HomeworkAPI.BASE_URL)
                 .client(client)
@@ -142,41 +143,66 @@ public class DetailSubmit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                    File file = new File(path);
-                    RequestBody requestFile =
-                            RequestBody.create(MediaType.parse("*/*"), file);
+                    String deadLine = DeadlineTextView.getText().toString();
+                    String [] Date = deadLine.split("-");
+                    int year = Integer.parseInt(Date[0]);
+                    int month = Integer.parseInt(Date[1]);
+                    int day = Integer.parseInt(Date[2]);
+
+                Calendar c = Calendar.getInstance();
+                int currentDay = c.get(Calendar.DAY_OF_MONTH);
+                int currentMonth = c.get(Calendar.MONTH);
+                currentMonth = currentMonth + 1;
+                int currentYear = c.get(Calendar.YEAR);
+
+                    if(year>currentYear ||(year == currentYear && currentMonth<month)||(year == currentYear && month == currentMonth && day > currentDay) || (year == currentYear && month == currentMonth && day == currentDay))
+                    {
+                        if(!path.equals(""))
+                        {
+                            File file = new File(path);
+                            RequestBody requestFile =
+                                    RequestBody.create(MediaType.parse("*/*"), file);
 
 // MultipartBody.Part is used to send also the actual file name
-                    MultipartBody.Part body =
-                            MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-                    SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
-                    String token = shP.getString("token", "");
-                    Call<JsonObject> homeworkCall = homeworkAPI.Submit("token " + token,homeworkId, body);
-                    Log.i("5", "5");
-                    homeworkCall.enqueue(new Callback<JsonObject>() {
-                        @Override
-                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                            if (!response.isSuccessful()) {
-                                Toast.makeText(DetailSubmit.this, "Some Field Wrong", Toast.LENGTH_SHORT).show();
-                                Log.i("MOSHKEL", response.message());
-                            } else {
-                                String code = Integer.toString(response.code());
-                                JsonObject homeworkSubmitResponse = response.body();
-                                finish();
-                                Log.i("PHOTO", "SUCCED");
-                                //                           Log.i("IMAGE URL",user.getAvatar().toString());
-                                Toast.makeText(DetailSubmit.this, "Homework updated!", Toast.LENGTH_SHORT).show();
+                            MultipartBody.Part body =
+                                    MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+                            SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
+                            String token = shP.getString("token", "");
+                            Call<JsonObject> homeworkCall = homeworkAPI.Submit("token " + token,homeworkId, body);
+                            Log.i("5", "5");
+                            homeworkCall.enqueue(new Callback<JsonObject>() {
+                                @Override
+                                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                    if (!response.isSuccessful()) {
+                                        Toast.makeText(DetailSubmit.this, "Some Field Wrong", Toast.LENGTH_SHORT).show();
+                                        Log.i("MOSHKEL", response.message());
+                                    } else {
+                                        String code = Integer.toString(response.code());
+                                        JsonObject homeworkSubmitResponse = response.body();
+                                        finish();
+                                        Log.i("PHOTO", "SUCCED");
+                                        //                           Log.i("IMAGE URL",user.getAvatar().toString());
+                                        Toast.makeText(DetailSubmit.this, "Homework uploaded!", Toast.LENGTH_SHORT).show();
 
-                            }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<JsonObject> call, Throwable t) {
+                                    Log.i("moshkel","injas");
+                                    Log.i("Moshkel",t.getMessage());
+                                    Toast.makeText(DetailSubmit.this, "error is :" + t.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                        else{
+                            Toast.makeText(DetailSubmit.this, "You have not chosen any pdf file ", Toast.LENGTH_SHORT).show();
                         }
 
-                        @Override
-                        public void onFailure(Call<JsonObject> call, Throwable t) {
-                            Log.i("moshkel","injas");
-                            Log.i("Moshkel",t.getMessage());
-                            Toast.makeText(DetailSubmit.this, "error is :" + t.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    }
+                    else{
+                        Toast.makeText(DetailSubmit.this, "Deadline is over", Toast.LENGTH_SHORT).show();
+                    }
 
             }
         });

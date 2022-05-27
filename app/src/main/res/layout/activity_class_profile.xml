@@ -22,4 +22,5 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_class_profile"
         app:menu="@menu/activity_class_profile_drawer" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

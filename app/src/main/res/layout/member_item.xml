@@ -20,7 +20,6 @@
             android:id="@+id/memberName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="120dp"
             android:gravity="center"
             android:text="saman"
             android:textColor="@color/white"
@@ -30,33 +29,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></TextView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="12dp"
-            android:background="@drawable/cirular_button"
-            android:paddingRight="5dp"
-            app:icon="@drawable/ic_baseline_account_circle_24"
-            app:iconGravity="textStart"
-            app:iconPadding="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/memberName"
-            app:layout_constraintTop_toTopOf="parent"></com.google.android.material.button.MaterialButton>
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/materialButton"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginStart="12dp"-->
+<!--            android:background="@drawable/cirular_button"-->
+<!--            android:paddingRight="5dp"-->
+<!--            app:icon="@drawable/ic_baseline_account_circle_24"-->
+<!--            app:iconGravity="textStart"-->
+<!--            app:iconPadding="10dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/memberName"-->
+<!--            app:layout_constraintTop_toTopOf="parent"></com.google.android.material.button.MaterialButton>-->
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/cirular_button"
-            android:paddingRight="5dp"
-            app:icon="@drawable/ic_baseline_person_remove_24"
-            app:iconGravity="textStart"
-            app:iconPadding="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/materialButton"
-            app:layout_constraintTop_toTopOf="parent"></com.google.android.material.button.MaterialButton>
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/materialButton2"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:background="@drawable/cirular_button"-->
+<!--            android:paddingRight="5dp"-->
+<!--            app:icon="@drawable/ic_baseline_person_remove_24"-->
+<!--            app:iconGravity="textStart"-->
+<!--            app:iconPadding="10dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/materialButton"-->
+<!--            app:layout_constraintTop_toTopOf="parent"></com.google.android.material.button.MaterialButton>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

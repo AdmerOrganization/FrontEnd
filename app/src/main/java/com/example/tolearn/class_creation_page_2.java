@@ -35,11 +35,13 @@ import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -244,7 +246,22 @@ public class class_creation_page_2 extends AppCompatActivity {
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if(!response.isSuccessful())
                         {
-                            Toast.makeText(class_creation_page_2.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
+                            ResponseBody responseBody = response.errorBody();
+                            try {
+                                String resp = responseBody.string();
+                                if(resp.contains("common"))
+                                {
+                                    Toast.makeText(class_creation_page_2.this, "this password is too common", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(class_creation_page_2.this, "there is a problem with your connection", Toast.LENGTH_SHORT).show();
+                                }
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Toast.makeText(class_creation_page_2.this, "there is a problem with your connection", Toast.LENGTH_SHORT).show();
+                            }
+
                             view.setClickable(true);
                             view.clearAnimation();
                         }

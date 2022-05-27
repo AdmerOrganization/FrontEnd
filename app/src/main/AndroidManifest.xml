@@ -17,6 +17,18 @@
         android:theme="@style/Theme.ToLearn"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ExamProfile"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".ExamUpdate"
+            android:exported="true">
+
+        </activity>
+
+        <activity
             android:name=".Homework_results"
             android:exported="false" />
         <activity

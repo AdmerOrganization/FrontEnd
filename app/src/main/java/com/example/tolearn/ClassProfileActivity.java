@@ -132,7 +132,7 @@ public class ClassProfileActivity extends AppCompatActivity {
                             end = end.replace(":00Z","");
                             start = start.replace("\"","");
                             end = end.replace("\"","");
-                            
+
                             examCountTextview.setText(start  + end);
                         }
                         catch (Exception exception)

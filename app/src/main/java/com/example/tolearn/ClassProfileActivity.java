@@ -121,9 +121,19 @@ public class ClassProfileActivity extends AppCompatActivity {
                         Log.i("salam","sas222222222222");
                         try {
                             JsonObject jo = Response.get(Response.size()-1).getAsJsonObject();
-                            examTitleTextview.setText(jo.get("name").toString());
-                            examCountTextview.setText(jo.get("start_time").toString() + "\n" + jo.get("start_time").toString());
-                            Log.i("salam","sas222222222222");
+                            String name = jo.get("name").toString();
+                            name = name.replace("\"","");
+                            examTitleTextview.setText(name);
+                            String start = jo.get("start_time").toString();
+                            start = start.replace("T"," ");
+                            String end = jo.get("start_time").toString();
+                            end = end.replace("T"," ");
+                            start = start.replace(":00Z","\n");
+                            end = end.replace(":00Z","");
+                            start = start.replace("\"","");
+                            end = end.replace("\"","");
+                            
+                            examCountTextview.setText(start  + end);
                         }
                         catch (Exception exception)
                         {

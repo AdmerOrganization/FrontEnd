@@ -59,29 +59,42 @@ public class ClassProfileActivity extends AppCompatActivity {
     private ShimmerFrameLayout mFrameLayout;
 
     public void fillItems(){
+        homeworktypeList = new ArrayList<>();
+        examtypeList = new JsonArray();
+
+        SharedPreferences sharedPreferences = ClassProfileActivity.this.getSharedPreferences("userInformation",ClassProfileActivity.this.MODE_PRIVATE);
+        String user_token = sharedPreferences.getString("token","");
+
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("classroom",class_id);
+        SharedPreferences shP2 = ClassProfileActivity.this.getSharedPreferences("classId", ClassProfileActivity.this.MODE_PRIVATE);
+        String id = shP2.getString("Id", "");
+        int classroom_id = Integer.parseInt(id);
+        jsonObject.addProperty("classroom",classroom_id);
         Call<List<Homework>> callBack = homeworkAPI.GetAllHomework("token "+user_token,jsonObject);
         callBack.enqueue(new Callback<List<Homework>>() {
             @Override
             public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
-                homeworktypeList = response.body();
-                Log.i("salam","sas");
-                if(homeworktypeList.size()>0)
+                if(!response.isSuccessful())
                 {
-                    homeworkTitleTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getTitle());
-                    homeworkDeadlineTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getDeadline());
-//                    try {
-//                        homeworkTitleTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getTitle());
-//                        homeworkDeadlineTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getDeadline());
-//                    }
-//                    catch (Exception exception)
-//                    {
-//                        //nothing
-//                    }
+                    Toast.makeText(ClassProfileActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
-           //     mFrameLayout.startShimmer();
- //               mFrameLayout.setVisibility(View.GONE);
+                else{
+                    homeworktypeList = response.body();
+                    Log.i("salam","sas");
+                    if(homeworktypeList.size()>0)
+                    {
+                        try {
+                            homeworkTitleTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getTitle());
+                            homeworkDeadlineTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getDeadline());
+                        }
+                        catch (Exception exception)
+                        {
+                            //nothing
+                        }
+                    }
+                    //     mFrameLayout.startShimmer();
+                    //
+                }
             }
 
             @Override
@@ -91,12 +104,10 @@ public class ClassProfileActivity extends AppCompatActivity {
             }
         });
 
-        SharedPreferences sharedPreferences = getSharedPreferences("userInformation",MODE_PRIVATE);
-        String user_token = sharedPreferences.getString("token","");
-        SharedPreferences shP = getSharedPreferences("classId", MODE_PRIVATE);
-        String id = shP.getString("Id", "");
+
+
         JsonObject classIdJson = new JsonObject();
-        classIdJson.addProperty("classroom",Integer.parseInt(id));
+        classIdJson.addProperty("classroom",classroom_id);
         Call<JsonArray> callBackNew = examAPI.GetAllExamsJsonForClass("token "+user_token,classIdJson);
         callBackNew.enqueue(new Callback<JsonArray>() {
             @Override
@@ -107,20 +118,17 @@ public class ClassProfileActivity extends AppCompatActivity {
                     examtypeList = Response;
                     if(Response.size()>0)
                     {
-                        JsonObject jo = Response.get(Response.size()-1).getAsJsonObject();
-                        examTitleTextview.setText(jo.get("name").toString());
-                        examCountTextview.setText(jo.get("start_time").toString() + "\n" + jo.get("start_time").toString());
-//                        Log.i("salam","sas222222222222");
-//                        try {
-//                            JsonObject jo = Response.get(Response.size()-1).getAsJsonObject();
-//                            examTitleTextview.setText(jo.get("name").toString());
-//                            examCountTextview.setText(jo.get("start_time").toString() + "\n" + jo.get("start_time").toString());
-//                            Log.i("salam","sas222222222222");
-//                        }
-//                        catch (Exception exception)
-//                        {
-//                            //nothing
-//                        }
+                        Log.i("salam","sas222222222222");
+                        try {
+                            JsonObject jo = Response.get(Response.size()-1).getAsJsonObject();
+                            examTitleTextview.setText(jo.get("name").toString());
+                            examCountTextview.setText(jo.get("start_time").toString() + "\n" + jo.get("start_time").toString());
+                            Log.i("salam","sas222222222222");
+                        }
+                        catch (Exception exception)
+                        {
+                            //nothing
+                        }
                     }
                 }
                 else{

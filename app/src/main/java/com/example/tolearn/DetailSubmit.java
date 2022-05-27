@@ -182,7 +182,7 @@ public class DetailSubmit extends AppCompatActivity {
                                         finish();
                                         Log.i("PHOTO", "SUCCED");
                                         //                           Log.i("IMAGE URL",user.getAvatar().toString());
-                                        Toast.makeText(DetailSubmit.this, "Homework updated!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(DetailSubmit.this, "Homework uploaded!", Toast.LENGTH_SHORT).show();
 
                                     }
                                 }

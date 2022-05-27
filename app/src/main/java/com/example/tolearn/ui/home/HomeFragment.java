@@ -1,5 +1,6 @@
 package com.example.tolearn.ui.home;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,9 +24,11 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.ClassProfileActivity;
+import com.example.tolearn.DetailSubmit;
 import com.example.tolearn.Entity.ExamNew;
 import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.Entity.myClass;
+import com.example.tolearn.ExamUpdate;
 import com.example.tolearn.R;
 import com.example.tolearn.databinding.ActivityClassProfileBinding;
 import com.example.tolearn.databinding.FragmentHomeBinding;
@@ -62,7 +65,8 @@ public class HomeFragment extends Fragment {
     TextView examTitleTextview;
     TextView examCountTextview;
     TextView homeworkDeadlineTextview ;
-
+    com.google.android.material.button.MaterialButton submit;
+    com.google.android.material.button.MaterialButton examEditBtn;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -92,6 +96,8 @@ public class HomeFragment extends Fragment {
         examTitleTextview = root.findViewById(R.id.examTextview);
         examCountTextview = root.findViewById(R.id.questionCountTextview);
         homeworkDeadlineTextview = root.findViewById(R.id.deadlineTextview);
+        submit = root.findViewById(R.id.SubmitBtn);
+        examEditBtn = root.findViewById(R.id.exameditBtn);
 
         homeworktypeList = new ArrayList<>();
         examtypeList = new JsonArray();
@@ -177,7 +183,49 @@ public class HomeFragment extends Fragment {
                 Log.i("ERROR",t.getMessage());
             }
         });
+
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    Homework hw = homeworktypeList.get(homeworktypeList.size()-1);
+                    Intent goToSubmit = new Intent(getContext() , DetailSubmit.class);
+                    goToSubmit.putExtra("homework_title",hw.getTitle());
+                    goToSubmit.putExtra("homework_token",hw.getHomework_token());
+                    goToSubmit.putExtra("homework_deadline",hw.getDeadline());
+                    goToSubmit.putExtra("homework_id",(hw.getId()));
+                    startActivity(goToSubmit);
+                }
+                catch (Exception ex)
+                {
+                    //nothing
+                }
+            }
+        });
+
+        examEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    ExamNew currentExam = new ExamNew(examtypeList.get(examtypeList.size()-1).getAsJsonObject());
+                    Intent goToEditExam = new Intent(getContext(), ExamUpdate.class);
+                    String e_id = currentExam.getId().toString();
+                    goToEditExam.putExtra("id",e_id);
+                    goToEditExam.putExtra("question_count",String.valueOf(currentExam.getQuestions_count()));
+                    goToEditExam.putExtra("name",currentExam.getName());
+                    goToEditExam.putExtra("start_time",currentExam.getStartDate());
+                    goToEditExam.putExtra("end_time",currentExam.getEndDate());
+                    startActivity(goToEditExam);
+                }
+                catch (Exception exception)
+                {
+                    //nothing
+                }
+            }
+        });
         return root;
+
         }
 
     @Override

@@ -57,13 +57,7 @@ public class ClassProfileActivity extends AppCompatActivity {
     TextView examCountTextview;
     TextView homeworkDeadlineTextview ;
     private ShimmerFrameLayout mFrameLayout;
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        mFrameLayout.startShimmer();
 
-        fillItems();
-    }
     public void fillItems(){
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("classroom",class_id);
@@ -164,7 +158,7 @@ public class ClassProfileActivity extends AppCompatActivity {
         examAPI = Exams.create(ExamAPI.class);
 
 
-      //  mFrameLayout = findViewById(R.id.shimmerLayout);
+        //  mFrameLayout = findViewById(R.id.shimmerLayout);
         extras = getIntent().getExtras();
         if (extras != null) {
             title = extras.getString("class_name");

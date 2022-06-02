@@ -1,8 +1,11 @@
 package com.example.tolearn.Entity;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 public class question {
+    int question_num;
+
     String id;
 
     String question;
@@ -16,6 +19,23 @@ public class question {
     String answer4;
 
     String righ_ans;
+
+    public question (JsonObject jsonObject)
+    {
+        this.id = jsonObject.get("id").toString();
+        this.question = jsonObject.get("question").toString();
+        String options =  jsonObject.get("options").toString();
+        options = options.replace("\"","");
+        options = options.replace("[","");
+        options = options.replace("]","");
+        options = options.replace("'","");
+        String [] opstionsArr = options.split(",");
+        this.answer1 = opstionsArr[0];
+        this.answer2 = opstionsArr[1];
+        this.answer3 = opstionsArr[2];
+        this.answer4 = opstionsArr[3];
+        righ_ans = jsonObject.get("correct_answer").toString();
+    }
 
     public question(String id, String question, String answer1, String answer2, String answer3, String answer4, String righ_ans) {
         this.id = id;

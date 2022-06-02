@@ -11,16 +11,17 @@ import android.widget.TextView;
 
 import com.example.tolearn.Entity.question;
 import com.example.tolearn.R;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
 public class StudentExamQuestionsAdapter extends BaseAdapter {
     Context context;
-    List<question> questionList;
+    List<JsonObject> questionList;
     String right_ans;
     List<String> answers;
 
-    public StudentExamQuestionsAdapter(Context context, List<question> questionList , List<String> answers) {
+    public StudentExamQuestionsAdapter(Context context, List<JsonObject> questionList , List<String> answers) {
         this.context = context;
         this.questionList = questionList;
         this.answers = answers;
@@ -54,7 +55,7 @@ public class StudentExamQuestionsAdapter extends BaseAdapter {
         TextView answer3Text = view.findViewById(R.id.answer3);
         TextView answer4Text = view.findViewById(R.id.answer4);
 
-        question currentQuestion = questionList.get(i);
+        question currentQuestion = new question(questionList.get(i));
         questionText.setText(currentQuestion.getQuestion());
         answer1Text.setText(currentQuestion.getAnswer1());
         answer2Text.setText(currentQuestion.getAnswer2());

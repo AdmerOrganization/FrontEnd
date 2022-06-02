@@ -35,6 +35,7 @@ public class question {
         this.answer3 = opstionsArr[2];
         this.answer4 = opstionsArr[3];
         righ_ans = jsonObject.get("correct_answer").toString();
+        question_num = jsonObject.get("question_num").getAsInt();
     }
 
     public question(String id, String question, String answer1, String answer2, String answer3, String answer4, String righ_ans) {
@@ -45,6 +46,14 @@ public class question {
         this.answer3 = answer3;
         this.answer4 = answer4;
         this.righ_ans = righ_ans;
+    }
+
+    public int getQuestion_num() {
+        return question_num;
+    }
+
+    public void setQuestion_num(int question_num) {
+        this.question_num = question_num;
     }
 
     public String getId() {

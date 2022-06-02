@@ -17,6 +17,7 @@ import com.example.tolearn.AlertDialogs.HomeworkEditDialog;
 import com.example.tolearn.Entity.Exam;
 import com.example.tolearn.Entity.ExamNew;
 import com.example.tolearn.Entity.Homework;
+import com.example.tolearn.ExamStart;
 import com.example.tolearn.ExamUpdate;
 import com.example.tolearn.Homework_results;
 import com.example.tolearn.R;
@@ -104,6 +105,15 @@ public class examAdapter extends BaseAdapter{
                 goToExamUpdate.putExtra("start_time",currentExam.getStartDate());
                 goToExamUpdate.putExtra("end_time",currentExam.getEndDate());
                 context.startActivity(goToExamUpdate);
+            }
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToExam = new Intent(context, ExamStart.class);
+                goToExam.putExtra("examId",id);
+                context.startActivity(goToExam);
             }
         });
         return view;

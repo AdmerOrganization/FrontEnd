@@ -48,7 +48,7 @@ public class StudentExamQuestionsAdapter extends BaseAdapter {
         {
             view = LayoutInflater.from(context).inflate(R.layout.student_exam_questions_item, null);
         }
-        TextView conter = view.findViewById(R.id.counter);
+        TextView counter = view.findViewById(R.id.counter);
         TextView questionText = view.findViewById(R.id.question);
         TextView answer1Text = view.findViewById(R.id.answer1);
         TextView answer2Text = view.findViewById(R.id.answer2);
@@ -56,6 +56,7 @@ public class StudentExamQuestionsAdapter extends BaseAdapter {
         TextView answer4Text = view.findViewById(R.id.answer4);
 
         question currentQuestion = new question(questionList.get(i));
+        counter.setText(Integer.toString(currentQuestion.getQuestion_num()));
         questionText.setText(currentQuestion.getQuestion());
         answer1Text.setText(currentQuestion.getAnswer1());
         answer2Text.setText(currentQuestion.getAnswer2());

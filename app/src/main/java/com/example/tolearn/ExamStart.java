@@ -38,7 +38,7 @@ public class ExamStart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_start);
         init();
-
+        fillList();
     }
 
     public void init()
@@ -96,6 +96,7 @@ public class ExamStart extends AppCompatActivity {
                 else{
                     questionsList = response.body();
                     adapter = new StudentExamQuestionsAdapter(ExamStart.this,questionsList,answersList);
+                    questionsListView.setAdapter(adapter);
                 }
             }
 

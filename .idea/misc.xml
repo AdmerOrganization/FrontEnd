@@ -27,6 +27,7 @@
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_detail_submit.xml" value="0.264" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_edit_profile.xml" value="0.13125" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_exam_profile.xml" value="0.1585144927536232" />
+        <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_faq.xml" value="0.13229166666666667" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_main.xml" value="0.12681159420289856" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_manage_class.xml" value="0.18177083333333333" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/content_class_profile.xml" value="0.12360688956433637" />
@@ -37,6 +38,7 @@
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/fragment_homework.xml" value="0.12360688956433637" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/homework_list_view.xml" value="0.264" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/member_item.xml" value="0.264" />
+        <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/movie_row.xml" value="0.13229166666666667" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/my_class_view.xml" value="0.1890625" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/my_event_view.xml" value="0.1" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/shimmer_placeholder_layout.xml" value="0.13858695652173914" />

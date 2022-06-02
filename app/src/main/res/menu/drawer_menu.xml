@@ -32,6 +32,10 @@
             android:icon="@drawable/ic_baseline_search_24"
             android:title="Search Class" />
             <item
+            android:id="@+id/faqMenuItem"
+            android:icon="@drawable/ic_baseline_help_outline_24"
+            android:title="FAQ" />
+            <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_send"
                 android:title="Send" />

@@ -312,7 +312,7 @@ public class HomeworkCreationDialog extends Activity {
         verifyStoragePermissions(this);
         Controller = new homework_creation_validations();
         extras = getIntent().getExtras();
-        class_id = extras.getInt("id");
+//        class_id = extras.getInt("id");
         SharedPreferences shP = getSharedPreferences("classId", MODE_PRIVATE);
         String id = shP.getString("Id", "");
         class_id = Integer.parseInt(id);

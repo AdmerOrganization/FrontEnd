@@ -310,6 +310,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
                 startActivityForResult(goToClassSearch,2);
                 break;
+            case R.id.faqMenuItem:
+                Intent goToFAQ = new Intent(this , faq.class);
+                startActivity(goToFAQ);
+                break;
             case R.id.nav_send:
                 Toast.makeText(this, "Send", Toast.LENGTH_SHORT).show();
                 break;

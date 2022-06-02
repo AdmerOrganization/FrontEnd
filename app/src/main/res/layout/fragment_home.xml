@@ -63,6 +63,7 @@
                     android:layout_marginStart="52dp"
                     android:layout_marginTop="16dp"
                     android:text="HomeworkTitle"
+                    android:gravity="center"
                     android:textColor="@color/darker_blue_learning"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"

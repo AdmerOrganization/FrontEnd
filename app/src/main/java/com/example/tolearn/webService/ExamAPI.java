@@ -44,6 +44,9 @@ public interface ExamAPI {
 
     @POST("exams/exams_retrieve/")
     Call<JsonArray> GetExamDetails (@Header("Authorization") String user_token, @Body JsonObject examId);
+
+    @POST("exams/data_retrieve/")
+    Call<JsonObject> GetExamQuestions (@Header("Authorization") String user_token, @Body JsonObject examId);
 //    @POST("homeworks/list/")
 //    Call<List<Homework>> GetAllHomework(@Header("Authorization") String user_token,@Body JsonObject classInfo);
 //    @Multipart

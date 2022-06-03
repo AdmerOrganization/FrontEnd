@@ -58,6 +58,7 @@ public class chat extends AppCompatActivity  {
         messagesListView = findViewById(R.id.messages_view);
 
         String class_token = "8-zeL_h-xlwPhuONTrsqZQ";
+        class_token_str = class_token;
 
         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
         String token = shP.getString("token","");
@@ -167,15 +168,15 @@ public class chat extends AppCompatActivity  {
         String lname = shP.getString("lastname","");
         message newMessage = new message("0",fname,lname,myMessage,"");
         messagesList.add(newMessage);
-        try {
-            chatAdapter.notifyDataSetChanged();
-        }
-        catch (Exception exception)
-        {
-            chatAdapter = new chatAdapter(messagesList,chat.this,false);
-            messagesListView.setAdapter(chatAdapter);
-            chatAdapter.notifyDataSetChanged();
-        }
+        chatAdapter = new chatAdapter(messagesList,chat.this,false);
+        messagesListView.setAdapter(chatAdapter);
+        chatAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ws.close(4000,"bye");
     }
 }
 

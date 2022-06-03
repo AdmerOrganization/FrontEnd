@@ -68,4 +68,9 @@ dependencies {
     testImplementation "com.squareup.okhttp3:mockwebserver:4.7.2"
 
     androidTestImplementation "com.android.support.test.espresso:espresso-contrib"
+
+    implementation "org.java-websocket:Java-WebSocket:1.4.0"
+    implementation 'tech.gusavila92:java-android-websocket-client:1.2.2'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.squareup.okhttp3:okhttp:4.9.2'
 }

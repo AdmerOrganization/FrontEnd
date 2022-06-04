@@ -1,14 +1,11 @@
 package com.example.tolearn;
 
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.IBinder;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,14 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.tolearn.Adapters.chatAdapter;
 import com.example.tolearn.Entity.message;
 import com.example.tolearn.webService.chatAPI;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ListView;
-
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +28,8 @@ import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
 
-public class chat extends AppCompatActivity  {
+public class ChatActivity  extends AppCompatActivity {
+
     chatAPI chat_api;
     JsonObject class_token;
     String class_token_str;
@@ -45,40 +39,31 @@ public class chat extends AppCompatActivity  {
     ListView  messagesListView ;
     EditText my_text;
     WebSocket ws;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_activity);
         getSupportActionBar().hide();
 
-        messagesList = new ArrayList<>();
+        my_text = findViewById(R.id.my_message_text);
 
+        messagesList = new ArrayList<>();
         messagesListView = findViewById(R.id.messages_view);
 
         String class_token = "8-zeL_h-xlwPhuONTrsqZQ";
-        class_token_str = class_token;
-
         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
         String token = shP.getString("token","");
-
-        my_text = findViewById(R.id.my_message_text);
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url("ws://185.235.42.101:8000/ws/chat/"+class_token+"/")
                 .addHeader("Authorization","token "+token)
                 .build();
+
         WebSocketListener webSocketListener = new WebSocketListener() {
             @Override
             public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
                 super.onClosed(webSocket, code, reason);
                 Log.i("WebSocketListener","closed");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //todo
-                    }
-                });
             }
 
             @Override
@@ -90,53 +75,49 @@ public class chat extends AppCompatActivity  {
             @Override
             public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t, @Nullable Response response) {
                 super.onFailure(webSocket, t, response);
-                try {
-                    Log.i("WebSocketListener",response.message());
-                    Log.i("WebSocketListener",t.getMessage());
-                }
-                catch (Exception exception)
-                {
-                    Log.i("WebSocketListener","failure");
-                    webSocket.close(4000,"failed");
-                }
+                Log.i("WebSocketListener",t.getMessage());
             }
 
             @Override
             public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
                 super.onMessage(webSocket, text);
 
-                int start = text.indexOf("[");
-                int end = text.indexOf("]");
+                Thread newThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JsonObject js = new JsonObject();
+                        JsonParser parser = new JsonParser();
+                        js = (JsonObject) parser.parse(text);
 
-                String messages = text.substring(start,end);
-                messages = messages.replace(" ","");
-                messages = messages.replace("[","");
-                messages = messages.replace("]","");
-                messages = messages.replace("\"","");
-                messages = messages.replace("},{","|");
-                messages = messages.replace("{","");
-                messages = messages.replace("}","");
+                        JsonArray jsonArray = (JsonArray) js.get("messages");
+                        for (int i= 0 ; i<jsonArray.size();i++)
+                        {
+                            JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
+                            String id = jsonObject.get("id").toString();
+                            String fname = jsonObject.get("fname").toString();
+                            fname = fname.replace("\"","");
+                            String lname = jsonObject.get("lname").toString();
+                            lname = lname.replace("\"","");
+                            String message = jsonObject.get("message").toString();
+                            message = message.replace("\"","");
+                            String timeStamp = jsonObject.get("timestamp").toString();
+                            message newMessage = new message(id , fname , lname , message  , timeStamp);
+                            messagesList.add(newMessage);
+                        }
 
-                String [] messagesArray = messages.split("|");
+                        chatAdapter = new chatAdapter(messagesList,ChatActivity.this,false);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                messagesListView.setAdapter(chatAdapter);
+                                chatAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                });
+                newThread.start();
 
-                for ( int i =0;i<messagesArray.length;i++)
-                {
-                    String [] messageInfo = messagesArray[i].split(",");
-                    String [] id = messageInfo[0].split(":");
-                    String [] fname = messageInfo[1].split(":");
-                    String [] lname = messageInfo[2].split(":");
-                    String [] message = messageInfo[3].split(":");
-                    String [] timeStamps = messageInfo [4].split(":");
-
-                    message newMessage = new message(id[1],fname[1],lname[1],message[1],timeStamps[1]);
-                    messagesList.add(newMessage);
-                }
-
-                chatAdapter = new chatAdapter(messagesList,chat.this,false);
-                messagesListView.setAdapter(chatAdapter);
-                chatAdapter.notifyDataSetChanged();
-
-                Log.i("WebSocketListener",messages);
+                Log.i("WebSocketListener",text);
             }
 
 
@@ -155,11 +136,11 @@ public class chat extends AppCompatActivity  {
                 Log.i("WebSocketListener",response.protocol().toString());
                 Log.i("WebSocketListener",response.request().toString());
             }
+
         };
         ws = client.newWebSocket(request,webSocketListener);
-
-        //ws.close(4000,"bye");
     }
+
 
     public void send(View view) {
         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
@@ -175,7 +156,7 @@ public class chat extends AppCompatActivity  {
         String lname = shP.getString("lastname","");
         message newMessage = new message("0",fname,lname,myMessage,"");
         messagesList.add(newMessage);
-        chatAdapter = new chatAdapter(messagesList,chat.this,false);
+        chatAdapter = new chatAdapter(messagesList,ChatActivity.this,false);
         messagesListView.setAdapter(chatAdapter);
         chatAdapter.notifyDataSetChanged();
     }
@@ -186,28 +167,3 @@ public class chat extends AppCompatActivity  {
         ws.close(4000,"bye");
     }
 }
-
-
-
-
-//        Call<JsonObject> info = chat_api.chatClassToken("token "+token,classId);
-//        info.enqueue(new Callback<JsonObject>() {
-//            @Override
-//            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-//                if(!response.isSuccessful())
-//                {
-//                    Toast.makeText(chat.this, response.message(), Toast.LENGTH_SHORT).show();
-//                }
-//                else{
-//                    class_token = response.body();
-//                    //String chat_info = class_token.getAsString();
-//                    //todo
-//                    class_token_str = "8-zeL_h-xlwPhuONTrsqZQ";
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<JsonObject> call, Throwable t) {
-//                Toast.makeText(chat.this, "There is a problem with your connection", Toast.LENGTH_SHORT).show();
-//            }
-//        });

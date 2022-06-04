@@ -7,6 +7,7 @@ public class message {
     String message;
     String timestamp;
 
+
     public message(String id, String fname, String lname, String message, String timestamp) {
         this.id = id;
         this.fname = fname;

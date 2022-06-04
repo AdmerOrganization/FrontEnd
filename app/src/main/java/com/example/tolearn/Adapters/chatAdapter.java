@@ -65,7 +65,7 @@ public class chatAdapter extends BaseAdapter {
                     text.setText(messageList.get(i).getMessage());
 
                     TextView name = view.findViewById(R.id.name);
-                    name.setText(messageList.get(i).getFname() + " " + messageList.get(i).getMessage());
+                    name.setText(messageList.get(i).getFname() + " " + messageList.get(i).getLname());
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.example.tolearn.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.AlertDialogs.HomeworkEditDialog;
@@ -26,8 +29,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.time.LocalDateTime;
 
 public class examAdapter extends BaseAdapter{
 
@@ -112,6 +119,8 @@ public class examAdapter extends BaseAdapter{
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String StartDate = currentExam.getStartDate();
+
                 CustomeConfirmAlertDialog confirmAlertDialog = new CustomeConfirmAlertDialog(context,"Exam","do you want to start this exam ?");
                 confirmAlertDialog.image.setImageResource(R.drawable.question);
                 confirmAlertDialog.No.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +134,8 @@ public class examAdapter extends BaseAdapter{
                     public void onClick(View view) {
                         Intent goToExam = new Intent(context, ExamStart.class);
                         goToExam.putExtra("examId",id);
+                        goToExam.putExtra("startDate",currentExam.getStartDate());
+                        goToExam.putExtra("endDate",currentExam.getEndDate());
                         context.startActivity(goToExam);
                         confirmAlertDialog.alertDialog.dismiss();
                     }
@@ -134,4 +145,74 @@ public class examAdapter extends BaseAdapter{
         return view;
     }
 
+    public boolean ExamTimeChecker (String startDate , String endDate)
+    {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        String currentDateTime = (dateFormat.format(cal.getTime()));
+
+        String [] dateTime = currentDateTime.split(" ");
+        String [] dateInfo = dateTime[0].split("/");
+        String [] timeInfo = dateTime[1].split(":");
+
+        int currentYear = Integer.parseInt(dateInfo[0]);
+        int currentMonth = Integer.parseInt(dateInfo[1]);
+        currentMonth = currentMonth +1;
+        int currentDay = Integer.parseInt(dateInfo[2]);
+        int currentHour = Integer.parseInt(timeInfo[0]);
+        int currentMinute = Integer.parseInt(timeInfo[1]);
+
+        String [] startDateTimeInfo = startDate.split("T");
+        String [] startDateInfo = startDateTimeInfo[0].split("-");
+        int startYear = Integer.parseInt(startDateInfo[0]);
+        int startMonth = Integer.parseInt(startDateInfo[1]);
+        int startDay = Integer.parseInt(startDateInfo[2]);
+
+        String [] StartTimeInfo = startDateTimeInfo[1].split(":");
+        int startHour = Integer.parseInt(StartTimeInfo[0]);
+        int startMinute = Integer.parseInt(StartTimeInfo[0]);
+
+
+        String [] endDateTimeInfo = endDate.split("T");
+        String [] endDateInfo = endDateTimeInfo[0].split("-");
+        int endYear = Integer.parseInt(endDateInfo[0]);
+        int endMonth = Integer.parseInt(endDateInfo[1]);
+        int endDay = Integer.parseInt(endDateInfo[2]);
+
+        String [] endTimeInfo = endDateTimeInfo[1].split(":");
+        int endHour = Integer.parseInt(endTimeInfo[0]);
+        int endMinute = Integer.parseInt(endTimeInfo[0]);
+
+        if(currentYear >= startYear && currentYear <= endYear)
+        {
+            if(currentMonth>=startMonth && currentMonth <= endMonth)
+            {
+                if(currentDay>=startDay && currentDay<=endDay)
+                {
+                    if(currentHour>=startHour && currentHour<=endHour)
+                    {
+                        if(currentMinute>=startMinute && currentMinute <= endMinute)
+                        {
+                            return true;
+                        }
+                        else{
+                            return false;
+                        }
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
 }

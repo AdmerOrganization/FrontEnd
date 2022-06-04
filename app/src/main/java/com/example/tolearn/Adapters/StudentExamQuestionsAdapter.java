@@ -19,9 +19,9 @@ public class StudentExamQuestionsAdapter extends BaseAdapter {
     Context context;
     List<JsonObject> questionList;
     String right_ans;
-    List<String> answers;
+    int [] answers;
 
-    public StudentExamQuestionsAdapter(Context context, List<JsonObject> questionList , List<String> answers) {
+    public StudentExamQuestionsAdapter(Context context, List<JsonObject> questionList , int [] answers) {
         this.context = context;
         this.questionList = questionList;
         this.answers = answers;
@@ -63,7 +63,7 @@ public class StudentExamQuestionsAdapter extends BaseAdapter {
         answer3Text.setText(currentQuestion.getAnswer3());
         answer4Text.setText(currentQuestion.getAnswer4());
 
-        right_ans = "";
+        answers [i] = 0;
 
         answer1Text.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +79,8 @@ public class StudentExamQuestionsAdapter extends BaseAdapter {
 
                 answer1Text.setBackgroundResource(R.drawable.red_button_circular);
                 answer1Text.setTextColor(Color.WHITE);
-                right_ans = "1";
+
+                answers[i] = 1;
             }
         });
 
@@ -97,7 +98,8 @@ public class StudentExamQuestionsAdapter extends BaseAdapter {
 
                 answer2Text.setBackgroundResource(R.drawable.red_button_circular);
                 answer2Text.setTextColor(Color.WHITE);
-                right_ans = "2";
+
+                answers[i] = 2;
             }
         });
 
@@ -115,7 +117,8 @@ public class StudentExamQuestionsAdapter extends BaseAdapter {
 
                 answer3Text.setBackgroundResource(R.drawable.red_button_circular);
                 answer3Text.setTextColor(Color.WHITE);
-                right_ans = "3";
+
+                answers[i] = 3;
             }
         });
 
@@ -134,11 +137,11 @@ public class StudentExamQuestionsAdapter extends BaseAdapter {
 
                 answer4Text.setBackgroundResource(R.drawable.red_button_circular);
                 answer4Text.setTextColor(Color.WHITE);
-                right_ans = "4";
+
+                answers[i] = 4;
             }
         });
 
-        answers.add(right_ans);
         return view;
     }
 }

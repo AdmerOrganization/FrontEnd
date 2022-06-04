@@ -34,7 +34,6 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
-import tech.gusavila92.websocketclient.WebSocketClient;
 
 public class chat extends AppCompatActivity  {
     chatAPI chat_api;
@@ -66,7 +65,9 @@ public class chat extends AppCompatActivity  {
         my_text = findViewById(R.id.my_message_text);
 
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url("ws://185.235.42.101:8000/ws/chat/"+class_token+"/").build();
+        Request request = new Request.Builder().url("ws://185.235.42.101:8000/ws/chat/"+class_token+"/")
+                .addHeader("Authorization","token "+token)
+                .build();
         WebSocketListener webSocketListener = new WebSocketListener() {
             @Override
             public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
@@ -95,6 +96,8 @@ public class chat extends AppCompatActivity  {
                 }
                 catch (Exception exception)
                 {
+                    Log.i("WebSocketListener","failure");
+                    webSocket.close(4000,"failed");
                 }
             }
 
@@ -147,6 +150,10 @@ public class chat extends AppCompatActivity  {
             public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
                 super.onOpen(webSocket, response);
                 Log.i("WebSocketListener",response.message());
+                Log.i("WebSocketListener",Integer.toString(response.code()));
+                Log.i("WebSocketListener",response.body().toString());
+                Log.i("WebSocketListener",response.protocol().toString());
+                Log.i("WebSocketListener",response.request().toString());
             }
         };
         ws = client.newWebSocket(request,webSocketListener);

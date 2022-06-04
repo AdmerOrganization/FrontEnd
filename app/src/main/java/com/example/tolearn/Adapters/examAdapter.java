@@ -13,6 +13,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.AlertDialogs.HomeworkEditDialog;
 import com.example.tolearn.Entity.Exam;
 import com.example.tolearn.Entity.ExamNew;
@@ -111,9 +112,23 @@ public class examAdapter extends BaseAdapter{
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToExam = new Intent(context, ExamStart.class);
-                goToExam.putExtra("examId",id);
-                context.startActivity(goToExam);
+                CustomeConfirmAlertDialog confirmAlertDialog = new CustomeConfirmAlertDialog(context,"Exam","do you want to start this exam ?");
+                confirmAlertDialog.image.setImageResource(R.drawable.question);
+                confirmAlertDialog.No.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        confirmAlertDialog.alertDialog.dismiss();
+                    }
+                });
+                confirmAlertDialog.Yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent goToExam = new Intent(context, ExamStart.class);
+                        goToExam.putExtra("examId",id);
+                        context.startActivity(goToExam);
+                        confirmAlertDialog.alertDialog.dismiss();
+                    }
+                });
             }
         });
         return view;

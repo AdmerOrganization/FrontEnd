@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.tolearn.Adapters.StudentExamQuestionsAdapter;
+import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.Entity.question;
 import com.example.tolearn.webService.ExamAPI;
 import com.google.gson.JsonObject;
@@ -38,6 +39,7 @@ public class ExamStart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_start);
+        getSupportActionBar().hide();
         init();
         fillList();
     }
@@ -71,8 +73,34 @@ public class ExamStart extends AppCompatActivity {
 
         answersList = new ArrayList<>();
         questionsList = new ArrayList<>();
+
+        examStart();
     }
 
+    public void examStart()
+    {
+        JsonObject jsonObject =  new JsonObject();
+        jsonObject.addProperty("exam_info",examId);
+        Call<JsonObject> callBack = examAPI.exam_start("token "+user_token, jsonObject);
+        callBack.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if(!response.isSuccessful())
+                {
+                    Toast.makeText(ExamStart.this, response.message(), Toast.LENGTH_SHORT).show();
+                    //todo : if the exam start time has been expired...
+                }
+                else{
+                    //exam started ....
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(ExamStart.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void fillList()
     {
@@ -109,6 +137,64 @@ public class ExamStart extends AppCompatActivity {
     }
 
     public void exam_end(View view) {
-        
+        CustomeConfirmAlertDialog confirmAlertDialog = new CustomeConfirmAlertDialog(ExamStart.this,"Exam","do you want to end ?");
+        confirmAlertDialog.image.setImageResource(R.drawable.question);
+        confirmAlertDialog.No.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirmAlertDialog.alertDialog.dismiss();
+            }
+        });
+        confirmAlertDialog.Yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("exam_info",examId);
+                jsonObject.addProperty("answers",answersList.toString());
+
+                Call<JsonObject> callBack = examAPI.exam_answer("token "+user_token,jsonObject);
+                callBack.enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        if(!response.isSuccessful())
+                        {
+                            Toast.makeText(ExamStart.this, response.message(), Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            //answers have been sent to the server
+                            JsonObject js = new JsonObject();
+                            js.addProperty("exam_info",examId);
+                            Call<JsonObject> callFinish = examAPI.exam_finish("token "+user_token , js );
+                            callFinish.enqueue(new Callback<JsonObject>() {
+                                @Override
+                                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                    if(!response.isSuccessful())
+                                    {
+                                        Toast.makeText(ExamStart.this, response.message(), Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        Toast.makeText(ExamStart.this, "exam finished", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<JsonObject> call, Throwable t) {
+                                    Toast.makeText(ExamStart.this, "there is a problem with your connection", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        Toast.makeText(ExamStart.this, "there is a problem with your connection", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                confirmAlertDialog.alertDialog.dismiss();
+            }
+        });
+
     }
 }

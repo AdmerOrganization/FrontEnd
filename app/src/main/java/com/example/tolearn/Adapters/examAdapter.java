@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.AlertDialogs.HomeworkEditDialog;
 import com.example.tolearn.Entity.Exam;
@@ -132,12 +134,26 @@ public class examAdapter extends BaseAdapter{
                 confirmAlertDialog.Yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent goToExam = new Intent(context, ExamStart.class);
-                        goToExam.putExtra("examId",id);
-                        goToExam.putExtra("startDate",currentExam.getStartDate());
-                        goToExam.putExtra("endDate",currentExam.getEndDate());
-                        context.startActivity(goToExam);
-                        confirmAlertDialog.alertDialog.dismiss();
+                        if(ExamTimeChecker(currentExam.getStartDate(),currentExam.getEndDate()))
+                        {
+                            Intent goToExam = new Intent(context, ExamStart.class);
+                            goToExam.putExtra("examId",id);
+                            goToExam.putExtra("startDate",currentExam.getStartDate());
+                            goToExam.putExtra("endDate",currentExam.getEndDate());
+                            context.startActivity(goToExam);
+                            confirmAlertDialog.alertDialog.dismiss();
+                        }
+                        else{
+                            CustomeAlertDialog alertDialog = new CustomeAlertDialog(context,"Error","Exam has not been started yet or has been finished!");
+                            alertDialog.imageView.setImageResource(R.drawable.error);
+                            alertDialog.btnOk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    confirmAlertDialog.alertDialog.dismiss();
+                                    alertDialog.alertDialog.dismiss();
+                                }
+                            });
+                        }
                     }
                 });
             }
@@ -157,7 +173,6 @@ public class examAdapter extends BaseAdapter{
 
         int currentYear = Integer.parseInt(dateInfo[0]);
         int currentMonth = Integer.parseInt(dateInfo[1]);
-        currentMonth = currentMonth +1;
         int currentDay = Integer.parseInt(dateInfo[2]);
         int currentHour = Integer.parseInt(timeInfo[0]);
         int currentMinute = Integer.parseInt(timeInfo[1]);
@@ -170,7 +185,7 @@ public class examAdapter extends BaseAdapter{
 
         String [] StartTimeInfo = startDateTimeInfo[1].split(":");
         int startHour = Integer.parseInt(StartTimeInfo[0]);
-        int startMinute = Integer.parseInt(StartTimeInfo[0]);
+        int startMinute = Integer.parseInt(StartTimeInfo[1]);
 
 
         String [] endDateTimeInfo = endDate.split("T");
@@ -181,35 +196,39 @@ public class examAdapter extends BaseAdapter{
 
         String [] endTimeInfo = endDateTimeInfo[1].split(":");
         int endHour = Integer.parseInt(endTimeInfo[0]);
-        int endMinute = Integer.parseInt(endTimeInfo[0]);
+        int endMinute = Integer.parseInt(endTimeInfo[1]);
 
-        if(currentYear >= startYear && currentYear <= endYear)
+        Log.i("DateTimeExam", String.valueOf(currentYear));
+        Log.i("DateTimeExam", String.valueOf(currentMonth));
+        Log.i("DateTimeExam", String.valueOf(currentDay));
+        Log.i("DateTimeExam", String.valueOf(currentHour));
+        Log.i("DateTimeExam", String.valueOf(currentMinute));
+
+        Log.i("DateTimeExam", String.valueOf(startYear));
+        Log.i("DateTimeExam", String.valueOf(startMonth));
+        Log.i("DateTimeExam", String.valueOf(startDay));
+        Log.i("DateTimeExam", String.valueOf(startHour));
+        Log.i("DateTimeExam", String.valueOf(startMinute));
+
+        Log.i("DateTimeExam", String.valueOf(endYear));
+        Log.i("DateTimeExam", String.valueOf(endMonth));
+        Log.i("DateTimeExam", String.valueOf(endDay));
+        Log.i("DateTimeExam", String.valueOf(endHour));
+        Log.i("DateTimeExam", String.valueOf(endMinute));
+
+
+        String currentMoment = String.valueOf(currentHour)+String.valueOf(currentMinute);
+        int currentMomentInt = Integer.parseInt(currentMoment);
+
+        String startMoment = String.valueOf(startHour)+String.valueOf(startMinute);
+        int startMomentInt = Integer.parseInt(startMoment);
+
+        String endMoment = String.valueOf(endHour)+String.valueOf(endMinute);
+        int endMomentInt = Integer.parseInt(endMoment);
+
+        if(currentMomentInt >= startMomentInt && currentMomentInt <= endMomentInt)
         {
-            if(currentMonth>=startMonth && currentMonth <= endMonth)
-            {
-                if(currentDay>=startDay && currentDay<=endDay)
-                {
-                    if(currentHour>=startHour && currentHour<=endHour)
-                    {
-                        if(currentMinute>=startMinute && currentMinute <= endMinute)
-                        {
-                            return true;
-                        }
-                        else{
-                            return false;
-                        }
-                    }
-                    else {
-                        return false;
-                    }
-                }
-                else{
-                    return false;
-                }
-            }
-            else{
-                return false;
-            }
+            return true;
         }
         else{
             return false;

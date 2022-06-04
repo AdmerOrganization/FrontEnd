@@ -49,7 +49,7 @@ public interface ExamAPI {
     Call<List<JsonObject>> GetExamQuestions (@Header("Authorization") String user_token, @Body JsonObject examId);
 
     @POST("exams/start_answer/")
-    Call<JsonObject> exam_start (@Header("Authorization") String user_token , @Body JsonObject examId);
+    Call<String> exam_start (@Header("Authorization") String user_token , @Body JsonObject examId);
 
     @POST("exams/finish_answer/")
     Call<String> exam_finish (@Header("Authorization") String user_token , @Body JsonObject examId);

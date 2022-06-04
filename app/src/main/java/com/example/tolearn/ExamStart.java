@@ -5,14 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.tolearn.Adapters.StudentExamQuestionsAdapter;
+import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.Entity.question;
 import com.example.tolearn.webService.ExamAPI;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -166,10 +169,10 @@ public class ExamStart extends AppCompatActivity {
                 JsonParser parser = new JsonParser();
 
                 JsonObject json = (JsonObject) parser.parse(js);
-                Call<JsonObject> callBack = examAPI.exam_answer("token "+user_token,json);
-                callBack.enqueue(new Callback<JsonObject>() {
+                Call<JsonArray> callBack = examAPI.exam_answer("token "+user_token,json);
+                callBack.enqueue(new Callback<JsonArray>() {
                     @Override
-                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                         if(!response.isSuccessful())
                         {
                             Toast.makeText(ExamStart.this, response.message(), Toast.LENGTH_SHORT).show();
@@ -178,22 +181,62 @@ public class ExamStart extends AppCompatActivity {
                             //answers have been sent to the server
                             JsonObject js = new JsonObject();
                             js.addProperty("exam_info",examId);
-                            Call<JsonObject> callFinish = examAPI.exam_finish("token "+user_token , js );
-                            callFinish.enqueue(new Callback<JsonObject>() {
+                            Call<String> callFinish = examAPI.exam_finish("token "+user_token , js );
+                            callFinish.enqueue(new Callback<String>() {
                                 @Override
-                                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                public void onResponse(Call<String> call, Response<String> response) {
                                     if(!response.isSuccessful())
                                     {
                                         Toast.makeText(ExamStart.this, response.message(), Toast.LENGTH_SHORT).show();
                                     }
                                     else{
                                         Toast.makeText(ExamStart.this, "exam finished", Toast.LENGTH_SHORT).show();
-                                        finish();
+                                        CustomeConfirmAlertDialog confirmAlertDialog1 = new CustomeConfirmAlertDialog(ExamStart.this , "Result","Do you want to see your result right now ?");
+                                        confirmAlertDialog1.image.setImageResource(R.drawable.question);
+                                        confirmAlertDialog1.No.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                finish();
+                                            }
+                                        });
+
+                                        confirmAlertDialog1.Yes.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+
+                                                Call<String> callBack = examAPI.exam_result("token "+user_token,js);
+                                                callBack.enqueue(new Callback<String>() {
+                                                    @Override
+                                                    public void onResponse(Call<String> call, Response<String> response) {
+                                                        if(!response.isSuccessful())
+                                                        {
+                                                            Toast.makeText(ExamStart.this, response.message(), Toast.LENGTH_SHORT).show();
+                                                            finish();
+                                                        }
+                                                        else{
+                                                            CustomeAlertDialog alertDialog = new CustomeAlertDialog(ExamStart.this,"Result",response.body().toString());
+                                                            alertDialog.btnOk.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View view) {
+                                                                    finish();
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<String> call, Throwable t) {
+                                                        Toast.makeText(ExamStart.this, "There is a problem with your internet connection", Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    }
+                                                });
+                                            }
+                                        });
                                     }
                                 }
 
                                 @Override
-                                public void onFailure(Call<JsonObject> call, Throwable t) {
+                                public void onFailure(Call<String> call, Throwable t) {
                                     Toast.makeText(ExamStart.this, "there is a problem with your connection", Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -201,8 +244,9 @@ public class ExamStart extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
-                        Toast.makeText(ExamStart.this, "there is a problem with your connection", Toast.LENGTH_SHORT).show();
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
+                        Toast.makeText(ExamStart.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.i("exam answered",t.getMessage());
                     }
                 });
 

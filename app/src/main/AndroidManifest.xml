@@ -17,6 +17,9 @@
         android:theme="@style/Theme.ToLearn"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ExamStart"
+            android:exported="false" />
+        <activity
             android:name=".faq"
             android:exported="false" />
         <activity

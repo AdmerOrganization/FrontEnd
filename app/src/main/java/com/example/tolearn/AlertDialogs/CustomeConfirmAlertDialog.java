@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -12,6 +13,7 @@ import com.example.tolearn.R;
 
 public class CustomeConfirmAlertDialog {
     public AlertDialog alertDialog;
+    public ImageView image;
     TextView titleTV;
     TextView messageTV;
     public Button Yes;
@@ -27,6 +29,7 @@ public class CustomeConfirmAlertDialog {
         alertDialog = builder.create();
         alertDialog.show();
 
+        image = alertView.findViewById(R.id.logo_alert_s);
         titleTV = alertView.findViewById(R.id.titleTv);
         messageTV = alertView.findViewById(R.id.messageTv);
         Yes = alertView.findViewById(R.id.YesBtn);

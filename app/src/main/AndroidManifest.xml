@@ -1,19 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tolearn">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
-        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/learninglogo2"
+        android:label="Amoozande"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@drawable/learninglogo2"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ToLearn">
+        android:theme="@style/Theme.ToLearn"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".faq"
+            android:exported="false" />
+        <activity
+            android:name=".ExamProfile"
+            android:exported="true"></activity>
+        <activity
+            android:name=".ExamUpdate"
+            android:exported="true"></activity>
+        <activity
+            android:name=".Homework_results"
+            android:exported="false" />
+        <activity
+            android:name=".DetailSubmit"
+            android:exported="false" />
+        <activity
+            android:name=".Homework_detail"
+            android:exported="false" />
+        <activity
+            android:name=".ClassProfileActivity"
+            android:exported="false"
+            android:label="@string/title_activity_class_profile"
+            android:theme="@style/Theme.ToLearn.NoActionBar" />
+        <activity
+            android:name=".ClassSearch"
+            android:exported="false" />
+        <activity
+            android:name=".manageClass"
+            android:exported="true" />
+        <activity
+            android:name=".class_creation_page_2"
+            android:exported="false" />
+        <activity
+            android:name=".Class_creation"
+            android:exported="false" />
         <activity
             android:name=".AlertDialogs.CustomAlertDialog"
             android:exported="false" />
@@ -26,11 +63,15 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.ToLearn.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.ToLearn.NoActionBar" />
         <activity
             android:name=".ForgetPassword"
+            android:exported="true" />
+        <activity
+            android:name=".AlertDialogs.HomeworkCreationDialog"
+            android:exported="true" />
+        <activity
+            android:name=".AlertDialogs.HomeworkEditDialog"
             android:exported="true" />
         <activity
             android:name=".Login"

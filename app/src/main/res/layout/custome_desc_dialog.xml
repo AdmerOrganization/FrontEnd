@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_shadow_white_background"
+    android:elevation="10dp">
+
+
+    <TextView
+        android:id="@+id/titleTv"
+        android:layout_width="135dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="Description"
+        android:textColor="@color/blue_learning"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:background="@drawable/border_shadow_white_background"
+        android:elevation="10dp"
+        android:minLines="2"
+        android:maxLines="5"
+        android:id="@+id/detailDescET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/blue_learning"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTv"></EditText>
+
+    <Button
+        android:id="@+id/okBtn"
+        android:layout_width="190dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/blue_learning"
+        android:text="ok"
+        app:layout_constraintTop_toBottomOf="@+id/detailDescET"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

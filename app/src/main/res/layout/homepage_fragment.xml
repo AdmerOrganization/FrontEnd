@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.tolearn.ProfileFragment"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/gradiant_homepage_background"
+        >
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/joinedClassesScroll"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/createdClassesTV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/createdClassesTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/blue_background_rounded"
+            android:elevation="15dp"
+            android:gravity="center"
+            android:text="Created Classes"
+            android:textColor="#094D97"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/createdClassList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createdClassesTV"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!--add  several shimmer placeholder layout -->
+
+                <include layout="@layout/shimmer_placeholder_layout"></include>
+
+                <include layout="@layout/shimmer_placeholder_layout"></include>
+
+                <include layout="@layout/shimmer_placeholder_layout"></include>
+
+                <include layout="@layout/shimmer_placeholder_layout"></include>
+
+                <include layout="@layout/shimmer_placeholder_layout"></include>
+
+                <include layout="@layout/shimmer_placeholder_layout"></include>
+
+                <include layout="@layout/shimmer_placeholder_layout"></include>
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/createdClassList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createdClassesTV"></androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>

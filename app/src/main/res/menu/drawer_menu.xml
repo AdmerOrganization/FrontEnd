@@ -4,9 +4,9 @@
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_message"
-            android:icon="@drawable/ic_message"
-            android:title="Message" />
+            android:id="@+id/homepage"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="homepage" />
         <item
             android:id="@+id/nav_chat"
             android:icon="@drawable/ic_chat"
@@ -20,9 +20,21 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_share"
-                android:title="Share" />
+                android:id="@+id/classCreation"
+                android:icon="@drawable/ic_baseline_class_24"
+                android:title="Create class" />
+            <item
+                android:id="@+id/classManagment"
+                android:icon="@drawable/ic_baseline_class_24"
+                android:title="Manage Class" />
+            <item
+            android:id="@+id/classSearch"
+            android:icon="@drawable/ic_baseline_search_24"
+            android:title="Search Class" />
+            <item
+            android:id="@+id/faqMenuItem"
+            android:icon="@drawable/ic_baseline_help_outline_24"
+            android:title="FAQ" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_send"

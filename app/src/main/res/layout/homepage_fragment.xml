@@ -31,7 +31,7 @@
             android:id="@+id/createdClassesTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/blue_background_rounded"
+            android:background="@drawable/border_shadow_white_background"
             android:elevation="15dp"
             android:gravity="center"
             android:text="Created Classes"

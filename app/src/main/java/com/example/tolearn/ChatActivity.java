@@ -52,6 +52,7 @@ public class ChatActivity  extends AppCompatActivity {
         messagesListView = findViewById(R.id.messages_view);
 
         String class_token = "8-zeL_h-xlwPhuONTrsqZQ";
+        class_token_str = class_token;
         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
         String token = shP.getString("token","");
 
@@ -65,18 +66,27 @@ public class ChatActivity  extends AppCompatActivity {
             public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
                 super.onClosed(webSocket, code, reason);
                 Log.i("WebSocketListener","closed");
+                Log.i("WebSockerListener",reason);
             }
 
             @Override
             public void onClosing(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
                 super.onClosing(webSocket, code, reason);
                 Log.i("WebSocketListener","closing");
+                Log.i("WebSockerListener",reason);
             }
 
             @Override
             public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t, @Nullable Response response) {
                 super.onFailure(webSocket, t, response);
-                Log.i("WebSocketListener",t.getMessage());
+                try {
+                    Log.i("WebSocketListener",t.getMessage());
+                    Log.i("WebSocketListener",response.message());
+                }
+                catch (Exception exception)
+                {
+                    //nothing
+                }
             }
 
             @Override
@@ -90,20 +100,56 @@ public class ChatActivity  extends AppCompatActivity {
                         JsonParser parser = new JsonParser();
                         js = (JsonObject) parser.parse(text);
 
-                        JsonArray jsonArray = (JsonArray) js.get("messages");
-                        for (int i= 0 ; i<jsonArray.size();i++)
+                        try {
+                            JsonArray jsonArray = (JsonArray) js.get("messages");
+                            for (int i= 0 ; i<jsonArray.size();i++)
+                            {
+                                JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
+                                String id = jsonObject.get("id").toString();
+                                String fname = jsonObject.get("fname").toString();
+                                fname = fname.replace("\"","");
+                                String lname = jsonObject.get("lname").toString();
+                                lname = lname.replace("\"","");
+                                String message = jsonObject.get("message").toString();
+                                message = message.replace("\"","");
+                                String timeStamp = jsonObject.get("timestamp").toString();
+                                message newMessage = new message(id , fname , lname , message  , timeStamp);
+                                messagesList.add(newMessage);
+                            }
+
+                            chatAdapter = new chatAdapter(messagesList,ChatActivity.this,false);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    messagesListView.setAdapter(chatAdapter);
+                                    chatAdapter.notifyDataSetChanged();
+                                }
+                            });
+                        } catch (Exception exception)
                         {
-                            JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
-                            String id = jsonObject.get("id").toString();
-                            String fname = jsonObject.get("fname").toString();
+                            String fname = js.get("fname").toString();
                             fname = fname.replace("\"","");
-                            String lname = jsonObject.get("lname").toString();
+
+                            String lname = js.get("lname").toString();
                             lname = lname.replace("\"","");
-                            String message = jsonObject.get("message").toString();
+
+                            String message = js.get("message").toString();
                             message = message.replace("\"","");
-                            String timeStamp = jsonObject.get("timestamp").toString();
-                            message newMessage = new message(id , fname , lname , message  , timeStamp);
+
+                            String timestamp = js.get("timestamp").toString();
+
+                            message newMessage = new message("",fname,lname,message,timestamp);
                             messagesList.add(newMessage);
+
+                            chatAdapter = new chatAdapter(messagesList,ChatActivity.this,false);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    messagesListView.setAdapter(chatAdapter);
+                                    chatAdapter.notifyDataSetChanged();
+                                }
+                            });
                         }
 
                         chatAdapter = new chatAdapter(messagesList,ChatActivity.this,false);
@@ -151,19 +197,16 @@ public class ChatActivity  extends AppCompatActivity {
         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
         String token = shP.getString("token","");
         String myMessage = my_text.getText().toString();
-        ws.send("{\n" +
+        String sendMessageText="{\n" +
                 "    \"message\":\" " + myMessage + "\",\n" +
                 "    \"user_token\":\""+token+"\",\n" +
                 "    \"token\":\""+class_token_str+"\"\n" +
-                "}");
-
+                "}";
+        ws.send(sendMessageText);
+        Log.i("CHATTTTTTTTT",sendMessageText);
         String fname = shP.getString("firstname","");
         String lname = shP.getString("lastname","");
         message newMessage = new message("0",fname,lname,myMessage,"");
-        messagesList.add(newMessage);
-        chatAdapter = new chatAdapter(messagesList,ChatActivity.this,false);
-        messagesListView.setAdapter(chatAdapter);
-        chatAdapter.notifyDataSetChanged();
     }
 
     @Override

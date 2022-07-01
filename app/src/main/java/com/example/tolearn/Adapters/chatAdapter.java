@@ -2,6 +2,7 @@ package com.example.tolearn.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,34 +42,70 @@ public class chatAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view == null)
+        SharedPreferences shP = context.getSharedPreferences("userInformation", context.MODE_PRIVATE);
+        String fname = shP.getString("firstname","");
+        String lname = shP.getString("lastname","");
+        boolean isMe = messageList.get(i).getFname().equals(fname) && messageList.get(i).getLname().equals(lname);
+
+        if(my_message_this_session == true)
         {
-            if(my_message_this_session == true)
+            if(view == null)
+            {
+                view = LayoutInflater.from(context).inflate(R.layout.my_messages, null);
+            }
+            TextView text = view.findViewById(R.id.message_body);
+            text.setText(messageList.get(i).getMessage());
+        }
+        else{
+            if(view == null && isMe) {
+                view = LayoutInflater.from(context).inflate(R.layout.my_messages, null);
+            }
+            else{
+                view = LayoutInflater.from(context).inflate(R.layout.their_messages_item, null);
+            }
+
+            if(isMe)
             {
                 view = LayoutInflater.from(context).inflate(R.layout.my_messages, null);
                 TextView text = view.findViewById(R.id.message_body);
                 text.setText(messageList.get(i).getMessage());
+                Log.i("CHAAAAAATTTT",messageList.get(i).getMessage());
             }
             else{
-                SharedPreferences shP = context.getSharedPreferences("userInformation", context.MODE_PRIVATE);
-                String fname = shP.getString("firstname","");
-                String lname = shP.getString("lastname","");
-                if(messageList.get(i).getFname().equals(fname) && messageList.get(i).getLname().equals(lname))
-                {
-                    view = LayoutInflater.from(context).inflate(R.layout.my_messages, null);
-                    TextView text = view.findViewById(R.id.message_body);
-                    text.setText(messageList.get(i).getMessage());
-                }
-                else{
-                    view = LayoutInflater.from(context).inflate(R.layout.their_messages_item, null);
-                    TextView text = view.findViewById(R.id.message_body);
-                    text.setText(messageList.get(i).getMessage());
+                TextView text = view.findViewById(R.id.message_body);
+                text.setText(messageList.get(i).getMessage());
 
-                    TextView name = view.findViewById(R.id.name);
-                    name.setText(messageList.get(i).getFname() + " " + messageList.get(i).getLname());
-                }
+                TextView name = view.findViewById(R.id.name);
+                name.setText(messageList.get(i).getFname() + " " + messageList.get(i).getLname());
+                Log.i("CHAAAAAATTTT",messageList.get(i).getMessage());
             }
         }
+//            if(my_message_this_session == true)
+//            {
+//                view = LayoutInflater.from(context).inflate(R.layout.my_messages, null);
+//                TextView text = view.findViewById(R.id.message_body);
+//                text.setText(messageList.get(i).getMessage());
+//            }
+//            else{
+//                SharedPreferences shP = context.getSharedPreferences("userInformation", context.MODE_PRIVATE);
+//                String fname = shP.getString("firstname","");
+//                String lname = shP.getString("lastname","");
+//                if(messageList.get(i).getFname().equals(fname) && messageList.get(i).getLname().equals(lname))
+//                {
+//                    view = LayoutInflater.from(context).inflate(R.layout.my_messages, null);
+//                    TextView text = view.findViewById(R.id.message_body);
+//                    text.setText(messageList.get(i).getMessage());
+//                }
+//                else{
+//                    view = LayoutInflater.from(context).inflate(R.layout.their_messages_item, null);
+//                    TextView text = view.findViewById(R.id.message_body);
+//                    text.setText(messageList.get(i).getMessage());
+//
+//                    TextView name = view.findViewById(R.id.name);
+//                    name.setText(messageList.get(i).getFname() + " " + messageList.get(i).getLname());
+//                }
+//            }
         return view;
+
     }
 }

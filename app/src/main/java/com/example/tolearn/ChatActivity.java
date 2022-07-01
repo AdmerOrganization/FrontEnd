@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -81,7 +82,7 @@ public class ChatActivity  extends AppCompatActivity {
             @Override
             public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
                 super.onMessage(webSocket, text);
-
+                final boolean[] firstTime = {true};
                 Thread newThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -109,7 +110,11 @@ public class ChatActivity  extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                messagesListView.setAdapter(chatAdapter);
+                                if (firstTime[0] == true)
+                                {
+                                    messagesListView.setAdapter(chatAdapter);
+                                    firstTime[0] = false;
+                                }
                                 chatAdapter.notifyDataSetChanged();
                             }
                         });

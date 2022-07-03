@@ -28,4 +28,11 @@
         android:name="com.example.tolearn.ui.exam.ExamFragment"
         android:label="@string/menu_exam"
         tools:layout="@layout/fragment_exam" />
+
+    <activity
+        android:id="@+id/nav_chat"
+        android:name="com.example.tolearn.ChatActivity"
+        android:label="@string/menu_exam"
+        tools:layout="@layout/chat_activity" />
+
 </navigation>

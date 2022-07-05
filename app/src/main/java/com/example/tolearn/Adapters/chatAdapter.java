@@ -69,6 +69,9 @@ public class chatAdapter extends BaseAdapter {
                 view = LayoutInflater.from(context).inflate(R.layout.my_messages, null);
                 TextView text = view.findViewById(R.id.message_body);
                 text.setText(messageList.get(i).getMessage());
+                TextView timestamp = view.findViewById(R.id.timeText);
+                String HourMin = timeStampToHourMin(messageList.get(i).getTimestamp());
+                timestamp.setText(HourMin);
                 Log.i("CHAAAAAATTTT",messageList.get(i).getMessage());
             }
             else{
@@ -77,6 +80,10 @@ public class chatAdapter extends BaseAdapter {
 
                 TextView name = view.findViewById(R.id.name);
                 name.setText(messageList.get(i).getFname() + " " + messageList.get(i).getLname());
+
+                TextView timestamp = view.findViewById(R.id.timeText);
+                String HourMin = timeStampToHourMin(messageList.get(i).getTimestamp());
+                timestamp.setText(HourMin);
                 Log.i("CHAAAAAATTTT",messageList.get(i).getMessage());
             }
         }
@@ -107,5 +114,13 @@ public class chatAdapter extends BaseAdapter {
 //            }
         return view;
 
+    }
+
+    public String timeStampToHourMin(String timeStamp){
+        String [] timeStampArr = timeStamp.split(" ");
+        String time = timeStampArr[1].toString();
+        String hourMin[] = time.split(":");
+        String HourMinStr = hourMin[0] +":" + hourMin[1];
+        return HourMinStr;
     }
 }

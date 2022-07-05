@@ -67,6 +67,9 @@ public class ChatActivity  extends AppCompatActivity {
         SharedPreferences shP2 = getSharedPreferences("classId", MODE_PRIVATE);
         String classId = shP2.getString("Id","");
         String classCategory = shP2.getString("category","");
+        String classTitle = shP2.getString("class_name","");
+
+        className.setText(classTitle);
 
         switch (classCategory)
         {

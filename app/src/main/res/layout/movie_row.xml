@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp">
@@ -9,9 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="8dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
@@ -19,22 +19,24 @@
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="0dp"
-                android:textColor="@color/darkBlue"
                 android:layout_height="wrap_content"
+                android:background="#41446A"
+                android:drawableRight="@drawable/ic_baseline_arrow_circle_down_24"
                 android:padding="16dp"
                 android:text="Movie title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="?attr/selectableItemBackground"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/expandableLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
+                android:background="#EEEDFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +96,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
                     android:text="Answer"
-                    android:textColor="@color/darkBlue"
+                    android:textColor="@color/black_learning"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />

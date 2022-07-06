@@ -102,6 +102,11 @@ public class examAdapter extends BaseAdapter{
             resultsBtn.setClickable(false);
             resultsBtn.setVisibility(View.INVISIBLE);
         }
+        else{
+            submit.setText("results");
+            resultsBtn.setClickable(false);
+            resultsBtn.setVisibility(View.INVISIBLE);
+        }
 
 
         String id = currentExam.getId().toString();
@@ -121,41 +126,46 @@ public class examAdapter extends BaseAdapter{
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String StartDate = currentExam.getStartDate();
+                if(access.equals("student")) {
+                    String StartDate = currentExam.getStartDate();
 
-                CustomeConfirmAlertDialog confirmAlertDialog = new CustomeConfirmAlertDialog(context,"Exam","do you want to start this exam ?");
-                confirmAlertDialog.image.setImageResource(R.drawable.question);
-                confirmAlertDialog.No.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        confirmAlertDialog.alertDialog.dismiss();
-                    }
-                });
-                confirmAlertDialog.Yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(ExamTimeChecker(currentExam.getStartDate(),currentExam.getEndDate()))
-                        {
-                            Intent goToExam = new Intent(context, ExamStart.class);
-                            goToExam.putExtra("examId",id);
-                            goToExam.putExtra("startDate",currentExam.getStartDate());
-                            goToExam.putExtra("endDate",currentExam.getEndDate());
-                            context.startActivity(goToExam);
+                    CustomeConfirmAlertDialog confirmAlertDialog = new CustomeConfirmAlertDialog(context,"Exam","do you want to start this exam ?");
+                    confirmAlertDialog.image.setImageResource(R.drawable.question);
+                    confirmAlertDialog.No.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
                             confirmAlertDialog.alertDialog.dismiss();
                         }
-                        else{
-                            CustomeAlertDialog alertDialog = new CustomeAlertDialog(context,"Error","Exam has not been started yet or has been finished!");
-                            alertDialog.imageView.setImageResource(R.drawable.error);
-                            alertDialog.btnOk.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    confirmAlertDialog.alertDialog.dismiss();
-                                    alertDialog.alertDialog.dismiss();
-                                }
-                            });
+                    });
+                    confirmAlertDialog.Yes.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(ExamTimeChecker(currentExam.getStartDate(),currentExam.getEndDate()))
+                            {
+                                Intent goToExam = new Intent(context, ExamStart.class);
+                                goToExam.putExtra("examId",id);
+                                goToExam.putExtra("startDate",currentExam.getStartDate());
+                                goToExam.putExtra("endDate",currentExam.getEndDate());
+                                context.startActivity(goToExam);
+                                confirmAlertDialog.alertDialog.dismiss();
+                            }
+                            else{
+                                CustomeAlertDialog alertDialog = new CustomeAlertDialog(context,"Error","Exam has not been started yet or has been finished!");
+                                alertDialog.imageView.setImageResource(R.drawable.error);
+                                alertDialog.btnOk.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        confirmAlertDialog.alertDialog.dismiss();
+                                        alertDialog.alertDialog.dismiss();
+                                    }
+                                });
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                else{
+                    //todo ,see the results ...
+                }
             }
         });
         return view;

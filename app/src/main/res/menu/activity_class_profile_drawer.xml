@@ -21,5 +21,10 @@
             android:id="@+id/nav_exam"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/exam" />
+
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/ic_send"
+            android:title="chat" />
     </group>
 </menu>

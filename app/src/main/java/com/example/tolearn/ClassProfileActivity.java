@@ -188,8 +188,10 @@ public class ClassProfileActivity extends AppCompatActivity {
 
             SharedPreferences classId = getSharedPreferences("classId",MODE_PRIVATE);
             SharedPreferences.Editor myEdit = classId.edit();
+            myEdit.putString("category",category);
             myEdit.putString("Id",String.valueOf(class_id));
             myEdit.putString("user_access",user_access);
+            myEdit.putString("class_name",title);
             myEdit.apply();
         }
 

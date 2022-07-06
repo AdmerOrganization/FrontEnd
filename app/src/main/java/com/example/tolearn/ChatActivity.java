@@ -282,6 +282,7 @@ public class ChatActivity  extends AppCompatActivity {
         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
         String token = shP.getString("token","");
         String myMessage = my_text.getText().toString();
+        my_text.setText("");
         String sendMessageText="{\n" +
                 "    \"message\":\" " + myMessage + "\",\n" +
                 "    \"user_token\":\""+token+"\",\n" +

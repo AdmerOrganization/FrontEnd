@@ -60,6 +60,10 @@ public interface ExamAPI {
     @POST("exams/calculate/")
     Call<String> exam_result (@Header("Authorization") String user_token , @Body JsonObject answers);
 
+    @POST("/exams/students_results/")
+    Call<JsonArray> GetStudentsReuslts(@Header("Authorization") String user_token , @Body JsonObject examAndClassInfo);
+
+
 //    @POST("homeworks/list/")
 //    Call<List<Homework>> GetAllHomework(@Header("Authorization") String user_token,@Body JsonObject classInfo);
 //    @Multipart

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -27,6 +28,7 @@ import com.example.tolearn.ExamStart;
 import com.example.tolearn.ExamUpdate;
 import com.example.tolearn.Homework_results;
 import com.example.tolearn.R;
+import com.example.tolearn.StudentsExamResults;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -164,11 +166,60 @@ public class examAdapter extends BaseAdapter{
                     });
                 }
                 else{
-                    //todo ,see the results ...
+                    if(ResultTimeChecker(currentExam.getEndDate()))
+                    {
+                        Intent goToResultActivity = new Intent(context , StudentsExamResults.class);
+                        goToResultActivity.putExtra("exam_id",currentExam.getId());
+                        context.startActivity(goToResultActivity);
+                    }
+                    else{
+                        Toast.makeText(context, "the exam has not ended yet", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
         return view;
+    }
+
+    public boolean ResultTimeChecker (String endDate)
+    {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        String currentDateTime = (dateFormat.format(cal.getTime()));
+
+        String [] dateTime = currentDateTime.split(" ");
+        String [] dateInfo = dateTime[0].split("/");
+        String [] timeInfo = dateTime[1].split(":");
+
+        int currentYear = Integer.parseInt(dateInfo[0]);
+        int currentMonth = Integer.parseInt(dateInfo[1]);
+        int currentDay = Integer.parseInt(dateInfo[2]);
+        int currentHour = Integer.parseInt(timeInfo[0]);
+        int currentMinute = Integer.parseInt(timeInfo[1]);
+
+        String currentMoment = String.valueOf(currentYear) + String.valueOf(currentMonth) + String.valueOf(currentDay) +String.valueOf(currentHour)+String.valueOf(currentMinute);
+        int currentMomentInt = Integer.parseInt(currentMoment);
+
+        String [] endDateTimeInfo = endDate.split("T");
+        String [] endDateInfo = endDateTimeInfo[0].split("-");
+        int endYear = Integer.parseInt(endDateInfo[0]);
+        int endMonth = Integer.parseInt(endDateInfo[1]);
+        int endDay = Integer.parseInt(endDateInfo[2]);
+
+        String [] endTimeInfo = endDateTimeInfo[1].split(":");
+        int endHour = Integer.parseInt(endTimeInfo[0]);
+        int endMinute = Integer.parseInt(endTimeInfo[1]);
+
+        String endMoment = String.valueOf(endYear) + String.valueOf(endMonth) + String.valueOf(endDay) + String.valueOf(endHour)+String.valueOf(endMinute);
+        int endMomentInt = Integer.parseInt(endMoment);
+
+        if(currentMomentInt > endMomentInt)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public boolean ExamTimeChecker (String startDate , String endDate)

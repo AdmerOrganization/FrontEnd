@@ -3,7 +3,9 @@ package com.example.tolearn.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +15,15 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+
+import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
+import com.example.tolearn.AlertDialogs.CustomeConfirmAlertDialog;
 import com.example.tolearn.AlertDialogs.HomeworkEditDialog;
 import com.example.tolearn.Entity.Exam;
 import com.example.tolearn.Entity.ExamNew;
 import com.example.tolearn.Entity.Homework;
+import com.example.tolearn.ExamStart;
 import com.example.tolearn.ExamUpdate;
 import com.example.tolearn.Homework_results;
 import com.example.tolearn.R;
@@ -24,8 +31,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.time.LocalDateTime;
 
 public class examAdapter extends BaseAdapter{
 
@@ -106,7 +117,121 @@ public class examAdapter extends BaseAdapter{
                 context.startActivity(goToExamUpdate);
             }
         });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String StartDate = currentExam.getStartDate();
+
+                CustomeConfirmAlertDialog confirmAlertDialog = new CustomeConfirmAlertDialog(context,"Exam","do you want to start this exam ?");
+                confirmAlertDialog.image.setImageResource(R.drawable.question);
+                confirmAlertDialog.No.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        confirmAlertDialog.alertDialog.dismiss();
+                    }
+                });
+                confirmAlertDialog.Yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(ExamTimeChecker(currentExam.getStartDate(),currentExam.getEndDate()))
+                        {
+                            Intent goToExam = new Intent(context, ExamStart.class);
+                            goToExam.putExtra("examId",id);
+                            goToExam.putExtra("startDate",currentExam.getStartDate());
+                            goToExam.putExtra("endDate",currentExam.getEndDate());
+                            context.startActivity(goToExam);
+                            confirmAlertDialog.alertDialog.dismiss();
+                        }
+                        else{
+                            CustomeAlertDialog alertDialog = new CustomeAlertDialog(context,"Error","Exam has not been started yet or has been finished!");
+                            alertDialog.imageView.setImageResource(R.drawable.error);
+                            alertDialog.btnOk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    confirmAlertDialog.alertDialog.dismiss();
+                                    alertDialog.alertDialog.dismiss();
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
         return view;
     }
 
+    public boolean ExamTimeChecker (String startDate , String endDate)
+    {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        String currentDateTime = (dateFormat.format(cal.getTime()));
+
+        String [] dateTime = currentDateTime.split(" ");
+        String [] dateInfo = dateTime[0].split("/");
+        String [] timeInfo = dateTime[1].split(":");
+
+        int currentYear = Integer.parseInt(dateInfo[0]);
+        int currentMonth = Integer.parseInt(dateInfo[1]);
+        int currentDay = Integer.parseInt(dateInfo[2]);
+        int currentHour = Integer.parseInt(timeInfo[0]);
+        int currentMinute = Integer.parseInt(timeInfo[1]);
+
+        String [] startDateTimeInfo = startDate.split("T");
+        String [] startDateInfo = startDateTimeInfo[0].split("-");
+        int startYear = Integer.parseInt(startDateInfo[0]);
+        int startMonth = Integer.parseInt(startDateInfo[1]);
+        int startDay = Integer.parseInt(startDateInfo[2]);
+
+        String [] StartTimeInfo = startDateTimeInfo[1].split(":");
+        int startHour = Integer.parseInt(StartTimeInfo[0]);
+        int startMinute = Integer.parseInt(StartTimeInfo[1]);
+
+
+        String [] endDateTimeInfo = endDate.split("T");
+        String [] endDateInfo = endDateTimeInfo[0].split("-");
+        int endYear = Integer.parseInt(endDateInfo[0]);
+        int endMonth = Integer.parseInt(endDateInfo[1]);
+        int endDay = Integer.parseInt(endDateInfo[2]);
+
+        String [] endTimeInfo = endDateTimeInfo[1].split(":");
+        int endHour = Integer.parseInt(endTimeInfo[0]);
+        int endMinute = Integer.parseInt(endTimeInfo[1]);
+
+        Log.i("DateTimeExam", String.valueOf(currentYear));
+        Log.i("DateTimeExam", String.valueOf(currentMonth));
+        Log.i("DateTimeExam", String.valueOf(currentDay));
+        Log.i("DateTimeExam", String.valueOf(currentHour));
+        Log.i("DateTimeExam", String.valueOf(currentMinute));
+
+        Log.i("DateTimeExam", String.valueOf(startYear));
+        Log.i("DateTimeExam", String.valueOf(startMonth));
+        Log.i("DateTimeExam", String.valueOf(startDay));
+        Log.i("DateTimeExam", String.valueOf(startHour));
+        Log.i("DateTimeExam", String.valueOf(startMinute));
+
+        Log.i("DateTimeExam", String.valueOf(endYear));
+        Log.i("DateTimeExam", String.valueOf(endMonth));
+        Log.i("DateTimeExam", String.valueOf(endDay));
+        Log.i("DateTimeExam", String.valueOf(endHour));
+        Log.i("DateTimeExam", String.valueOf(endMinute));
+
+
+        String currentMoment = String.valueOf(currentHour)+String.valueOf(currentMinute);
+        int currentMomentInt = Integer.parseInt(currentMoment);
+
+        String startMoment = String.valueOf(startHour)+String.valueOf(startMinute);
+        int startMomentInt = Integer.parseInt(startMoment);
+
+        String endMoment = String.valueOf(endHour)+String.valueOf(endMinute);
+        int endMomentInt = Integer.parseInt(endMoment);
+
+        if(currentMomentInt >= startMomentInt && currentMomentInt <= endMomentInt)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

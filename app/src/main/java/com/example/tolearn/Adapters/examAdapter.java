@@ -169,7 +169,7 @@ public class examAdapter extends BaseAdapter{
                     if(ResultTimeChecker(currentExam.getEndDate()))
                     {
                         Intent goToResultActivity = new Intent(context , StudentsExamResults.class);
-                        goToResultActivity.putExtra("exam_id",currentExam.getId());
+                        goToResultActivity.putExtra("exam_id",Integer.toString(currentExam.getId()));
                         context.startActivity(goToResultActivity);
                     }
                     else{
@@ -197,7 +197,7 @@ public class examAdapter extends BaseAdapter{
         int currentHour = Integer.parseInt(timeInfo[0]);
         int currentMinute = Integer.parseInt(timeInfo[1]);
 
-        String currentMoment = String.valueOf(currentYear) + String.valueOf(currentMonth) + String.valueOf(currentDay) +String.valueOf(currentHour)+String.valueOf(currentMinute);
+        String currentMoment = String.valueOf(currentHour)+String.valueOf(currentMinute);
         int currentMomentInt = Integer.parseInt(currentMoment);
 
         String [] endDateTimeInfo = endDate.split("T");
@@ -210,14 +210,54 @@ public class examAdapter extends BaseAdapter{
         int endHour = Integer.parseInt(endTimeInfo[0]);
         int endMinute = Integer.parseInt(endTimeInfo[1]);
 
-        String endMoment = String.valueOf(endYear) + String.valueOf(endMonth) + String.valueOf(endDay) + String.valueOf(endHour)+String.valueOf(endMinute);
+        String endMoment = String.valueOf(endHour)+String.valueOf(endMinute);
         int endMomentInt = Integer.parseInt(endMoment);
 
-        if(currentMomentInt > endMomentInt)
+        if(currentYear > endYear)
         {
+            Log.i("TIME",currentDateTime +  "    " + endDate);
             return true;
         }
-        else{
+        else if(currentYear == endYear)
+        {
+            if(currentMonth > endMonth)
+            {
+                Log.i("TIME",currentDateTime +  "    " + endDate);
+                return true;
+            }
+            else if ( currentMonth == endMonth)
+            {
+                if (currentDay > endDay)
+                {
+                    Log.i("TIME",currentDateTime +  "    " + endDate);
+                    return true;
+                }
+                else if ( currentDay == endDay)
+                {
+                    if( currentMomentInt > endMomentInt)
+                    {
+                        Log.i("TIME",currentDateTime +  "    " + endDate);
+                        return true;
+                    }
+                    else
+                    {
+                        Log.i("TIME",currentDateTime +  "    " + endDate);
+                        return false;
+                    }
+                }
+                else{
+                    Log.i("TIME",currentDateTime +  "    " + endDate);
+                    return false;
+                }
+            }
+            else{
+                Log.i("TIME",currentDateTime +  "    " + endDate);
+                return false;
+            }
+        }
+        else
+        {
+            Log.i("TIME",currentDateTime +  "    " + endDate);
             return false;
         }
     }

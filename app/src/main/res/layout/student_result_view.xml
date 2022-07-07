@@ -8,21 +8,22 @@
         android:id="@+id/firsnameLastName"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="30dp"
         android:gravity="center_vertical"
         android:textColor="@color/blue_learning"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:textColor="@color/blue_learning"
-        android:textSize="24sp"
-        android:gravity="center"
         android:id="@+id/score"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:gravity="center"
+        android:textColor="@color/blue_learning"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toEndOf="@+id/firsnameLastName"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

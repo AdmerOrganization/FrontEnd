@@ -41,12 +41,16 @@ import java.util.Calendar;
 import java.util.List;
 import java.time.LocalDateTime;
 
+import java.sql.Timestamp;
+
 public class examAdapter extends BaseAdapter{
 
     private Context context;
     private List<JsonObject> list;
     private List<JsonObject> temp;
     String type;
+    String examStartTime;
+    String examEndTime;
 
     public examAdapter(Context context, JsonArray list, String type) {
         this.context = context;
@@ -108,10 +112,16 @@ public class examAdapter extends BaseAdapter{
         }
         scoreView.setText(scoreStr);
         title.setText("  "+ currentExam.getName());
-        String start = currentExam.getStartDate().replace("T"," ");
-        String end = currentExam.getEndDate().replace("T"," ");
+
+        String start = currentExam.getStartDate().replace(" ","");
+        String end = currentExam.getEndDate().replace("","");
+
+        start = start.replace("T"," ");
+        end = end.replace("T"," ");
         start = start.replace(":00Z","\n");
         end = end.replace(":00Z","");
+        examStartTime = start;
+        examEndTime = end;
         start = "  "+start;
         deadline.setText(start + "  " + end);
         Button submit = view.findViewById(R.id.SubmitBtn);
@@ -125,6 +135,10 @@ public class examAdapter extends BaseAdapter{
             resultsBtn.setVisibility(View.INVISIBLE);
         }
         else{
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Calendar cal = Calendar.getInstance();
+            String currentDateTime = (dateFormat.format(cal.getTime()));
+
             submit.setText("results");
             resultsBtn.setClickable(false);
             resultsBtn.setVisibility(View.INVISIBLE);
@@ -347,9 +361,84 @@ public class examAdapter extends BaseAdapter{
         String endMoment = String.valueOf(endHour)+String.valueOf(endMinute);
         int endMomentInt = Integer.parseInt(endMoment);
 
-        if(currentMomentInt >= startMomentInt && currentMomentInt <= endMomentInt)
+        if(currentYear == startYear && currentMonth == startMonth && currentMonth == startMonth && currentDay == startDay )
+        {
+            if(currentMomentInt >= startMomentInt && currentMomentInt <= endMomentInt)
+            {
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean isFirstDateBeforeSecondDate (String firstDate , String secondDate)
+    {
+        Log.i("First",firstDate);
+        Log.i("Second",secondDate);
+        String [] firstDateTimeInfo = firstDate.split(" ");
+        String [] firstDateInfo = firstDateTimeInfo[0].split("-");
+        int firstYear = Integer.parseInt(firstDateInfo[0]);
+        int firstMonth = Integer.parseInt(firstDateInfo[1]);
+        int firstDay = Integer.parseInt(firstDateInfo[2]);
+
+        String [] firstTimeInfo = firstDateTimeInfo[1].split(":");
+        int firstHour = Integer.parseInt(firstTimeInfo[0]);
+        firstTimeInfo[1] = firstTimeInfo[1].replace(" ","");
+        int firstMinute = Integer.parseInt(firstTimeInfo[1]);
+
+        String [] secondDateTimeInfo = secondDate.split(" ");
+        String [] secondDateInfo = secondDateTimeInfo[0].split("-");
+        int secondYear = Integer.parseInt(secondDateInfo[0]);
+        int secondMonth = Integer.parseInt(secondDateInfo[1]);
+        int secondDay = Integer.parseInt(secondDateInfo[2]);
+
+        String [] secondTimeInfo = secondDateTimeInfo[1].split(":");
+        int secondHour = Integer.parseInt(secondTimeInfo[0]);
+        int secondMinute = Integer.parseInt(secondTimeInfo[1]);
+
+        if(secondYear >  firstYear)
         {
             return true;
+        }
+        else if (secondYear == firstYear)
+        {
+            if ( secondMonth > firstMonth)
+            {
+                return true;
+            }
+            else if(secondMonth == firstMonth)
+            {
+                if(secondDay > firstDay)
+                {
+                    return true;
+                }
+                else if(secondDay == firstDay)
+                {
+                    String firstMoment = String.valueOf(firstHour)+String.valueOf(firstMinute);
+                    int firstMomentInt = Integer.parseInt(firstMoment);
+                    String secondMoment = String.valueOf(secondHour)+String.valueOf(secondMinute);
+                    int secondMomentInt = Integer.parseInt(secondMoment);
+
+                    if(secondMomentInt >= firstMomentInt)
+                    {
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                else {
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
         }
         else{
             return false;

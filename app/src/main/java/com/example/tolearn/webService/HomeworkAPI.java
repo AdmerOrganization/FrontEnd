@@ -31,7 +31,7 @@ public interface HomeworkAPI {
 
     @Multipart
     @POST("homeworks/create/")
-    Call<Homework> Create(@Header("Authorization") String user_token , @Part("title") RequestBody titleR,
+    Call<JsonObject> Create(@Header("Authorization") String user_token , @Part("title") RequestBody titleR,
                            @Part("description")RequestBody descR,
                            @Part("deadline")RequestBody dateR,
                            @Part("classroom") Integer class_id,

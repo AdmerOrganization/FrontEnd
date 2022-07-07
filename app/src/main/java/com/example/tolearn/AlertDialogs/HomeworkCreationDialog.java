@@ -27,6 +27,7 @@ import com.example.tolearn.Controllers.homework_creation_validations;
 import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.R;
 import com.example.tolearn.webService.HomeworkAPI;
+import com.google.gson.JsonObject;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -375,17 +376,17 @@ public class HomeworkCreationDialog extends Activity {
                                 RequestBody.create(MediaType.parse("multipart/form-data"), year+"-"+month+"-"+day);
                         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
                         String token = shP.getString("token", "");
-                        Call<Homework> homeworkCall = homeworkAPI.Create("token " + token, titleR, descR, dateR,class_id, body);
+                        Call<JsonObject> homeworkCall = homeworkAPI.Create("token " + token, titleR, descR, dateR,class_id, body);
                         Log.i("5", "5");
-                        homeworkCall.enqueue(new Callback<Homework>() {
+                        homeworkCall.enqueue(new Callback<JsonObject>() {
                             @Override
-                            public void onResponse(Call<Homework> call, Response<Homework> response) {
+                            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                                 if (!response.isSuccessful()) {
                                     Toast.makeText(HomeworkCreationDialog.this, response.message(), Toast.LENGTH_SHORT).show();
                                     Log.i("MOSHKEL", response.message());
                                 } else {
                                     String code = Integer.toString(response.code());
-                                    Homework homework = response.body();
+                                    JsonObject homework = response.body();
                                     Log.i("PHOTO", "SUCCED");
                                     //                           Log.i("IMAGE URL",user.getAvatar().toString());
                                     Toast.makeText(HomeworkCreationDialog.this, "Homework created!", Toast.LENGTH_SHORT).show();
@@ -394,7 +395,7 @@ public class HomeworkCreationDialog extends Activity {
                             }
 
                             @Override
-                            public void onFailure(Call<Homework> call, Throwable t) {
+                            public void onFailure(Call<JsonObject> call, Throwable t) {
                                 Log.i("moshkel","injas");
                                 Log.i("Moshkel",t.getMessage());
                                 Toast.makeText(HomeworkCreationDialog.this, "error is :" + t.getMessage(), Toast.LENGTH_LONG).show();

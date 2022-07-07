@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,6 +86,27 @@ public class examAdapter extends BaseAdapter{
         ExamNew currentExam = new ExamNew(list.get(i));
         TextView title = view.findViewById(R.id.homeworkTextview);
         TextView deadline = view.findViewById(R.id.deadlineTextview);
+        TextView scoreView = view.findViewById(R.id.scoreText);
+        ImageView scoreImg = view.findViewById(R.id.score);
+        String scoreStr = currentExam.getScore().replace("\"","");
+
+        SharedPreferences sharedPreferences2 = context.getSharedPreferences("classId",context.MODE_PRIVATE);
+        String access = sharedPreferences2.getString("user_access","");
+
+        if (access.equals("teacher")) {
+            scoreView.setVisibility(View.INVISIBLE);
+            scoreImg.setVisibility(View.INVISIBLE);
+        }
+
+        if(scoreStr.equals(""))
+        {
+            scoreStr = "N/A";
+        }
+        if(scoreStr.length()==2)
+        {
+            scoreStr = "0"+scoreStr;
+        }
+        scoreView.setText(scoreStr);
         title.setText("  "+ currentExam.getName());
         String start = currentExam.getStartDate().replace("T"," ");
         String end = currentExam.getEndDate().replace("T"," ");
@@ -95,8 +117,6 @@ public class examAdapter extends BaseAdapter{
         Button submit = view.findViewById(R.id.SubmitBtn);
         Button editBtn = view.findViewById(R.id.editBtn);
         Button resultsBtn = view.findViewById(R.id.resultBtn);
-        SharedPreferences shp2 = context.getSharedPreferences("classId",context.MODE_PRIVATE);
-        String access = shp2.getString("user_access","");
         if(access.equals("student"))
         {
             editBtn.setClickable(false);

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ExamNew {
     @SerializedName("id")
@@ -20,6 +21,8 @@ public class ExamNew {
     String StartDate;
     @SerializedName("finish_time")
     String EndDate;
+    @SerializedName("score")
+    String score;
     List<JsonObject> data_2;
     public ExamNew(List<question> list, String sd , String ed , int qc , String name,int id)
     {
@@ -39,6 +42,7 @@ public class ExamNew {
         EndDate = exam.get("finish_time").toString();
         EndDate = EndDate.replace("\"","");
         questions_count = Integer.parseInt(exam.get("questions_count").toString());
+        score = exam.get("score").toString();
         this.name = exam.get("name").toString();
         this.name = this.name.replace("\"","");
         this.id = Integer.parseInt(exam.get("id").toString());
@@ -74,5 +78,13 @@ public class ExamNew {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 }

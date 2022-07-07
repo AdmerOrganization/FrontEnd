@@ -16,11 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ToLearn"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".ChatActivity" android:exported="true">
-        </activity>
-        <activity android:name=".chat" android:exported="true">
-        </activity>
+        <activity
+            android:name=".StudentsExamResults"
+            android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".chat"
+            android:exported="true"></activity>
         <activity
             android:name=".ExamStart"
             android:exported="false" />
@@ -29,10 +33,10 @@
             android:exported="false" />
         <activity
             android:name=".ExamProfile"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ExamUpdate"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Homework_results"
             android:exported="false" />

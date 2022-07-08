@@ -5,17 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.homework.HomeworkFragment">
+
+    <!--<androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchBarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/white"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="65dp"
+            android:background="@color/white"
+            android:src="@drawable/ic_baseline_search_24_blue_hw"
+            app:layout_constraintEnd_toStartOf="@+id/searchBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+        <TextView
+
+            android:hint="Search hw here ..."
+            android:text=""
+            android:gravity="center_vertical"
+            android:textColor="@color/blue_learning"
+            android:textSize="22sp"
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginLeft="65dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-    <ListView
-        android:id="@+id/homeworksList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="5dp">
-    </ListView>
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ListView
+            android:id="@+id/homeworksList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"></ListView>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -23,12 +67,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/blue_learning"
         android:onClick="addHomework"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:backgroundTint="@color/blue_learning"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"/>
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

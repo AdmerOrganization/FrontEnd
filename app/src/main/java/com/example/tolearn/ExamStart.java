@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -56,6 +57,7 @@ public class ExamStart extends AppCompatActivity {
         getSupportActionBar().hide();
         init();
         fillList();
+
     }
 
     public void init()
@@ -137,6 +139,22 @@ public class ExamStart extends AppCompatActivity {
                 Toast.makeText(ExamStart.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        //start timer
+        long timeleft = durationCalculator();
+        new CountDownTimer(timeleft, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                long secondsLeft = millisUntilFinished / 1000;
+                long minutesLeft = secondsLeft /60;
+                secondsLeft = secondsLeft - (minutesLeft * 60);
+                Log.i("TIMELEFT",Long.toString(minutesLeft) + " : "+ Long.toString(secondsLeft));
+            }
+
+            public void onFinish() {
+                ExamEnded();
+            }
+        }.start();
     }
 
     public void fillList()
@@ -175,6 +193,10 @@ public class ExamStart extends AppCompatActivity {
     }
 
     public void exam_end(View view) {
+        finishExam();
+    }
+
+    public void finishExam(){
         if(ExamTimeChecker(startDate,endDate))
         {
             CustomeConfirmAlertDialog confirmAlertDialog = new CustomeConfirmAlertDialog(ExamStart.this,"Exam","do you want to end ?");
@@ -214,62 +236,28 @@ public class ExamStart extends AppCompatActivity {
                                         }
                                         else{
                                             Toast.makeText(ExamStart.this, "exam finished", Toast.LENGTH_SHORT).show();
-                                            CustomeConfirmAlertDialog confirmAlertDialog1 = new CustomeConfirmAlertDialog(ExamStart.this , "Result","Do you want to see your result right now ?");
-                                            confirmAlertDialog1.image.setImageResource(R.drawable.question);
-                                            confirmAlertDialog1.No.setOnClickListener(new View.OnClickListener() {
+
+
+                                            Call<String> callBack = examAPI.exam_result("token "+user_token,js);
+                                            callBack.enqueue(new Callback<String>() {
                                                 @Override
-                                                public void onClick(View view) {
-                                                    //confirmAlertDialog1.alertDialog.dismiss();
-                                                    finish();
+                                                public void onResponse(Call<String> call, Response<String> response) {
+                                                    if(!response.isSuccessful())
+                                                    {
+                                                        Toast.makeText(ExamStart.this, response.message(), Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    }
+                                                    else{
+                                                        String result = response.body().toString();
+
+                                                        float grade = Float.parseFloat(result);
+                                                    }
                                                 }
-                                            });
 
-                                            confirmAlertDialog1.Yes.setOnClickListener(new View.OnClickListener() {
                                                 @Override
-                                                public void onClick(View view) {
-
-                                                    Call<String> callBack = examAPI.exam_result("token "+user_token,js);
-                                                    callBack.enqueue(new Callback<String>() {
-                                                        @Override
-                                                        public void onResponse(Call<String> call, Response<String> response) {
-                                                            if(!response.isSuccessful())
-                                                            {
-                                                                Toast.makeText(ExamStart.this, response.message(), Toast.LENGTH_SHORT).show();
-                                                                finish();
-                                                            }
-                                                            else{
-                                                                String result = response.body().toString();
-
-                                                                float grade = Float.parseFloat(result);
-                                                                if(grade == 100.0)
-                                                                {
-                                                                    CustomeAlertDialog alertDialog = new CustomeAlertDialog(ExamStart.this,"Result","great work !! "+result.toString());
-                                                                    alertDialog.imageView.setImageResource(R.drawable.victory_start);
-                                                                    alertDialog.btnOk.setOnClickListener(new View.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(View view) {
-                                                                            finish();
-                                                                        }
-                                                                    });
-                                                                }
-                                                                else {
-                                                                    CustomeAlertDialog alertDialog = new CustomeAlertDialog(ExamStart.this,"Result",result.toString());
-                                                                    alertDialog.btnOk.setOnClickListener(new View.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(View view) {
-                                                                            finish();
-                                                                        }
-                                                                    });
-                                                                }
-                                                            }
-                                                        }
-
-                                                        @Override
-                                                        public void onFailure(Call<String> call, Throwable t) {
-                                                            Toast.makeText(ExamStart.this, "There is a problem with your internet connection", Toast.LENGTH_SHORT).show();
-                                                            finish();
-                                                        }
-                                                    });
+                                                public void onFailure(Call<String> call, Throwable t) {
+                                                    Toast.makeText(ExamStart.this, "There is a problem with your internet connection", Toast.LENGTH_SHORT).show();
+                                                    finish();
                                                 }
                                             });
                                         }
@@ -305,6 +293,111 @@ public class ExamStart extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void ExamEnded(){
+
+        String js = "{\"exam_info\":"+examId+",\"answers\":"+Arrays.toString(answers)+"}";
+        JsonParser parser = new JsonParser();
+
+        JsonObject json = (JsonObject) parser.parse(js);
+        Call<JsonArray> callBack = examAPI.exam_answer("token "+user_token,json);
+        callBack.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(!response.isSuccessful())
+                {
+                    Toast.makeText(ExamStart.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    //answers have been sent to the server
+                    JsonObject js = new JsonObject();
+                    js.addProperty("exam_info",examId);
+                    Call<String> callFinish = examAPI.exam_finish("token "+user_token , js );
+                    callFinish.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if(!response.isSuccessful())
+                            {
+                                Toast.makeText(ExamStart.this, response.message(), Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(ExamStart.this, "exam finished", Toast.LENGTH_SHORT).show();
+                                CustomeConfirmAlertDialog confirmAlertDialog1 = new CustomeConfirmAlertDialog(ExamStart.this , "Time is up","Do you want to see your result right now ?");
+                                confirmAlertDialog1.image.setImageResource(R.drawable.question);
+                                confirmAlertDialog1.No.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        //confirmAlertDialog1.alertDialog.dismiss();
+                                        finish();
+                                    }
+                                });
+
+                                confirmAlertDialog1.Yes.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        Call<String> callBack = examAPI.exam_result("token "+user_token,js);
+                                        callBack.enqueue(new Callback<String>() {
+                                            @Override
+                                            public void onResponse(Call<String> call, Response<String> response) {
+                                                if(!response.isSuccessful())
+                                                {
+                                                    Toast.makeText(ExamStart.this, response.message(), Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                }
+                                                else{
+                                                    String result = response.body().toString();
+
+                                                    float grade = Float.parseFloat(result);
+                                                    if(grade == 100.0)
+                                                    {
+                                                        CustomeAlertDialog alertDialog = new CustomeAlertDialog(ExamStart.this,"Result","great work !! "+result.toString());
+                                                        alertDialog.imageView.setImageResource(R.drawable.victory_start);
+                                                        alertDialog.btnOk.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View view) {
+                                                                finish();
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        CustomeAlertDialog alertDialog = new CustomeAlertDialog(ExamStart.this,"Result",result.toString());
+                                                        alertDialog.btnOk.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View view) {
+                                                                finish();
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<String> call, Throwable t) {
+                                                Toast.makeText(ExamStart.this, "There is a problem with your internet connection", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Toast.makeText(ExamStart.this, "there is a problem with your connection", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Toast.makeText(ExamStart.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.i("exam answered",t.getMessage());
+            }
+        });
     }
 
     public boolean ExamTimeChecker (String startDate , String endDate)
@@ -379,5 +472,42 @@ public class ExamStart extends AppCompatActivity {
         else{
             return false;
         }
+    }
+
+    public long durationCalculator ()
+    {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        String currentDateTime = (dateFormat.format(cal.getTime()));
+
+        String [] dateTime = currentDateTime.split(" ");
+        String [] dateInfo = dateTime[0].split("/");
+        String [] timeInfo = dateTime[1].split(":");
+
+        int currentYear = Integer.parseInt(dateInfo[0]);
+        int currentMonth = Integer.parseInt(dateInfo[1]);
+        int currentDay = Integer.parseInt(dateInfo[2]);
+        int currentHour = Integer.parseInt(timeInfo[0]);
+        int currentMinute = Integer.parseInt(timeInfo[1]);
+
+
+        String [] endDateTimeInfo = endDate.split("T");
+        String [] endDateInfo = endDateTimeInfo[0].split("-");
+        int endYear = Integer.parseInt(endDateInfo[0]);
+        int endMonth = Integer.parseInt(endDateInfo[1]);
+        int endDay = Integer.parseInt(endDateInfo[2]);
+
+        String [] endTimeInfo = endDateTimeInfo[1].split(":");
+        int endHour = Integer.parseInt(endTimeInfo[0]);
+        int endMinute = Integer.parseInt(endTimeInfo[1]);
+
+        int hourDifference = endHour - currentHour;
+        int minDifference = endMinute - currentMinute;
+
+        long timeleft = hourDifference * 60 + minDifference;
+        timeleft = timeleft*60;
+        timeleft = timeleft * 1000;
+        Log.i("timeleft",Long.toString(timeleft));
+        return timeleft;
     }
 }

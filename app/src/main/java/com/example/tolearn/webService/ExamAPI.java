@@ -40,6 +40,9 @@ public interface ExamAPI {
     Call<List<ExamNew>> GetAllExamsForClass(@Header("Authorization") String user_token,@Body JsonObject classroomID);
 
     @POST("exams/exams_retrieve/")
+    Call<JsonArray> SearchExamsJsonForClass(@Header("Authorization") String user_token,@Body JsonObject classroomID_examTitle);
+
+    @POST("exams/exams_retrieve/")
     Call<JsonArray> GetAllExamsJsonForClass(@Header("Authorization") String user_token,@Body JsonObject classroomID);
 
     @POST("exams/exams_retrieve/")

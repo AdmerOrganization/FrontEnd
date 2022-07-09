@@ -3,6 +3,8 @@ package com.example.tolearn.ui.homework;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,7 @@ import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.R;
 import com.example.tolearn.databinding.FragmentHomeworkBinding;
 import com.example.tolearn.webService.HomeworkAPI;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -35,6 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.example.tolearn.AlertDialogs.customeAlertDialog_search_hw;
 
 public class HomeworkFragment extends Fragment {
 
@@ -43,17 +47,22 @@ public class HomeworkFragment extends Fragment {
     private ConstraintLayout constraintLayout ;
     homeworkAdapter myadap;
     HomeworkAPI  homeworkAPI;
+    ShimmerFrameLayout shimmer;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeWorkViewModel =
                 new ViewModelProvider(this).get(HomeWorkViewModel.class);
 
+
         binding = FragmentHomeworkBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 //        while(((ClassProfileActivity)getActivity()).homeworktypeList == null){
 //
 //        }
+
+        shimmer = root.findViewById(R.id.shimmer);
+
         Retrofit Homeworks = new Retrofit.Builder()
                 .baseUrl(HomeworkAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -74,6 +83,8 @@ public class HomeworkFragment extends Fragment {
             public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
                 ((ClassProfileActivity)getActivity()).homeworktypeList = response.body();
                 myadap.notifyDataSetChanged();
+                shimmer.startShimmer();
+                shimmer.setVisibility(View.GONE);
             }
 
             @Override
@@ -93,17 +104,90 @@ public class HomeworkFragment extends Fragment {
             public void onClick(View view) {
                 SharedPreferences shp2 = getActivity().getSharedPreferences("classId",getActivity().MODE_PRIVATE);
                 String access = shp2.getString("user_access","");
-                String class_id = shp2.getString("class_id","");
+                String class_id = shp2.getString("id","");
 
                 if(access.equals("teacher"))
                 {
                     Intent createHomework = new Intent(getActivity(), HomeworkCreationDialog.class);
-                    createHomework.putExtra("id",class_id);
+                    createHomework.putExtra("Id",class_id);
                     startActivity(createHomework);
                 }
                 else{
                     Toast.makeText(getActivity(), "You don't have the right access to create a homework for this class", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        com.google.android.material.floatingactionbutton.FloatingActionButton search_Homework = root.findViewById(R.id.search_bar_hw);
+        search_Homework.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences shp2 = getActivity().getSharedPreferences("classId",getActivity().MODE_PRIVATE);
+                String access = shp2.getString("user_access","");
+                String class_id = shp2.getString("Id","");
+
+                customeAlertDialog_search_hw search_bar_hw = new customeAlertDialog_search_hw(getContext(),((ClassProfileActivity)getActivity()).homeworktypeList,token,class_id);
+
+                search_bar_hw.search_bar.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        JsonObject js = new JsonObject();
+                        js.addProperty("classroom",Integer.parseInt(class_id));
+                        js.addProperty("title",charSequence.toString());
+                        Call<List<Homework>> callBack = homeworkAPI.SearchHomeworkByTitle("token "+ token ,js);
+                        callBack.enqueue(new Callback<List<Homework>>() {
+                            @Override
+                            public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
+                                if(!response.isSuccessful())
+                                {
+                                    Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    ((ClassProfileActivity)getActivity()).homeworktypeList = response.body();
+                                    myadap = new homeworkAdapter(getActivity(),((ClassProfileActivity)getActivity()).homeworktypeList,"");
+                                    homeworkListview.setAdapter(myadap);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<Homework>> call, Throwable t) {
+                                Toast.makeText(getContext(), "There is a problem with your internet connection", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        JsonObject js = new JsonObject();
+                        js.addProperty("classroom",Integer.parseInt(class_id));
+                        js.addProperty("title",search_bar_hw.search_bar.getText().toString());
+                        Call<List<Homework>> callBack = homeworkAPI.SearchHomeworkByTitle("token "+ token ,js);
+                        callBack.enqueue(new Callback<List<Homework>>() {
+                            @Override
+                            public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
+                                if(!response.isSuccessful())
+                                {
+                                    Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    ((ClassProfileActivity)getActivity()).homeworktypeList = response.body();
+                                    myadap = new homeworkAdapter(getActivity(),((ClassProfileActivity)getActivity()).homeworktypeList,"");
+                                    homeworkListview.setAdapter(myadap);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<Homework>> call, Throwable t) {
+                                Toast.makeText(getContext(), "There is a problem with your internet connection", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
             }
         });
 //        final TextView textView = binding.textHomework;

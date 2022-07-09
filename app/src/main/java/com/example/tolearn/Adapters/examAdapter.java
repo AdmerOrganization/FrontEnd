@@ -93,8 +93,16 @@ public class examAdapter extends BaseAdapter{
         TextView scoreView = view.findViewById(R.id.scoreText);
         ImageView scoreImg = view.findViewById(R.id.score);
         String scoreStr = currentExam.getScore().replace("\"","");
-        if (scoreStr.contains("Exam") || scoreStr.equals("N/A"))
+
+        if (scoreStr.contains("Exam"))
         {
+            Log.i("wait",scoreStr);
+            scoreStr = "wait";
+        }
+
+        if (scoreStr.equals("N/A"))
+        {
+            Log.i("wait",scoreStr);
             scoreStr = "unknown";
         }
 

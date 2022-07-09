@@ -255,6 +255,7 @@ public class ExamStart extends AppCompatActivity {
                                                         String result = response.body().toString();
 
                                                         float grade = Float.parseFloat(result);
+                                                        finish();
                                                     }
                                                 }
 

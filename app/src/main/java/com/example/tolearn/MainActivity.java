@@ -314,9 +314,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent goToFAQ = new Intent(this , faq.class);
                 startActivity(goToFAQ);
                 break;
-            case R.id.nav_send:
-                Toast.makeText(this, "Send", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.logoutBtn:
                 CustomeConfirmAlertDialog exit = new CustomeConfirmAlertDialog(this,"Confirmation","Do you want to logout ?");
                 exit.No.setOnClickListener(new View.OnClickListener() {

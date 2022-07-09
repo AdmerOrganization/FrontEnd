@@ -8,10 +8,6 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="homepage" />
         <item
-            android:id="@+id/nav_chat"
-            android:icon="@drawable/ic_chat"
-            android:title="Chat" />
-        <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile"
             android:title="Profile" />
@@ -35,10 +31,7 @@
             android:id="@+id/faqMenuItem"
             android:icon="@drawable/ic_baseline_help_outline_24"
             android:title="FAQ" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_send"
-                android:title="Send" />
+
         </menu>
     </item>
     <item android:title="logout">

@@ -95,7 +95,7 @@ public class examAdapter extends BaseAdapter{
         String scoreStr = currentExam.getScore().replace("\"","");
         if (scoreStr.contains("Exam") || scoreStr.equals("N/A"))
         {
-            scoreStr.contains("unknown");
+            scoreStr = "unknown";
         }
 
         SharedPreferences sharedPreferences2 = context.getSharedPreferences("classId",context.MODE_PRIVATE);

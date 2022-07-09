@@ -18,6 +18,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface ClassAPI {
     public static final String BASE_URL = "http://185.235.42.101:8000/";
@@ -62,6 +63,12 @@ public interface ClassAPI {
     @POST("classrooms/students/")
     Call<List<member>> classMembers(@Header("Authorization") String user_token , @Body JsonObject jsonObject);
 
+    @POST("classrooms/latest/{id}")
+    Call<JsonObject> latestBoth(@Header("Authorization") String user_token , @Path("id") int id);
+
     @POST("classrooms/retrieve/")
     Call<myClass> classInfo(@Header("Authorization") String user_toke , @Body JsonObject jsonObject);
+
+    @GET("chat/class-token/{id}/")
+    Call<JsonObject> chatClassToken(@Header("Authorization") String user_token, @Path("id") int id);
 }

@@ -86,7 +86,7 @@ public class DetailSubmit extends AppCompatActivity {
         homeworkAPI =LoginRetrofit.create(HomeworkAPI.class);
         extras = getIntent().getExtras();
         setContentView(R.layout.activity_detail_submit);
-        titleTextView = findViewById(R.id.detailTitleET);
+        titleTextView = findViewById(R.id.detailHomework);
         DescTextView = findViewById(R.id.detailDescET);
         DeadlineTextView = findViewById(R.id.detailDeadlineET);
         if (extras != null) {

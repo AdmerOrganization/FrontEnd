@@ -111,8 +111,8 @@
             android:id="@+id/addQuestionBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
             android:layout_gravity="top|right"
+            android:layout_marginTop="2dp"
             android:backgroundTint="@color/darkRed"
             android:onClick="addQuestion"
             android:src="@drawable/ic_baseline_add_24"
@@ -123,12 +123,12 @@
 
 
         <Button
-            android:onClick="createExam"
-            android:text="DONE"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/darkRed"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/darkRed"
+            android:onClick="createExam"
+            android:text="DONE"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

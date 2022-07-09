@@ -13,8 +13,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/blue_background_rounded"
-        android:backgroundTint="#684F7E"
+        android:background="#684F7E"
+
         >
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

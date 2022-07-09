@@ -6,17 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".ui.exam.ExamFragment">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/search_exam_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:backgroundTint="@color/darkRed"
+        android:src="@drawable/ic_baseline_search_24"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--add  several shimmer placeholder layout -->
+
+            <include layout="@layout/shimmer_placeholder_layout"></include>
+
+            <include layout="@layout/shimmer_placeholder_layout"></include>
+
+            <include layout="@layout/shimmer_placeholder_layout"></include>
+
+            <include layout="@layout/shimmer_placeholder_layout"></include>
+
+            <include layout="@layout/shimmer_placeholder_layout"></include>
+
+            <include layout="@layout/shimmer_placeholder_layout"></include>
+
+            <include layout="@layout/shimmer_placeholder_layout"></include>
+
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <ListView
             android:id="@+id/examsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@android:color/transparent"
-            android:dividerHeight="5dp">
-        </ListView>
+            android:dividerHeight="5dp"></ListView>
     </LinearLayout>
 
 

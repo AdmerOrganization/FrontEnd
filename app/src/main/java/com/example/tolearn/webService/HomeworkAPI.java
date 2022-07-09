@@ -20,6 +20,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface HomeworkAPI {
     public static final String BASE_URL = "http://185.235.42.101:8000/";
@@ -28,6 +29,9 @@ public interface HomeworkAPI {
     })
     @POST("homeworks/list/")
     Call<List<Homework>> GetAllHomework(@Header("Authorization") String user_token,@Body JsonObject classInfo);
+
+    @POST("homeworks/list/")
+    Call<List<Homework>> SearchHomeworkByTitle(@Header("Authorization") String user_token, @Body JsonObject class_and_hw_title);
 
     @Multipart
     @POST("homeworks/create/")

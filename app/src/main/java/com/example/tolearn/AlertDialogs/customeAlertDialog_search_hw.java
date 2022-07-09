@@ -47,12 +47,12 @@ public class customeAlertDialog_search_hw {
         filteredHomeworks = homeworks;
         search_bar = alertView.findViewById(R.id.hw_title_search_bar);
 
+        search_bar.setHint("search hw title ...");
+
         Retrofit hw_search = new Retrofit.Builder()
                 .baseUrl(homeworkAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         homeworkAPI = hw_search.create(HomeworkAPI.class);
-
-
     }
 }

@@ -34,5 +34,6 @@ public class CustomeAlertDialogExamSearch {
         alertDialog = builder.create();
         alertDialog.show();
         search_bar = alertView.findViewById(R.id.hw_title_search_bar);
+        search_bar.setHint("search exam title ...");
     }
 }

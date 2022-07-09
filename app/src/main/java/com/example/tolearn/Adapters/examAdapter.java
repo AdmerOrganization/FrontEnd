@@ -93,6 +93,10 @@ public class examAdapter extends BaseAdapter{
         TextView scoreView = view.findViewById(R.id.scoreText);
         ImageView scoreImg = view.findViewById(R.id.score);
         String scoreStr = currentExam.getScore().replace("\"","");
+        if (scoreStr.contains("Exam") || scoreStr.equals("N/A"))
+        {
+            scoreStr.contains("unknown");
+        }
 
         SharedPreferences sharedPreferences2 = context.getSharedPreferences("classId",context.MODE_PRIVATE);
         String access = sharedPreferences2.getString("user_access","");

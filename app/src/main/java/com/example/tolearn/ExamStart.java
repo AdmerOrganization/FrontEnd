@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tolearn.Adapters.StudentExamQuestionsAdapter;
@@ -41,6 +42,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ExamStart extends AppCompatActivity {
 
+    TextView timerTv;
     String startDate;
     String endDate;
     String user_token;
@@ -62,6 +64,7 @@ public class ExamStart extends AppCompatActivity {
 
     public void init()
     {
+        timerTv = findViewById(R.id.timerTextView);
         CustomeAlertDialog alertDialog = new CustomeAlertDialog(ExamStart.this,"Be careful!","Do Not close this page and Pay attention to your time");
         alertDialog.imageView.setImageResource(R.drawable.attention);
         alertDialog.btnOk.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +152,7 @@ public class ExamStart extends AppCompatActivity {
                 long minutesLeft = secondsLeft /60;
                 secondsLeft = secondsLeft - (minutesLeft * 60);
                 Log.i("TIMELEFT",Long.toString(minutesLeft) + " : "+ Long.toString(secondsLeft));
+                timerTv.setText(Long.toString(minutesLeft) + ":"+ Long.toString(secondsLeft));
             }
 
             public void onFinish() {
@@ -323,7 +327,7 @@ public class ExamStart extends AppCompatActivity {
                             }
                             else{
                                 Toast.makeText(ExamStart.this, "exam finished", Toast.LENGTH_SHORT).show();
-                                CustomeConfirmAlertDialog confirmAlertDialog1 = new CustomeConfirmAlertDialog(ExamStart.this , "Time is up","Do you want to see your result right now ?");
+                                CustomeConfirmAlertDialog confirmAlertDialog1 = new CustomeConfirmAlertDialog(ExamStart.this , "Time is up","Exam has been finished .Do you want to see your result right now ?");
                                 confirmAlertDialog1.image.setImageResource(R.drawable.question);
                                 confirmAlertDialog1.No.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -508,6 +512,7 @@ public class ExamStart extends AppCompatActivity {
         timeleft = timeleft*60;
         timeleft = timeleft * 1000;
         Log.i("timeleft",Long.toString(timeleft));
+        //timeleft = timeleft + 59000;
         return timeleft;
     }
 }

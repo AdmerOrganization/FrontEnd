@@ -4,11 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#B4D3F4"
-    android:background="#F8F9FA">
+    android:background="@color/white"
+    android:backgroundTint="@color/white">
 
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="#22277A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-70dp"
+            android:backgroundTint="@color/side_bar_background"
+            android:shape="ring"
+            app:cardCornerRadius="90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/profileImageSource"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:onClick="pickImage"
+                android:scaleType="centerCrop"
+                android:src="@drawable/acount_circle" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/classroomTitleTV"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:background="#22277A"
+            android:gravity="center"
+            android:text="class title"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView3"></TextView>
+
+        <TextView
+            android:id="@+id/classroomTeacherTV"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:background="#22277A"
+            android:gravity="center"
+            android:text="teacher"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/classroomTitleTV">
+
+        </TextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--<TextView
         android:id="@+id/classroomTitleTV"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -104,19 +168,34 @@
         android:gravity="center"
         >
 
-    </TextView>
+    </TextView>-->
+
+    <TextView
+        android:id="@+id/classroomDescTV"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="-40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/desc_field_border_radius"
+        android:gravity="center"
+        android:text="description"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+
+        ></TextView>
 
     <ListView
         android:id="@+id/membersList"
-        android:layout_height="240dp"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="2dp"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/limitTV"></ListView>
+        app:layout_constraintTop_toBottomOf="@+id/classroomDescTV"></ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -64,7 +64,7 @@
                     android:layout_marginTop="16dp"
                     android:text="HomeworkTitle"
                     android:gravity="center"
-                    android:textColor="@color/darker_blue_learning"
+                    android:textColor="@color/blue_learning"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -85,7 +85,7 @@
                     android:layout_marginStart="52dp"
                     android:layout_marginTop="8dp"
                     android:text="2 days"
-                    android:textColor="@color/darker_blue_learning"
+                    android:textColor="@color/blue_learning"
                     android:textSize="19sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/homeworkTextview" />
@@ -95,7 +95,7 @@
                     android:layout_width="100dp"
                     android:layout_height="45dp"
                     android:layout_marginBottom="8dp"
-                    android:backgroundTint="@color/darker_blue_learning"
+                    android:backgroundTint="@color/blue_learning"
                     android:text="SUBMIT"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
@@ -156,7 +156,7 @@
                 android:layout_marginStart="52dp"
                 android:layout_marginTop="16dp"
                 android:text="HomeworkTitle"
-                android:textColor="@color/red_learning"
+                android:textColor="@color/dark_purple_them"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -177,7 +177,7 @@
                 android:layout_marginStart="52dp"
                 android:layout_marginTop="8dp"
                 android:text="2 days"
-                android:textColor="@color/red_learning"
+                android:textColor="@color/dark_purple_them"
                 android:textSize="19sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/examTextview" />
@@ -187,7 +187,7 @@
                 android:layout_width="100dp"
                 android:layout_height="45dp"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="@drawable/circular_red_btn"
+                android:backgroundTint="@color/dark_purple_them"
                 android:text="start"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -198,7 +198,7 @@
                 android:layout_height="45dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="@drawable/circular_red_btn"
+                android:backgroundTint="@color/dark_purple_them"
                 android:paddingLeft="25dp"
                 android:text=""
                 app:icon="@drawable/ic_baseline_edit_24"
@@ -213,7 +213,7 @@
                 android:layout_height="45dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="@drawable/circular_red_btn"
+                android:backgroundTint="@color/dark_purple_them"
                 android:paddingLeft="25dp"
                 android:text=""
                 app:icon="@drawable/ic_baseline_rate_review_24_red"

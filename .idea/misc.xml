@@ -87,6 +87,8 @@
         <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_profile.xml" value="0.1" />
         <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_signout.xml" value="0.1" />
         <entry key="..\:/Repos/localProject/app/src/main/res/mipmap-anydpi-v26/ic_support.xml" value="0.1" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable-v24/border_exam.xml" value="0.3255" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/answers_border.xml" value="0.3255" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/blue_background_chat.xml" value="0.2165" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/blue_background_rounded.xml" value="0.273" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/blue_background_rounded_circular.xml" value="0.2165" />
@@ -95,15 +97,18 @@
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/circular_image_background.xml" value="0.219" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/circular_red_btn.xml" value="0.312" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/cirular_button.xml" value="0.361" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/desc_field_border_radius.xml" value="0.2465" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/gradiant_homepage_background.xml" value="0.3515" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/homework_results_gradiant_background.xml" value="0.3515" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/ic_baseline_filter_alt_24.xml" value="0.314" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/ic_baseline_rate_review_24.xml" value="0.312" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/my_message.xml" value="0.361" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/red_button_circular.xml" value="0.3255" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/result_detailed_background.xml" value="0.219" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/drawable/their_message_shape.xml" value="0.22" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_class_profile.xml" value="0.1" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_class_profile.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_class_search.xml" value="0.17502532928064843" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_detail_submit.xml" value="0.5" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_edit_profile.xml" value="0.16742654508611957" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_exam_profile.xml" value="0.26268115942028986" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/activity_exam_start.xml" value="0.35989583333333336" />
@@ -121,7 +126,7 @@
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/app_bar_class_profile.xml" value="0.2572463768115942" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/background_result_detailed.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/chat_activity.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/content_class_profile.xml" value="0.12" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/content_class_profile.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/custome_alert_dialog_edit_class.xml" value="0.2563405797101449" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/custome_date_picker.xml" value="0.15577507598784193" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/exam_item_view.xml" value="0.3333333333333333" />
@@ -137,7 +142,7 @@
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/homework_result_detailed.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/joined_classes_main_view.xml" value="0.3496376811594203" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/member_homework_item.xml" value="0.297554347826087" />
-        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/member_item.xml" value="0.16742654508611957" />
+        <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/member_item.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/my_class_view.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/my_messages.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/layout/nav_header.xml" value="0.209375" />

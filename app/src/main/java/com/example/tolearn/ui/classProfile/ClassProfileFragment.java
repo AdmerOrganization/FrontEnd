@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.example.tolearn.R;
 import com.example.tolearn.webService.ClassAPI;
 import com.example.tolearn.webService.UserAPI;
 import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,7 @@ public class ClassProfileFragment extends Fragment {
     TextView classroom_title;
     TextView classroom_teacher;
     TextView classroom_desc;
-    TextView classroom_category;
+    ImageView classroom_category;
     TextView classroom_limit;
     ListView classroom_members;
     membersAdapter membersAdap;
@@ -50,8 +52,7 @@ public class ClassProfileFragment extends Fragment {
         classroom_title = rootView.findViewById(R.id.classroomTitleTV);
         classroom_teacher = rootView.findViewById(R.id.classroomTeacherTV);
         classroom_desc = rootView.findViewById(R.id.classroomDescTV);
-        classroom_category = rootView.findViewById(R.id.classroomCategory);
-        classroom_limit = rootView.findViewById(R.id.limitTV);
+        classroom_category = rootView.findViewById(R.id.profileImageSource);
         classroom_members = rootView.findViewById(R.id.membersList);
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -88,8 +89,39 @@ public class ClassProfileFragment extends Fragment {
                     classroom_title.setText(currentClass.getTitle());
                     classroom_teacher.setText(currentClass.getTeacher_name());
                     classroom_desc.setText(currentClass.getDescription());
-                    classroom_category.setText(currentClass.getCategory());
-                    classroom_limit.setText(String.valueOf(currentClass.getLimit()));
+                    switch (currentClass.getCategory().toString())
+                    {
+                        case "Math":
+                            classroom_category.setImageResource(R.drawable.math);
+                            break;
+                        case "Chemistry":
+                            classroom_category.setImageResource(R.drawable.chemistry);
+                            break;
+                        case "Physics":
+                            classroom_category.setImageResource(R.drawable.atom);
+                            break;
+                        case "Engineering":
+                            classroom_category.setImageResource(R.drawable.engineering);
+                            break;
+                        case "Paint":
+                            classroom_category.setImageResource(R.drawable.paint);
+                            break;
+                        case "Music":
+                            classroom_category.setImageResource(R.drawable.musical);
+                            break;
+                        case "Cinema":
+                            classroom_category.setImageResource(R.drawable.clapperboard);
+                            break;
+                        case "athletic":
+                            classroom_category.setImageResource(R.drawable.athletics);
+                            break;
+                        case "computer science":
+                            classroom_category.setImageResource(R.drawable.responsive);
+                            break;
+                        case "language":
+                            classroom_category.setImageResource(R.drawable.languages);
+                            break;
+                    }
 
                     Call<List<member>> callBack = classAPI.classMembers("token "+ token,jsonObject );
                     callBack.enqueue(new Callback<List<member>>() {

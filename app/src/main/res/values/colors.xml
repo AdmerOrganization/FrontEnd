@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue_learning">#4291E6</color>
+    <color name="blue_learning">#4066E0</color>
     <color name="red_learning">#CC6FDC</color>
     <color name="darker_blue_learning">#068AF3</color>
     <color name="gray_light">#fafafa</color>
@@ -23,7 +23,10 @@
     <color name="recycler_background">#FFA7DD</color>
     <color name="darkBlueHomework">#175676</color>
     <color name="darkBlueText">#0A2533</color>
+    <color name="purple_them">#8B74BD</color>
     <color name="darkRed">#A54A68</color>
+    <color name="dark_purple_them">#663399</color>
+    <color name="light_blue">#B9BFFF</color>
 
 
 </resources>

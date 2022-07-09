@@ -15,7 +15,7 @@
             android:id="@+id/classProfiletoolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#EB876EF8"
+            android:background="#22277A"
             app:popupTheme="@style/Theme.ToLearn.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>

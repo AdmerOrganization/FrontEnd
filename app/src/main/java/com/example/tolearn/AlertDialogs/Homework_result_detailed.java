@@ -36,7 +36,13 @@ public class Homework_result_detailed {
         downloadBtn = alertView.findViewById(R.id.downloadBtn);
 
         fullNameTv.setText(fullname);
-        dateTv.setText("submitted at: "+ date);
+
+        String [] dateArr = date.split("T1");
+        String [] timeArr = dateArr[1].split(":");
+        String timeStr = timeArr[0] + ":" +  timeArr[1];
+        String dateTimeStr = dateArr[0] + " " + timeStr;
+
+        dateTv.setText("submitted at: "+ dateTimeStr);
 
         downloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override

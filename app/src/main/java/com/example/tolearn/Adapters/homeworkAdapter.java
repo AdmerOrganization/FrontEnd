@@ -74,15 +74,29 @@ public class homeworkAdapter extends BaseAdapter implements Filterable {
             resultsBtn.setClickable(false);
             resultsBtn.setVisibility(View.INVISIBLE);
         }
+        else{
+            resultsBtn.setClickable(false);
+            resultsBtn.setVisibility(View.INVISIBLE);
+            submit.setText("Results");
+        }
         submit.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
-                                          Intent gotoSubmit = new Intent(context, com.example.tolearn.DetailSubmit.class);
-                                          gotoSubmit.putExtra("homework_title",currentHomework.getTitle());
-                                          gotoSubmit.putExtra("homework_token",currentHomework.getHomework_token());
-                                          gotoSubmit.putExtra("homework_deadline",currentHomework.getDeadline());
-                                          gotoSubmit.putExtra("homework_id",currentHomework.getId());
-                                          context.startActivity(gotoSubmit);
+                                          if(access.equals("student")){
+                                              Intent gotoSubmit = new Intent(context, com.example.tolearn.DetailSubmit.class);
+                                              gotoSubmit.putExtra("homework_title",currentHomework.getTitle());
+                                              gotoSubmit.putExtra("homework_token",currentHomework.getHomework_token());
+                                              gotoSubmit.putExtra("homework_deadline",currentHomework.getDeadline());
+                                              gotoSubmit.putExtra("homework_id",currentHomework.getId());
+                                              context.startActivity(gotoSubmit);
+                                          }
+                                          else{
+                                              Intent goToResults = new Intent(context, Homework_results.class);
+                                              goToResults.putExtra("title",currentHomework.getTitle());
+                                              goToResults.putExtra("deadline",currentHomework.getDeadline());
+                                              goToResults.putExtra("id",String.valueOf(currentHomework.getId()));
+                                              context.startActivity(goToResults);
+                                          }
                                       }
                                   }
         );

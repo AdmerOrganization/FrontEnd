@@ -23,5 +23,7 @@
     <color name="recycler_background">#FFA7DD</color>
     <color name="darkBlueHomework">#175676</color>
     <color name="darkBlueText">#0A2533</color>
+    <color name="darkRed">#A54A68</color>
+
 
 </resources>

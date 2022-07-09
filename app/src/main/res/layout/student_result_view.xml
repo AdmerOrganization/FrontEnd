@@ -10,7 +10,7 @@
         android:layout_height="60dp"
         android:layout_marginStart="30dp"
         android:gravity="center_vertical"
-        android:textColor="@color/blue_learning"
+        android:textColor="#3C335C"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,7 +20,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:gravity="center"
-        android:textColor="@color/blue_learning"
+        android:textColor="#3C335C"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.595"

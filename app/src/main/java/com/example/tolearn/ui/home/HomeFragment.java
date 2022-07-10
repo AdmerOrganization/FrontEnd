@@ -667,7 +667,7 @@ public class HomeFragment extends Fragment {
 //                Log.i("ERROR",t.getMessage());
 //            }
 //        });
-        
+
     }
     public boolean ResultTimeChecker (String endDate)
     {

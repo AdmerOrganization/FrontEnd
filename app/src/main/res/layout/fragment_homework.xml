@@ -96,6 +96,8 @@
 
                 <include layout="@layout/shimmer_placeholder_layout"></include>
 
+
+
             </LinearLayout>
         </com.facebook.shimmer.ShimmerFrameLayout>
         <ListView
@@ -106,6 +108,16 @@
             android:dividerHeight="5dp"></ListView>
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/blank_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/blank"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,16 +77,22 @@ public class ExamFragment extends Fragment {
         int classroom_id = Integer.parseInt(id);
         JsonObject classroomID = new JsonObject();
         classroomID.addProperty("classroom",classroom_id );
+        ImageView blank = root.findViewById(R.id.blank_page);
         Call<JsonArray> callBackNew = examAPI.GetAllExamsJsonForClass("token "+user_token,classroomID);
         callBackNew.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                blank.setVisibility(View.INVISIBLE);
                 examtypeList = response.body();
                 Log.i("salam","sas222222222222");
                 examAdapter myadap = new examAdapter(root.getContext(),examtypeList,"");
                 examsListview.setAdapter(myadap);
                 shimmer.startShimmer();
                 shimmer.setVisibility(View.GONE);
+                if(examtypeList.size()==0)
+                {
+                    blank.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -142,12 +149,17 @@ public class ExamFragment extends Fragment {
                                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
                                 }
                                 else{
+                                    blank.setVisibility(View.INVISIBLE);
                                     examtypeList = response.body();
                                     Log.i("salam","sas222222222222");
                                     examAdapter myadap = new examAdapter(root.getContext(),examtypeList,"");
                                     examsListview.setAdapter(myadap);
                                     shimmer.startShimmer();
                                     shimmer.setVisibility(View.GONE);
+                                    if(examtypeList.size()==0)
+                                    {
+                                        blank.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
 
@@ -172,12 +184,17 @@ public class ExamFragment extends Fragment {
                                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
                                 }
                                 else{
+                                    blank.setVisibility(View.INVISIBLE);
                                     examtypeList = response.body();
                                     Log.i("salam","sas222222222222");
                                     examAdapter myadap = new examAdapter(root.getContext(),examtypeList,"");
                                     examsListview.setAdapter(myadap);
                                     shimmer.startShimmer();
                                     shimmer.setVisibility(View.GONE);
+                                    if(examtypeList.size()==0)
+                                    {
+                                        blank.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
 
@@ -225,16 +242,22 @@ public class ExamFragment extends Fragment {
         int classroom_id = Integer.parseInt(id);
         JsonObject classroomID = new JsonObject();
         classroomID.addProperty("classroom",classroom_id );
+        ImageView blank = root.findViewById(R.id.blank_page);
         Call<JsonArray> callBackNew = examAPI.GetAllExamsJsonForClass("token "+user_token,classroomID);
         callBackNew.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                blank.setVisibility(View.INVISIBLE);
                 examtypeList = response.body();
                 Log.i("salam","sas222222222222");
                 examAdapter myadap = new examAdapter(root.getContext(),examtypeList,"");
                 examsListview.setAdapter(myadap);
                 shimmer.startShimmer();
                 shimmer.setVisibility(View.GONE);
+                if(examtypeList.size()==0)
+                {
+                    blank.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

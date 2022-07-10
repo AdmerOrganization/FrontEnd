@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,7 +49,7 @@ public class HomeworkFragment extends Fragment {
     homeworkAdapter myadap;
     HomeworkAPI  homeworkAPI;
     ShimmerFrameLayout shimmer;
-
+    ImageView blank;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeWorkViewModel =
@@ -77,14 +78,21 @@ public class HomeworkFragment extends Fragment {
         SharedPreferences shP2 = getContext().getSharedPreferences("userInformation", getContext().MODE_PRIVATE);
         String token = shP2.getString("token", "");
 
+        blank = root.findViewById(R.id.blank_page);
+
         Call<List<Homework>> callBack = homeworkAPI.GetAllHomework("token "+token,jsonObject);
         callBack.enqueue(new Callback<List<Homework>>() {
             @Override
             public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
+                blank.setVisibility(View.VISIBLE);
                 ((ClassProfileActivity)getActivity()).homeworktypeList = response.body();
                 myadap.notifyDataSetChanged();
                 shimmer.startShimmer();
                 shimmer.setVisibility(View.GONE);
+                if(((ClassProfileActivity)getActivity()).homeworktypeList.size()==0)
+                {
+                    blank.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -148,9 +156,14 @@ public class HomeworkFragment extends Fragment {
                                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
                                 }
                                 else{
+                                    blank.setVisibility(View.INVISIBLE);
                                     ((ClassProfileActivity)getActivity()).homeworktypeList = response.body();
                                     myadap = new homeworkAdapter(getActivity(),((ClassProfileActivity)getActivity()).homeworktypeList,"");
                                     homeworkListview.setAdapter(myadap);
+                                    if(((ClassProfileActivity)getActivity()).homeworktypeList.size()==0)
+                                    {
+                                        blank.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
 
@@ -175,9 +188,14 @@ public class HomeworkFragment extends Fragment {
                                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
                                 }
                                 else{
+                                    blank.setVisibility(View.INVISIBLE);
                                     ((ClassProfileActivity)getActivity()).homeworktypeList = response.body();
                                     myadap = new homeworkAdapter(getActivity(),((ClassProfileActivity)getActivity()).homeworktypeList,"");
                                     homeworkListview.setAdapter(myadap);
+                                    if(((ClassProfileActivity)getActivity()).homeworktypeList.size()==0)
+                                    {
+                                        blank.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
 
@@ -227,8 +245,13 @@ public class HomeworkFragment extends Fragment {
         callBack.enqueue(new Callback<List<Homework>>() {
             @Override
             public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
+                blank.setVisibility(View.INVISIBLE);
                 ((ClassProfileActivity)getActivity()).homeworktypeList = response.body();
                 myadap.notifyDataSetChanged();
+                if(((ClassProfileActivity)getActivity()).homeworktypeList.size()==0)
+                {
+                    blank.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

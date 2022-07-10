@@ -28,6 +28,8 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    useLibrary 'android.test.mock'
 }
 
 dependencies {
@@ -84,4 +86,10 @@ dependencies {
     testImplementation("org.spockframework:spock-spring:1.0-groovy-2.4")
     androidTestImplementation("androidx.test:core:1.2.0")
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
+
+
+    // Optional -- UI testing with Compose
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.1.1"
+    // Optional -- UI testing with UI Automator
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:0.1.1"
 }

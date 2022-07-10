@@ -134,8 +134,7 @@ public class examAdapter extends BaseAdapter{
         end = end.replace(":00Z","");
         examStartTime = start;
         examEndTime = end;
-        start = "  "+start;
-        deadline.setText(start + "  " + end);
+        deadline.setText(start + end);
         Button submit = view.findViewById(R.id.SubmitBtn);
         Button editBtn = view.findViewById(R.id.editBtn);
         Button resultsBtn = view.findViewById(R.id.resultBtn);

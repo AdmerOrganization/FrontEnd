@@ -74,6 +74,6 @@ public class HomeworkCreationDatePickerTest {
     public void DateValidation5()
     {
         boolean dateValidation = IsDateValid(2022, 5, 20);
-        assertTrue(dateValidation);
+        assertFalse(dateValidation);
     }
 }

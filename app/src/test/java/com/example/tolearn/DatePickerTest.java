@@ -103,7 +103,7 @@ public class DatePickerTest {
         int month = 4;
         int day = 19;
         boolean res = checkDate(year,month,day);
-        assertTrue(res);
+        assertFalse(res);
     }
 
     @Test
@@ -130,6 +130,6 @@ public class DatePickerTest {
         int month = 4;
         int day = 19;
         boolean res = checkDate(year,month,day);
-        assertTrue(res);
+        assertFalse(res);
     }
 }

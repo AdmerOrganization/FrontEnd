@@ -10,9 +10,9 @@ public class ExamHomework {
     @SerializedName("homework")
     Homework homework;
     @SerializedName("exam")
-    Exam exam ;
+    ExamNew exam ;
 
-    public ExamHomework(Homework homework , Exam exam) {
+    public ExamHomework(Homework homework , ExamNew exam) {
         this.homework = homework;
         this.exam = exam;
     }
@@ -21,7 +21,7 @@ public class ExamHomework {
         return homework;
     }
 
-    public Exam getExam() {
+    public ExamNew getExam() {
         return exam;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.tolearn.webService;
 
+import com.example.tolearn.Entity.ExamHomework;
 import com.example.tolearn.Entity.member;
 import com.example.tolearn.Entity.myClass;
 import com.google.gson.JsonObject;
@@ -64,7 +65,7 @@ public interface ClassAPI {
     Call<List<member>> classMembers(@Header("Authorization") String user_token , @Body JsonObject jsonObject);
 
     @POST("classrooms/latest/{id}")
-    Call<JsonObject> latestBoth(@Header("Authorization") String user_token , @Path("id") int id);
+    Call<ExamHomework> latestBoth(@Header("Authorization") String user_token , @Path("id") int id);
 
     @POST("classrooms/retrieve/")
     Call<myClass> classInfo(@Header("Authorization") String user_toke , @Body JsonObject jsonObject);

@@ -10,8 +10,7 @@
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/border_homework"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -99,6 +98,35 @@
                     android:text="SUBMIT"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/editBtn"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/cirular_button"
+                    android:paddingLeft="25dp"
+                    android:text=""
+                    app:icon="@drawable/ic_baseline_edit_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/SubmitBtn" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/resultHomeworkBtn"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/cirular_button"
+                    android:paddingLeft="25dp"
+                    android:text=""
+                    app:icon="@drawable/ic_baseline_rate_review_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/editBtn" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -106,12 +134,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout6"
         android:layout_width="match_parent"
         android:layout_height="230dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="40dp"
         android:background="@drawable/border_exam"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
         app:layout_constraintVertical_bias="0.088"
         tools:layout_editor_absoluteX="0dp">
@@ -225,5 +253,34 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Homework"
+
+        android:textColor="@color/blue_learning"
+
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        android:textSize="19sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.516" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Exam"
+        android:textSize="19sp"
+        android:textColor="@color/dark_purple_them"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

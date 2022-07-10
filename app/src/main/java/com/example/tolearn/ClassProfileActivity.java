@@ -21,6 +21,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.tolearn.AlertDialogs.CustomeAlertDialog;
 import com.example.tolearn.AlertDialogs.HomeworkCreationDialog;
 import com.example.tolearn.Entity.Exam;
+import com.example.tolearn.Entity.ExamHomework;
 import com.example.tolearn.Entity.ExamNew;
 import com.example.tolearn.Entity.Homework;
 import com.example.tolearn.databinding.ActivityClassProfileBinding;
@@ -88,8 +89,8 @@ public class ClassProfileActivity extends AppCompatActivity {
                     if(homeworktypeList.size()>0)
                     {
                         try {
-                            homeworkTitleTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getTitle());
-                            homeworkDeadlineTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getDeadline());
+//                            homeworkTitleTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getTitle());
+//                            homeworkDeadlineTextview.setText(homeworktypeList.get(homeworktypeList.size()-1).getDeadline());
                         }
                         catch (Exception exception)
                         {
@@ -124,20 +125,20 @@ public class ClassProfileActivity extends AppCompatActivity {
                     {
                         Log.i("salam","sas222222222222");
                         try {
-                            JsonObject jo = Response.get(Response.size()-1).getAsJsonObject();
-                            String name = jo.get("name").toString();
-                            name = name.replace("\"","");
-                            examTitleTextview.setText(name);
-                            String start = jo.get("start_time").toString();
-                            start = start.replace("T"," ");
-                            String end = jo.get("start_time").toString();
-                            end = end.replace("T"," ");
-                            start = start.replace(":00Z","\n");
-                            end = end.replace(":00Z","");
-                            start = start.replace("\"","");
-                            end = end.replace("\"","");
-
-                            examCountTextview.setText(start  + end);
+//                            JsonObject jo = Response.get(Response.size()-1).getAsJsonObject();
+//                            String name = jo.get("name").toString();
+//                            name = name.replace("\"","");
+//                            examTitleTextview.setText(name);
+//                            String start = jo.get("start_time").toString();
+//                            start = start.replace("T"," ");
+//                            String end = jo.get("start_time").toString();
+//                            end = end.replace("T"," ");
+//                            start = start.replace(":00Z","\n");
+//                            end = end.replace(":00Z","");
+//                            start = start.replace("\"","");
+//                            end = end.replace("\"","");
+//
+//                            examCountTextview.setText(start  + end);
                         }
                         catch (Exception exception)
                         {
@@ -157,53 +158,6 @@ public class ClassProfileActivity extends AppCompatActivity {
                 Log.i("ERROR",t.getMessage());
             }
         });
-        Log.i("DEBUG1" , "RESID");
-        Call<JsonObject> callBacklatest = classAPI.latestBoth("token "+user_token,classroom_id);
-        callBacklatest.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if(response.isSuccessful())
-                {
-                    JsonObject Response = response.body();
-                    Log.i("RESPONSE",response.message());
-//                    if(Response.size()>0)
-//                    {
-//                        Log.i("salam","sas222222222222");
-//                        try {
-//                            JsonObject jo = Response.get(Response.size()-1).getAsJsonObject();
-//                            String name = jo.get("name").toString();
-//                            name = name.replace("\"","");
-//                            examTitleTextview.setText(name);
-//                            String start = jo.get("start_time").toString();
-//                            start = start.replace("T"," ");
-//                            String end = jo.get("start_time").toString();
-//                            end = end.replace("T"," ");
-//                            start = start.replace(":00Z","\n");
-//                            end = end.replace(":00Z","");
-//                            start = start.replace("\"","");
-//                            end = end.replace("\"","");
-//
-//                            examCountTextview.setText(start  + end);
-//                        }
-//                        catch (Exception exception)
-//                        {
-//                            //nothing
-//                        }
-//                    }
-                }
-                else{
-                    Toast.makeText(ClassProfileActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                CustomeAlertDialog errorConnecting = new CustomeAlertDialog(ClassProfileActivity.this,"error","there is a problem with your internet connection");
-                Log.i("ERROR33333",t.getMessage());
-            }
-        });
-        Log.i("DEBUG2" , "RESID");
     }
     @Override
     protected void onPause() {

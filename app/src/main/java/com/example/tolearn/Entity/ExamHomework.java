@@ -16,4 +16,12 @@ public class ExamHomework {
         this.homework = homework;
         this.exam = exam;
     }
+
+    public Homework getHomework() {
+        return homework;
+    }
+
+    public Exam getExam() {
+        return exam;
+    }
 }

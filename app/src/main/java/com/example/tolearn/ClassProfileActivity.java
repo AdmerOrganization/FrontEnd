@@ -203,7 +203,10 @@ public class ClassProfileActivity extends AppCompatActivity {
             class_id = extras.getInt("class_id");
             user_token = extras.getString("user_token");
             user_access = extras.getString("user_access");
-
+            SharedPreferences classId = getSharedPreferences("classId",MODE_PRIVATE);
+            SharedPreferences.Editor myEdit = classId.edit();
+            myEdit.putString("Id",String.valueOf(class_id));
+            myEdit.apply();
 
             Call<JsonObject> classTokenJs = chatAPI.chatClassToken("Token "+user_token,class_id);
             classTokenJs.enqueue(new Callback<JsonObject>() {

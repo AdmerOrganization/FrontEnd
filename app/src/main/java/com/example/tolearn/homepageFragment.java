@@ -137,7 +137,7 @@ public class homepageFragment extends Fragment {
 
                     if(myjoinedClasses.size()==0)
                     {
-                        blank.setVisibility(View.VISIBLE);
+                        blank2.setVisibility(View.VISIBLE);
                     }
                 }
             }

@@ -64,13 +64,14 @@
         <ImageView
             android:src="@drawable/blank"
             android:visibility="invisible"
-            android:id="@+id/blank_page"
+            android:id="@+id/blank_page2"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:layout_constraintBottom_toBottomOf="@+id/shimmerLayout2"
+            android:layout_marginTop="-380dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/shimmerLayout2"></ImageView>
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="8dp"
@@ -135,14 +136,15 @@
 
         <ImageView
             android:src="@drawable/blank"
-            android:id="@+id/blank_page2"
+            android:id="@+id/blank_page"
             android:visibility="invisible"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:layout_constraintBottom_toBottomOf="@+id/createdClassList"
+            android:layout_marginTop="250dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/shimmerLayout"></ImageView>
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/createdClassList"
             android:layout_width="match_parent"

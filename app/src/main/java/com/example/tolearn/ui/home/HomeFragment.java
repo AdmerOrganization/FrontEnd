@@ -193,7 +193,7 @@ public class HomeFragment extends Fragment {
                         end = end.replace("T"," ");
                         start = start.replace(":00Z","\n");
                         end = end.replace(":00Z","");
-                        examCountTextview.setText(start +"\n" + end);
+                        examCountTextview.setText("from "+ start + " \nto      "+  end);
                         Log.i("RESPONSE", response.message());
 
 //                                Homework hw = latestHomework;

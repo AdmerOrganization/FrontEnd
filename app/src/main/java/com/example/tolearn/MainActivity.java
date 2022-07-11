@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -439,7 +441,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             Log.i("PHOTO","SUCCED");
  //                           Log.i("IMAGE URL",user.getAvatar().toString());
                             Toast.makeText(MainActivity.this, "Profile Edited!", Toast.LENGTH_SHORT).show();
-
+// Reload current fragment
+//                            Fragment frg = null;
+//                            frg = getSupportFragmentManager().findFragmentByTag("ProfileFragment");
+//                            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                            ft.detach(frg);
+//                            ft.attach(frg);
+//                            ft.commit();
                         }
                     }
 

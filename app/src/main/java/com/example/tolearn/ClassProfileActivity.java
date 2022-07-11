@@ -28,6 +28,7 @@ import com.example.tolearn.databinding.ActivityClassProfileBinding;
 import com.example.tolearn.webService.ClassAPI;
 import com.example.tolearn.webService.ExamAPI;
 import com.example.tolearn.webService.HomeworkAPI;
+import com.example.tolearn.webService.chatAPI;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.JsonArray;
@@ -57,10 +58,12 @@ public class ClassProfileActivity extends AppCompatActivity {
     HomeworkAPI homeworkAPI;
     ExamAPI examAPI;
     ClassAPI classAPI;
+    chatAPI chatAPI;
     TextView homeworkTitleTextview;
     TextView examTitleTextview;
     TextView examCountTextview;
     TextView homeworkDeadlineTextview ;
+    String class_token_str;
     private ShimmerFrameLayout mFrameLayout;
 
     public void fillItems(){
@@ -184,6 +187,11 @@ public class ClassProfileActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         classAPI = Classes.create(ClassAPI.class);
+        Retrofit chats = new Retrofit.Builder()
+                .baseUrl(ClassAPI.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        chatAPI = Classes.create(chatAPI.class);
 
 
         //  mFrameLayout = findViewById(R.id.shimmerLayout);
@@ -196,13 +204,39 @@ public class ClassProfileActivity extends AppCompatActivity {
             user_token = extras.getString("user_token");
             user_access = extras.getString("user_access");
 
-            SharedPreferences classId = getSharedPreferences("classId",MODE_PRIVATE);
-            SharedPreferences.Editor myEdit = classId.edit();
-            myEdit.putString("category",category);
-            myEdit.putString("Id",String.valueOf(class_id));
-            myEdit.putString("user_access",user_access);
-            myEdit.putString("class_name",title);
-            myEdit.apply();
+
+            Call<JsonObject> classTokenJs = chatAPI.chatClassToken("Token "+user_token,class_id);
+            classTokenJs.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+                    if(response.isSuccessful())
+                    {
+                        JsonObject js = response.body();
+                        Log.i("response",response.body().toString());
+                        class_token_str = js.get("classroom_token").toString();
+                        Log.i("response",class_token_str);
+                        SharedPreferences classId = getSharedPreferences("classId",MODE_PRIVATE);
+                        SharedPreferences.Editor myEdit = classId.edit();
+                        myEdit.putString("category",category);
+                        myEdit.putString("Id",String.valueOf(class_id));
+                        myEdit.putString("user_access",user_access);
+                        myEdit.putString("class_name",title);
+                        myEdit.putString("classroom_token",class_token_str);
+                        myEdit.apply();
+
+                    }
+                    else{
+                        Toast.makeText(ClassProfileActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    Toast.makeText(ClassProfileActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
         }
 
         binding = ActivityClassProfileBinding.inflate(getLayoutInflater());

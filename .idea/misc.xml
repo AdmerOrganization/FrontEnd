@@ -161,11 +161,15 @@
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/menu/class_profile.xml" value="0.209375" />
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/menu/drawer_menu.xml" value="0.35989583333333336" />
         <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/activity_class_creation.xml" value="0.18385416666666668" />
+        <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/alert_dialog_confirm.xml" value="0.2140625" />
         <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/alert_dialog_layout.xml" value="0.17502532928064843" />
         <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/chat_activity.xml" value="0.22864583333333333" />
         <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/fragment_exam.xml" value="0.17647058823529413" />
         <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/fragment_homework.xml" value="0.29270833333333335" />
         <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/homework_list_view.xml" value="0.17502532928064843" />
+        <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/menu/activity_class_profile_drawer.xml" value="0.2140625" />
+        <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/menu/class_profile.xml" value="0.2140625" />
+        <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/menu/drawer_menu.xml" value="0.2140625" />
       </map>
     </option>
   </component>

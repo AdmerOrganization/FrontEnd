@@ -7,28 +7,28 @@
         <item
             android:id="@+id/nav_class_profile_members"
             android:icon="@drawable/info"
-            android:title="info"></item>
+            android:title="Info"></item>
 
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/classroom"
-            android:title="classroom" />
+            android:title="Classroom" />
         <item
             android:id="@+id/nav_homework"
             android:icon="@drawable/homework"
-            android:title="@string/homework" />
+            android:title="homework" />
         <item
             android:id="@+id/nav_exam"
             android:icon="@drawable/exam"
-            android:title="@string/exam" />
+            android:title="exam" />
 
         <item
             android:id="@+id/nav_chat"
             android:icon="@drawable/ic_send"
-            android:title="chat" />
+            android:title="Chat" />
         <item
             android:id="@+id/nav_main_home"
             android:icon="@drawable/ic_baseline_home_24"
-            android:title="home" />
+            android:title="Home" />
     </group>
 </menu>

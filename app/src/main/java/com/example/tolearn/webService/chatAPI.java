@@ -17,7 +17,7 @@ public interface chatAPI {
     })
 
 
-    @GET("chat/class-token/{id}/")
+    @GET("chat/class-token/{id}")
     Call<JsonObject> chatClassToken(@Header("Authorization") String user_token, @Path("id") int id);
 
 }

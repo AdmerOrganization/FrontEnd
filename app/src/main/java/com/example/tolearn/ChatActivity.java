@@ -51,6 +51,7 @@ public class ChatActivity  extends AppCompatActivity {
     TextView className;
     ImageView classImage;
     WebSocket ws;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +69,8 @@ public class ChatActivity  extends AppCompatActivity {
         String classId = shP2.getString("Id","");
         String classCategory = shP2.getString("category","");
         String classTitle = shP2.getString("class_name","");
-
+        class_token_str = shP2.getString("classroom_token","");
+        class_token_str = class_token_str.replace("\"","");
         className.setText(classTitle);
 
         switch (classCategory)
@@ -120,24 +122,6 @@ public class ChatActivity  extends AppCompatActivity {
 
         SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
         String token = shP.getString("token","");
-
-        Call<JsonObject> classTokenJs = chat_api.chatClassToken("token "+token,Integer.valueOf(classId));
-        classTokenJs.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
-                if(response.isSuccessful())
-                {
-                    JsonObject js = response.body();
-                    class_token_str = js.get("classroom_token").toString();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-
-            }
-        });
-
 
 
         Request request = new Request.Builder().url("ws://185.235.42.101:8000/ws/chat/"+class_token_str+"/")
@@ -272,7 +256,12 @@ public class ChatActivity  extends AppCompatActivity {
             }
 
         };
+
         ws = client.newWebSocket(request,webSocketListener);
+
+
+
+
     }
 
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -47,12 +48,15 @@ public class homepageFragment extends Fragment {
     ShimmerFrameLayout mFrameLayout;
     ShimmerFrameLayout mFrameLayout2;
     LinearLayoutManager HorizontalLayout2;
+    ImageView blank;
+    ImageView blank2;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.homepage_fragment, container, false);
-
+        blank = rootView.findViewById(R.id.blank_page);
+        blank2 = rootView.findViewById(R.id.blank_page2);
         mFrameLayout = rootView.findViewById(R.id.shimmerLayout);
         mFrameLayout2 = rootView.findViewById(R.id.shimmerLayout2);
         createdClassesTV = rootView.findViewById(R.id.createdClassesTV);
@@ -91,6 +95,7 @@ public class homepageFragment extends Fragment {
 
                 }
                 else{
+                    blank.setVisibility(View.INVISIBLE);
                     int responseCode = response.code();
                     myCreatedClasses = response.body();
                     createdClassAdapter = new CreatedClassesAdapterMainAct(getActivity(),myCreatedClasses,userToken, "teacher");
@@ -98,6 +103,11 @@ public class homepageFragment extends Fragment {
                     createdClassesList.setAdapter(createdClassAdapter);
                     mFrameLayout.startShimmer();
                     mFrameLayout.setVisibility(View.GONE);
+
+                    if(myCreatedClasses.size()==0)
+                    {
+                        blank.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
@@ -116,6 +126,7 @@ public class homepageFragment extends Fragment {
                     CustomeAlertDialog myClass = new CustomeAlertDialog(getActivity(),"Response Error","There is a problem with your internet connection");
                 }
                 else{
+                    blank2.setVisibility(View.INVISIBLE);
                     int responseCode = response.code();
                     myjoinedClasses = response.body();
                     joinedClassAdapter = new CreatedClassesAdapterMainAct(getActivity(),myjoinedClasses,userToken , "student");
@@ -123,6 +134,11 @@ public class homepageFragment extends Fragment {
                     joinedClassesList.setAdapter(joinedClassAdapter);
                     mFrameLayout2.startShimmer();
                     mFrameLayout2.setVisibility(View.GONE);
+
+                    if(myjoinedClasses.size()==0)
+                    {
+                        blank.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 

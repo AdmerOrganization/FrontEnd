@@ -6,14 +6,24 @@ public class message {
     String lname;
     String message;
     String timestamp;
+    String avatar;
 
 
-    public message(String id, String fname, String lname, String message, String timestamp) {
+    public message(String id, String fname, String lname, String message, String timestamp, String avatar) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.message = message;
         this.timestamp = timestamp;
+        this.avatar = avatar;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getId() {

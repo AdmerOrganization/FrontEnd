@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tolearn.Entity.message;
 import com.example.tolearn.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -77,6 +79,18 @@ public class chatAdapter extends BaseAdapter {
             else{
                 TextView text = view.findViewById(R.id.message_body);
                 text.setText(messageList.get(i).getMessage());
+                ImageView avatar = view.findViewById(R.id.avatar);
+                String avatarStr = messageList.get(i).getAvatar().replace("\"","");
+                Log.i("avattar",avatarStr);
+
+                if(messageList.get(i).getLname().equals("Rezakhoo"))
+                {
+                    Picasso.get().load(avatarStr).placeholder(R.drawable.alireza).error(R.drawable.alireza).into(avatar);
+                }
+                else{
+                    Picasso.get().load(avatarStr).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(avatar);
+
+                }
 
                 TextView name = view.findViewById(R.id.name);
                 name.setText(messageList.get(i).getFname() + " " + messageList.get(i).getLname());

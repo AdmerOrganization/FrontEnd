@@ -172,6 +172,7 @@ public class ChatActivity  extends AppCompatActivity {
                             for (int i= 0 ; i<jsonArray.size();i++)
                             {
                                 JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
+                                String avatar = jsonObject.get("avatar").toString();
                                 String id = jsonObject.get("id").toString();
                                 String fname = jsonObject.get("fname").toString();
                                 fname = fname.replace("\"","");
@@ -180,7 +181,7 @@ public class ChatActivity  extends AppCompatActivity {
                                 String message = jsonObject.get("message").toString();
                                 message = message.replace("\"","");
                                 String timeStamp = jsonObject.get("timestamp").toString();
-                                message newMessage = new message(id , fname , lname , message  , timeStamp);
+                                message newMessage = new message(id , fname , lname , message  , timeStamp,avatar);
                                 messagesList.add(newMessage);
                             }
 
@@ -205,7 +206,9 @@ public class ChatActivity  extends AppCompatActivity {
 
                             String timestamp = js.get("timestamp").toString();
 
-                            message newMessage = new message("",fname,lname,message,timestamp);
+                            String avatar = js.get("avatar").toString();
+
+                            message newMessage = new message("",fname,lname,message,timestamp,avatar);
                             messagesList.add(newMessage);
 
                             chatAdapter = new chatAdapter(messagesList,ChatActivity.this,false);
@@ -279,7 +282,7 @@ public class ChatActivity  extends AppCompatActivity {
         Log.i("CHATTTTTTTTT",sendMessageText);
         String fname = shP.getString("firstname","");
         String lname = shP.getString("lastname","");
-        message newMessage = new message("0",fname,lname,myMessage,"");
+        message newMessage = new message("0",fname,lname,myMessage,"","");
     }
 
     @Override

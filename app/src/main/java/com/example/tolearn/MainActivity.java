@@ -96,7 +96,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+            public void onDrawerOpened(View drawerView) {
+                SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
+                String userName = shP.getString("username", "");
+                String avatarUrl = shP.getString("avatar","");
+                if(!avatarUrl.equals("")){
+                    ImageView profileNav = ((ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageProfileSmall));
+                    SharedPreferences shP2 = getSharedPreferences("userInformation", MODE_PRIVATE);
+                    String userName2 = shP2.getString("username", "");
+                    String avatarUrl2 = shP2.getString("avatar","");
+                    Picasso.get().load(avatarUrl2).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(profileNav);
+                }
+            }
+        };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         if (savedInstanceState == null) {
@@ -110,7 +123,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String avatarUrl = shP.getString("avatar","");
         if(!avatarUrl.equals("")){
             ImageView profileNav = ((ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageProfileSmall));
-            Picasso.get().load(avatarUrl).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(profileNav);
+            SharedPreferences shP2 = getSharedPreferences("userInformation", MODE_PRIVATE);
+            String userName2 = shP2.getString("username", "");
+            String avatarUrl2 = shP2.getString("avatar","");
+            Picasso.get().load(avatarUrl2).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(profileNav);
         }
         ((TextView) navigationView.getHeaderView(0).findViewById(R.id.NavHeaderUserNameTextView)).setText(userName);
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -270,6 +286,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.homepage:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -352,7 +369,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void onDrawerOpened (View drawerView){
-
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        SharedPreferences shP = getSharedPreferences("userInformation", MODE_PRIVATE);
+        String userName = shP.getString("username", "");
+        String avatarUrl = shP.getString("avatar","");
+        if(!avatarUrl.equals("")){
+            ImageView profileNav = ((ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageProfileSmall));
+            SharedPreferences shP2 = getSharedPreferences("userInformation", MODE_PRIVATE);
+            String userName2 = shP2.getString("username", "");
+            String avatarUrl2 = shP2.getString("avatar","");
+            Picasso.get().load(avatarUrl2).placeholder(R.drawable.acount_circle).error(R.drawable.acount_circle).into(profileNav);
+        }
     }
     public  void GoToEditProfile(View view){
         Intent editProfile = new Intent(MainActivity.this, EditProfile.class);
@@ -441,13 +468,69 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             Log.i("PHOTO","SUCCED");
  //                           Log.i("IMAGE URL",user.getAvatar().toString());
                             Toast.makeText(MainActivity.this, "Profile Edited!", Toast.LENGTH_SHORT).show();
-// Reload current fragment
-//                            Fragment frg = null;
-//                            frg = getSupportFragmentManager().findFragmentByTag("ProfileFragment");
-//                            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                            ft.detach(frg);
-//                            ft.attach(frg);
-//                            ft.commit();
+                            final String[] userEmail = new String[1];
+                            final String[] userFirstName = new String[1];
+                            final String[] userLastName = new String[1];
+                            final String[] userPhoneNumber = new String[1];
+                            final String[] userAvatar = new String[1];
+                            Call<User> userSessionCall = userAPI.showProfile("token "+ token);
+                            userSessionCall.enqueue(new Callback<User>() {
+                                @Override
+                                public void onResponse(Call<User> call, Response<User> response) {
+                                    if(!response.isSuccessful())
+                                    {
+                                        Toast.makeText(MainActivity.this, "Some Field Wrong", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        String code = Integer.toString(response.code());
+                                        User user = response.body();
+                                        if(!(user.getEmail()==null)){
+                                            userEmail[0] = user.getEmail();
+                                        }
+                                        else{
+                                            userEmail[0] = "";
+                                        }
+                                        if(!(user.getFirst_name()==null)){
+                                            userFirstName[0] = user.getFirst_name();                                            }
+                                        else{
+                                            userFirstName[0] = "";
+                                        }
+                                        if(!(user.getLast_name()==null)){
+                                            userLastName[0] = user.getLast_name();
+                                        }
+                                        else{
+                                            userLastName[0] = "";
+                                        }
+                                        if(!(user.getPhone_number() == null)){
+                                            userPhoneNumber[0] = user.getPhone_number();
+                                        }
+                                        else{
+                                            userPhoneNumber[0] = "";
+                                        }
+                                        if(!(user.getAvatar() == null)){
+                                            userAvatar[0] = user.getAvatar();
+                                        }
+                                        else{
+                                            userAvatar[0] = "";
+                                        }
+                                        SharedPreferences UI = getSharedPreferences("userInformation",MODE_PRIVATE);
+                                        SharedPreferences.Editor myEdit = UI.edit();
+                                        myEdit.putString("token", token);
+                                        myEdit.putString("firstname",userFirstName[0]);
+                                        myEdit.putString("lastname",userLastName[0]);
+                                        myEdit.putString("email",userEmail[0]);
+                                        myEdit.putString("avatar",userAvatar[0]);
+                                        myEdit.putString("phonenumber",userPhoneNumber[0]);
+                                        myEdit.apply();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<User> call, Throwable t) {
+                                    Toast.makeText(MainActivity.this, "error is :"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                         }
                     }
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tolearn.AlertDialogs.Homework_result_detailed;
 import com.example.tolearn.Entity.Homework_result;
@@ -69,7 +70,13 @@ public class homework_result_item_adapter extends BaseAdapter {
         downloadbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Homework_result_detailed result_detailed = new Homework_result_detailed(context , full_name_str , date , url);
+                try{
+                    Homework_result_detailed result_detailed = new Homework_result_detailed(context , full_name_str , date , url);
+                }
+                catch (Exception exception)
+                {
+                    Toast.makeText(context, "no one has submitted yet", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return view;

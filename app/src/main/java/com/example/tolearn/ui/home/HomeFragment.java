@@ -171,25 +171,26 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<ExamHomework> call, Response<ExamHomework> response) {
                 if (response.isSuccessful()) {
-                    ExamHomework Response = response.body();
-                    latestExam = Response.getExam();
-                    Log.i("EXAM IDDDDDDDDDDD", latestExam.getId().toString());
-                    latestHomework = Response.getHomework();
-                    homeworkTitleTextview.setText(latestHomework.getTitle());
-                    homeworkDeadlineTextview.setText(latestHomework.getDeadline());
+                    try {
+                        ExamHomework Response = response.body();
+                        latestExam = Response.getExam();
+                        Log.i("EXAM IDDDDDDDDDDD", latestExam.getId().toString());
+                        latestHomework = Response.getHomework();
+                        homeworkTitleTextview.setText(latestHomework.getTitle());
+                        homeworkDeadlineTextview.setText(latestHomework.getDeadline());
 //                    JsonObject jo = Response.get(Response.size()-1).getAsJsonObject();
 //                    String name = jo.get("name").toString();
 //                    name = name.replace("\"","");
-                    examTitleTextview.setText(latestExam.getName());
-                    String start = latestExam.getStartDate().replace(" ","");
-                    String end = latestExam.getEndDate().replace("","");
+                        examTitleTextview.setText(latestExam.getName());
+                        String start = latestExam.getStartDate().replace(" ","");
+                        String end = latestExam.getEndDate().replace("","");
 
-                    start = start.replace("T"," ");
-                    end = end.replace("T"," ");
-                    start = start.replace(":00Z","\n");
-                    end = end.replace(":00Z","");
-                    examCountTextview.setText(start +"\n" + end);
-                    Log.i("RESPONSE", response.message());
+                        start = start.replace("T"," ");
+                        end = end.replace("T"," ");
+                        start = start.replace(":00Z","\n");
+                        end = end.replace(":00Z","");
+                        examCountTextview.setText(start +"\n" + end);
+                        Log.i("RESPONSE", response.message());
 
 //                                Homework hw = latestHomework;
 //                                Intent goToSubmit = new Intent(getContext(), DetailSubmit.class);
@@ -203,126 +204,126 @@ public class HomeFragment extends Fragment {
 //                                HomeworkFragment NAME = new HomeworkFragment();
 //                                fragmentTransaction.replace(R.id.fragment_container, NAME);
 //                                fragmentTransaction.commit();
-                                submit.setOnClickListener(new View.OnClickListener() {
-                                                              @Override
-                                                              public void onClick(View v) {
-                                                                  if(access.equals("student")){
-                                                                      Intent gotoSubmit = new Intent(getContext(), com.example.tolearn.DetailSubmit.class);
-                                                                      gotoSubmit.putExtra("homework_title",latestHomework.getTitle());
-                                                                      gotoSubmit.putExtra("homework_token",latestHomework.getHomework_token());
-                                                                      gotoSubmit.putExtra("homework_deadline",latestHomework.getDeadline());
-                                                                      gotoSubmit.putExtra("homework_id",latestHomework.getId());
-                                                                      getContext().startActivity(gotoSubmit);
-                                                                  }
-                                                                  else{
-                                                                      Intent goToResults = new Intent(getContext(), Homework_results.class);
-                                                                      goToResults.putExtra("title",latestHomework.getTitle());
-                                                                      goToResults.putExtra("deadline",latestHomework.getDeadline());
-                                                                      goToResults.putExtra("id",String.valueOf(latestHomework.getId()));
-                                                                      getContext().startActivity(goToResults);
-                                                                  }
-                                                              }
+                        submit.setOnClickListener(new View.OnClickListener() {
+                                                      @Override
+                                                      public void onClick(View v) {
+                                                          if(access.equals("student")){
+                                                              Intent gotoSubmit = new Intent(getContext(), com.example.tolearn.DetailSubmit.class);
+                                                              gotoSubmit.putExtra("homework_title",latestHomework.getTitle());
+                                                              gotoSubmit.putExtra("homework_token",latestHomework.getHomework_token());
+                                                              gotoSubmit.putExtra("homework_deadline",latestHomework.getDeadline());
+                                                              gotoSubmit.putExtra("homework_id",latestHomework.getId());
+                                                              getContext().startActivity(gotoSubmit);
                                                           }
-                                );
-                                editBtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Intent gotoEdit = new Intent(getContext(), HomeworkEditDialog.class);
-                                        gotoEdit.putExtra("homework_token",latestHomework.getHomework_token());
-                                        getContext().startActivity(gotoEdit);
+                                                          else{
+                                                              Intent goToResults = new Intent(getContext(), Homework_results.class);
+                                                              goToResults.putExtra("title",latestHomework.getTitle());
+                                                              goToResults.putExtra("deadline",latestHomework.getDeadline());
+                                                              goToResults.putExtra("id",String.valueOf(latestHomework.getId()));
+                                                              getContext().startActivity(goToResults);
+                                                          }
+                                                      }
+                                                  }
+                        );
+                        editBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent gotoEdit = new Intent(getContext(), HomeworkEditDialog.class);
+                                gotoEdit.putExtra("homework_token",latestHomework.getHomework_token());
+                                getContext().startActivity(gotoEdit);
 
-                                    }
-                                });
-                                resultsBtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Intent goToResults = new Intent(getContext(), Homework_results.class);
-                                        goToResults.putExtra("title",latestHomework.getTitle());
-                                        goToResults.putExtra("deadline",latestHomework.getDeadline());
-                                        goToResults.putExtra("id",String.valueOf(latestHomework.getId()));
-                                        getContext().startActivity(goToResults);
-                                    }
-                                });
-                                examEditBtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Intent goToExamUpdate = new Intent(getContext(), ExamUpdate.class);
-                                        goToExamUpdate.putExtra("id",id);
-                                        goToExamUpdate.putExtra("question_count",String.valueOf(latestExam.getQuestions_count()));
-                                        goToExamUpdate.putExtra("name",latestExam.getName());
-                                        goToExamUpdate.putExtra("start_time",latestExam.getStartDate());
-                                        goToExamUpdate.putExtra("end_time",latestExam.getEndDate());
-                                        getContext().startActivity(goToExamUpdate);
-                                    }
-                                });
+                            }
+                        });
+                        resultsBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent goToResults = new Intent(getContext(), Homework_results.class);
+                                goToResults.putExtra("title",latestHomework.getTitle());
+                                goToResults.putExtra("deadline",latestHomework.getDeadline());
+                                goToResults.putExtra("id",String.valueOf(latestHomework.getId()));
+                                getContext().startActivity(goToResults);
+                            }
+                        });
+                        examEditBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent goToExamUpdate = new Intent(getContext(), ExamUpdate.class);
+                                goToExamUpdate.putExtra("id",id);
+                                goToExamUpdate.putExtra("question_count",String.valueOf(latestExam.getQuestions_count()));
+                                goToExamUpdate.putExtra("name",latestExam.getName());
+                                goToExamUpdate.putExtra("start_time",latestExam.getStartDate());
+                                goToExamUpdate.putExtra("end_time",latestExam.getEndDate());
+                                getContext().startActivity(goToExamUpdate);
+                            }
+                        });
 
-                                submitExam.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        if(access.equals("student")) {
-                                            String StartDate = latestExam.getStartDate();
+                        submitExam.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if(access.equals("student")) {
+                                    String StartDate = latestExam.getStartDate();
 
-                                            CustomeConfirmAlertDialog confirmAlertDialog = new CustomeConfirmAlertDialog(getContext(),"Exam","do you want to start this exam ?");
-                                            confirmAlertDialog.image.setImageResource(R.drawable.question);
-                                            confirmAlertDialog.No.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    confirmAlertDialog.alertDialog.dismiss();
-                                                }
-                                            });
-                                            confirmAlertDialog.Yes.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    if(ExamTimeChecker(latestExam.getStartDate(),latestExam.getEndDate()))
-                                                    {
-                                                        Intent goToExam = new Intent(getContext(), ExamStart.class);
-                                                        goToExam.putExtra("examId",id);
-                                                        goToExam.putExtra("startDate",latestExam.getStartDate());
-                                                        goToExam.putExtra("endDate",latestExam.getEndDate());
-                                                        getContext().startActivity(goToExam);
-                                                        confirmAlertDialog.alertDialog.dismiss();
-                                                    }
-                                                    else{
-                                                        CustomeAlertDialog alertDialog = new CustomeAlertDialog(getContext(),"Error","Exam has not been started yet or has been finished!");
-                                                        alertDialog.imageView.setImageResource(R.drawable.error);
-                                                        alertDialog.btnOk.setOnClickListener(new View.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(View view) {
-                                                                confirmAlertDialog.alertDialog.dismiss();
-                                                                alertDialog.alertDialog.dismiss();
-                                                            }
-                                                        });
-                                                    }
-                                                }
-                                            });
+                                    CustomeConfirmAlertDialog confirmAlertDialog = new CustomeConfirmAlertDialog(getContext(),"Exam","do you want to start this exam ?");
+                                    confirmAlertDialog.image.setImageResource(R.drawable.question);
+                                    confirmAlertDialog.No.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            confirmAlertDialog.alertDialog.dismiss();
                                         }
-                                        else{
-                                            if(ResultTimeChecker(latestExam.getEndDate()))
+                                    });
+                                    confirmAlertDialog.Yes.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            if(ExamTimeChecker(latestExam.getStartDate(),latestExam.getEndDate()))
                                             {
-                                                Intent goToResultActivity = new Intent(getContext() , StudentsExamResults.class);
-                                                goToResultActivity.putExtra("exam_id",Integer.toString(latestExam.getId()));
-                                                getContext().startActivity(goToResultActivity);
+                                                Intent goToExam = new Intent(getContext(), ExamStart.class);
+                                                goToExam.putExtra("examId",id);
+                                                goToExam.putExtra("startDate",latestExam.getStartDate());
+                                                goToExam.putExtra("endDate",latestExam.getEndDate());
+                                                getContext().startActivity(goToExam);
+                                                confirmAlertDialog.alertDialog.dismiss();
                                             }
                                             else{
-                                                Toast.makeText(getContext(), "the exam has not ended yet", Toast.LENGTH_LONG).show();
+                                                CustomeAlertDialog alertDialog = new CustomeAlertDialog(getContext(),"Error","Exam has not been started yet or has been finished!");
+                                                alertDialog.imageView.setImageResource(R.drawable.error);
+                                                alertDialog.btnOk.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View view) {
+                                                        confirmAlertDialog.alertDialog.dismiss();
+                                                        alertDialog.alertDialog.dismiss();
+                                                    }
+                                                });
                                             }
                                         }
+                                    });
+                                }
+                                else{
+                                    if(ResultTimeChecker(latestExam.getEndDate()))
+                                    {
+                                        Intent goToResultActivity = new Intent(getContext() , StudentsExamResults.class);
+                                        goToResultActivity.putExtra("exam_id",Integer.toString(latestExam.getId()));
+                                        getContext().startActivity(goToResultActivity);
                                     }
-                                });
+                                    else{
+                                        Toast.makeText(getContext(), "the exam has not ended yet", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        });
 
 
-                    examEditBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent goToExamUpdate = new Intent(getContext(), ExamUpdate.class);
-                            goToExamUpdate.putExtra("id",latestExam.getId().toString());
-                            goToExamUpdate.putExtra("question_count",String.valueOf(latestExam.getQuestions_count()));
-                            goToExamUpdate.putExtra("name",latestExam.getName());
-                            goToExamUpdate.putExtra("start_time",latestExam.getStartDate());
-                            goToExamUpdate.putExtra("end_time",latestExam.getEndDate());
-                            getContext().startActivity(goToExamUpdate);
-                        }
-                    });
+                        examEditBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent goToExamUpdate = new Intent(getContext(), ExamUpdate.class);
+                                goToExamUpdate.putExtra("id",latestExam.getId().toString());
+                                goToExamUpdate.putExtra("question_count",String.valueOf(latestExam.getQuestions_count()));
+                                goToExamUpdate.putExtra("name",latestExam.getName());
+                                goToExamUpdate.putExtra("start_time",latestExam.getStartDate());
+                                goToExamUpdate.putExtra("end_time",latestExam.getEndDate());
+                                getContext().startActivity(goToExamUpdate);
+                            }
+                        });
 //                    submitExam.setOnClickListener(new View.OnClickListener() {
 //                        @Override
 //                        public void onClick(View view) {
@@ -400,6 +401,11 @@ public class HomeFragment extends Fragment {
 //                            //nothing
 //                        }
 //                    }
+                    }
+                    catch (Exception ex)
+                    {
+                        //nothing
+                    }
                 } else {
                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }

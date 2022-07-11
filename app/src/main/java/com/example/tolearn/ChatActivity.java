@@ -108,7 +108,6 @@ public class ChatActivity  extends AppCompatActivity {
                 break;
         }
 
-        String class_token = "8-zeL_h-xlwPhuONTrsqZQ";
 
         OkHttpClient client = new OkHttpClient();
 
@@ -139,10 +138,9 @@ public class ChatActivity  extends AppCompatActivity {
             }
         });
 
-        class_token_str = class_token;
 
 
-        Request request = new Request.Builder().url("ws://185.235.42.101:8000/ws/chat/"+class_token+"/")
+        Request request = new Request.Builder().url("ws://185.235.42.101:8000/ws/chat/"+class_token_str+"/")
                 .addHeader("Authorization","token "+token)
                 .build();
 

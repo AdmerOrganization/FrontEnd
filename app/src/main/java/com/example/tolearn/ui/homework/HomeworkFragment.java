@@ -50,6 +50,7 @@ public class HomeworkFragment extends Fragment {
     HomeworkAPI  homeworkAPI;
     ShimmerFrameLayout shimmer;
     ImageView blank;
+    ListView homeworkListview;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeWorkViewModel =
@@ -80,6 +81,7 @@ public class HomeworkFragment extends Fragment {
 
         blank = root.findViewById(R.id.blank_page);
 
+
         Call<List<Homework>> callBack = homeworkAPI.GetAllHomework("token "+token,jsonObject);
         callBack.enqueue(new Callback<List<Homework>>() {
             @Override
@@ -100,9 +102,10 @@ public class HomeworkFragment extends Fragment {
                 CustomeAlertDialog errorConnecting = new CustomeAlertDialog(getContext(),"error","there is a problem with your internet connection");
                 Log.i("ERROR2",t.getMessage());
             }
+
         });
 
-        ListView homeworkListview = root.findViewById(R.id.homeworksList);
+        homeworkListview = root.findViewById(R.id.homeworksList);
         myadap = new homeworkAdapter(this.getActivity(),((ClassProfileActivity)getActivity()).homeworktypeList,"");
         homeworkListview.setAdapter(myadap);
 
@@ -118,13 +121,15 @@ public class HomeworkFragment extends Fragment {
                 {
                     Intent createHomework = new Intent(getActivity(), HomeworkCreationDialog.class);
                     createHomework.putExtra("Id",class_id);
-                    startActivity(createHomework);
+                    startActivityForResult(createHomework,1);
                 }
                 else{
                     Toast.makeText(getActivity(), "You don't have the right access to create a homework for this class", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+
 
         com.google.android.material.floatingactionbutton.FloatingActionButton search_Homework = root.findViewById(R.id.search_bar_hw);
         search_Homework.setOnClickListener(new View.OnClickListener() {
@@ -224,9 +229,51 @@ public class HomeworkFragment extends Fragment {
         binding = null;
     }
 
-    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        SharedPreferences shP = getContext().getSharedPreferences("classId", getContext().MODE_PRIVATE);
+        String id = shP.getString("Id", "");
+        int classroom_id = Integer.parseInt(id);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("classroom",classroom_id);
+
+        SharedPreferences shP2 = getContext().getSharedPreferences("userInformation", getContext().MODE_PRIVATE);
+        String token = shP2.getString("token", "");
+        if (requestCode == 1) {
+            if (resultCode == 1) {
+                Call<List<Homework>> callBack = homeworkAPI.GetAllHomework("token "+token,jsonObject);
+                callBack.enqueue(new Callback<List<Homework>>() {
+                    @Override
+                    public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
+                        blank.setVisibility(View.INVISIBLE);
+                        ((ClassProfileActivity)getActivity()).homeworktypeList = response.body();
+                        myadap = new homeworkAdapter(getActivity(),((ClassProfileActivity)getActivity()).homeworktypeList,"");
+                        homeworkListview.setAdapter(myadap);
+                        myadap.notifyDataSetChanged();
+                        if(((ClassProfileActivity)getActivity()).homeworktypeList.size()==0)
+                        {
+                            blank.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Homework>> call, Throwable t) {
+                        CustomeAlertDialog errorConnecting = new CustomeAlertDialog(getContext(),"error","there is a problem with your internet connection");
+                        Log.i("ERROR2",t.getMessage());
+                    }
+                });
+            }
+        }
+    }
+
+        @Override
     public void onResume() {
         super.onResume();
+        homeWorkViewModel =
+                new ViewModelProvider(this).get(HomeWorkViewModel.class);
+
+        View root = binding.getRoot();
+
         Retrofit Homeworks = new Retrofit.Builder()
                 .baseUrl(HomeworkAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -247,6 +294,7 @@ public class HomeworkFragment extends Fragment {
             public void onResponse(Call<List<Homework>> call, Response<List<Homework>> response) {
                 blank.setVisibility(View.INVISIBLE);
                 ((ClassProfileActivity)getActivity()).homeworktypeList = response.body();
+                myadap = new homeworkAdapter(getActivity(),((ClassProfileActivity)getActivity()).homeworktypeList,"");
                 myadap.notifyDataSetChanged();
                 if(((ClassProfileActivity)getActivity()).homeworktypeList.size()==0)
                 {
@@ -260,5 +308,6 @@ public class HomeworkFragment extends Fragment {
                 Log.i("ERROR2",t.getMessage());
             }
         });
+
     }
 }

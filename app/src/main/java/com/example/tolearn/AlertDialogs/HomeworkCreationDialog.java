@@ -423,12 +423,21 @@ public class HomeworkCreationDialog extends Activity {
                 } else if (!Controller.IsDateValid(year, month, day)) {
                     Toast.makeText(HomeworkCreationDialog.this, "You can not select a date in the past.", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(!uri.equals(""))
-                    {
-                        uploadPDF(displayName , uri);
-                        finish();
+                    try{
+                        if(!uri.equals(""))
+                        {
+                            uploadPDF(displayName , uri);
+                            Intent intent=new Intent();
+                            intent.putExtra("1","1");
+                            setResult(1,intent);
+                            finish();
+                        }
+                        else{
+                            Toast.makeText(HomeworkCreationDialog.this, "select a pdf file", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    else{
+                    catch (Exception exception)
+                    {
                         Toast.makeText(HomeworkCreationDialog.this, "select a pdf file", Toast.LENGTH_SHORT).show();
                     }
 
@@ -478,7 +487,13 @@ public class HomeworkCreationDialog extends Activity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                            try {
+                                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                            catch (Exception exception)
+                            {
+                                Toast.makeText(getApplicationContext(),"homework not created", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }) {
 

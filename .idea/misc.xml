@@ -23,7 +23,6 @@
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.15833333333333333" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/drawable/ic_baseline_title_24.xml" value="0.15416666666666667" />
-        <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_class_profile.xml" value="0.14402173913043478" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_class_search.xml" value="0.25416666666666665" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_detail_submit.xml" value="0.264" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/activity_edit_profile.xml" value="0.13125" />
@@ -33,11 +32,9 @@
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/content_class_profile.xml" value="0.12360688956433637" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/custome_alert_dialog_edit_class.xml" value="0.2" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/edit_homework_dialog.xml" value="0.1671195652173913" />
-        <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/exam_item_view.xml" value="0.13802083333333334" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/fragment_class_profile.xml" value="0.2" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/fragment_homework.xml" value="0.12360688956433637" />
-        <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/homepage_fragment.xml" value="0.21240942028985507" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/homework_list_view.xml" value="0.264" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/member_item.xml" value="0.264" />
         <entry key="..\:/Repos/Unity 2D/TileVania/FrontEnd/app/src/main/res/layout/my_class_view.xml" value="0.1890625" />
@@ -165,6 +162,10 @@
         <entry key="..\:/Users/98910/AndroidStudioProjects/NarmFront/FrontEnd/app/src/main/res/menu/drawer_menu.xml" value="0.35989583333333336" />
         <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/activity_class_creation.xml" value="0.18385416666666668" />
         <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/alert_dialog_layout.xml" value="0.17502532928064843" />
+        <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/chat_activity.xml" value="0.22864583333333333" />
+        <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/fragment_exam.xml" value="0.17647058823529413" />
+        <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/fragment_homework.xml" value="0.29270833333333335" />
+        <entry key="..\:/androidStudioProjects/Amozande/FrontEnd/app/src/main/res/layout/homework_list_view.xml" value="0.17502532928064843" />
       </map>
     </option>
   </component>

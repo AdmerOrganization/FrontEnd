@@ -7,7 +7,7 @@ import java.util.Calendar;
 public class homework_creation_validations {
     public boolean IsTitleCorrect(String title)
     {
-        if(title!="")
+        if(!title.equals(""))
         {
             return true;
         }
@@ -19,7 +19,7 @@ public class homework_creation_validations {
 
     public boolean IsDescCorrect(String desc)
     {
-        if(desc != "")
+        if(!desc.equals(""))
         {
             return true;
         }
